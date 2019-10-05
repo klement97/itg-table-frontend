@@ -23,6 +23,7 @@ import { CartComponent } from './cart/cart.component';
 import {StoreModule} from '@ngrx/store';
 import {orderUnitsFeatureKey} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import * as orderUnit from 'src/app/order/_store/_reducers/order-unit.reducer';
+import { OrderFormComponent } from './order-form/order-form.component';
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,8 @@ import * as orderUnit from 'src/app/order/_store/_reducers/order-unit.reducer';
 		TableFormComponent,
 		TableDetailComponent,
 		ImageDetailComponent,
-		CartComponent
+		CartComponent,
+		OrderFormComponent
 	],
 	imports: [
 		StoreModule.forFeature(orderUnitsFeatureKey, orderUnit.reducer),
