@@ -11,7 +11,7 @@ import {TableDetailComponent} from 'src/app/order/dialogs/table-detail/table-det
 })
 export class OrderPageComponent implements OnInit {
 	tables: Table[];
-	cart: OrderUnit[];
+	cart = new Array<OrderUnit>();
 
 	constructor(private orderService: OrderService, private dialog: MatDialog) {
 	}
@@ -32,6 +32,7 @@ export class OrderPageComponent implements OnInit {
 			}
 		}).afterClosed().subscribe(res => {
 			this.cart.push(res);
+			console.log(res);
 			console.log(this.cart);
 		});
 	}

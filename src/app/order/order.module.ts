@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
 	MatButtonModule,
-	MatCardModule, MatDialogModule, MatGridListModule, MatIconModule,
+	MatCardModule, MatChipsModule, MatDialogModule, MatGridListModule, MatIconModule,
 	MatInputModule, MatListModule, MatMenuModule,
 	MatRadioModule,
 	MatSelectModule,
@@ -45,6 +45,7 @@ import {AppRoutingModule} from 'src/app/app-routing.module';
 		MatGridListModule,
 		MatMenuModule,
 		MatDialogModule,
+		MatChipsModule,
 	],
 	entryComponents: [
 		TableDetailComponent
