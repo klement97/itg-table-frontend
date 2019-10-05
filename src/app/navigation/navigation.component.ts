@@ -3,10 +3,9 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, share} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
-import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {Store} from '@ngrx/store';
-import {OrderUnitState, selectAllOrderUnits} from 'src/app/order/_store/_reducers/order-unit.reducer';
-import {CartComponent} from 'src/app/order/cart/cart.component';
+import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
+import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
 
 @Component({
 	selector: 'app-navigation',
@@ -14,6 +13,7 @@ import {CartComponent} from 'src/app/order/cart/cart.component';
 	styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
+	cartCount$: Observable<number>;
 
 	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(
@@ -21,11 +21,7 @@ export class NavigationComponent {
 			share()
 		);
 
-	constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog) {
+	constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog, private store: Store<OrderUnitState>) {
+		this.cartCount$ = store.select(selectOrderCount);
 	}
-
-	openCart() {
-		this.dialog.open(CartComponent);
-	}
-
 }

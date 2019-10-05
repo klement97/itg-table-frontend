@@ -1,5 +1,16 @@
-<ul *ngIf="orderUnits$ | async">
-    <li *ngFor="let unit of orderUnits$ | async">
+<div *ngFor="let unit of orderUnits$ | async" class="unit">
+    <div class="row">
+        <img src="{{unit.table.image}}" alt="foto">
         <p>{{unit.table.code}}</p>
-    </li>
-</ul>
+        <mat-chip-list>
+            <mat-chip (click)="remove($event, unit)">
+                <mat-icon>remove</mat-icon>
+            </mat-chip>
+            <mat-chip>{{unit.amount}}</mat-chip>
+            <mat-chip (click)="add($event, unit)">
+                <mat-icon>add</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+    <mat-divider></mat-divider>
+</div>

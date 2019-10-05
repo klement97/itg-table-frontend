@@ -4,6 +4,8 @@ import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer'
 import {Observable} from 'rxjs';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
+import {Update} from '@ngrx/entity';
+import {updateOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
 
 @Component({
 	selector: 'app-cart',
@@ -18,7 +20,28 @@ export class CartComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.orderUnits$.subscribe(u => console.log(u));
+	}
+
+	add(event, unit: OrderUnit) {
+		event.stopPropagation();
+		const update: Update<OrderUnit> = {
+			id: unit.id,
+			changes: {
+				amount: unit.amount + 1
+			}
+		};
+		this.store.dispatch(updateOrderUnit({orderUnit: update}));
+	}
+
+	remove(event, unit: OrderUnit) {
+		event.stopPropagation();
+		const update: Update<OrderUnit> = {
+			id: unit.id,
+			changes: {
+				amount: unit.amount - 1
+			}
+		};
+		this.store.dispatch(updateOrderUnit({orderUnit: update}));
 	}
 
 }

@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
+	MatBadgeModule,
 	MatButtonModule,
 	MatCardModule, MatChipsModule, MatDialogModule, MatGridListModule, MatIconModule,
 	MatInputModule, MatListModule, MatMenuModule,
@@ -53,6 +54,7 @@ import * as orderUnit from 'src/app/order/_store/_reducers/order-unit.reducer';
 		MatMenuModule,
 		MatDialogModule,
 		MatChipsModule,
+		MatBadgeModule,
 	],
 	entryComponents: [
 		TableDetailComponent,

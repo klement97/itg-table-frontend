@@ -40,7 +40,9 @@
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" (click)="dialogRef.close({'order': orderForm.value})">Submit</button>
+            <button mat-raised-button color="primary" type="submit" (click)="dialogRef.close({'order': orderForm.value})">
+                <mat-icon>add</mat-icon>Shto
+            </button>
             <button mat-raised-button type="reset" (click)="dialogRef.close()"></button>
         </mat-card-actions>
     </mat-card>
