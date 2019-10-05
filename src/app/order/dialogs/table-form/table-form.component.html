@@ -1,0 +1,47 @@
+<form [formGroup]="orderForm" novalidate>
+    <mat-card class="shipping-card">
+        <mat-card-header>
+            <mat-card-title>Informacione shtesë</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <h3>{{this.data['table'].code}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Gjatësi" formControlName="height">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Gjerësi" formControlName="width">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Lartësi" formControlName="depth">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <textarea matInput placeholder="Shënime" formControlName="description"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Sasia" formControlName="amount" type="number">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" (click)="dialogRef.close({'order': orderForm.value})">Submit</button>
+            <button mat-raised-button type="reset" (click)="dialogRef.close()"></button>
+        </mat-card-actions>
+    </mat-card>
+</form>

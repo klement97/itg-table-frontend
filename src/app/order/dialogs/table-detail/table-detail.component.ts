@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Table} from 'src/app/order/_models/order.models';
+import {Table} from 'src/app/order/_store/_models/order.models';
 
 @Component({
 	selector: 'app-table-detail',

@@ -9,6 +9,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavigationComponent} from './navigation/navigation.component';
 import {TableDetailComponent} from './order/dialogs/table-detail/table-detail.component';
 import {OrderModule} from 'src/app/order/order.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
 	declarations: [
@@ -18,6 +22,14 @@ import {OrderModule} from 'src/app/order/order.module';
 		BrowserModule,
 		BrowserAnimationsModule,
 		OrderModule,
+		StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
 	],
 	providers: [],
 	bootstrap: [AppComponent]

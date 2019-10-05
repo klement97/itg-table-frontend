@@ -1,0 +1,5 @@
+<ul *ngIf="orderUnits$ | async">
+    <li *ngFor="let unit of orderUnits$ | async">
+        <p>{{unit.table.code}}</p>
+    </li>
+</ul>

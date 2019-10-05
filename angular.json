@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "table-frontend"
+  "defaultProject": "table-frontend",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -1,9 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {OrderService} from 'src/app/order/order.service';
-import {Order, OrderUnit, Table} from 'src/app/order/_models/order.models';
+import {OrderService} from 'src/app/order/_store/_services/order.service';
+import {Table} from 'src/app/order/_store/_models/order.models';
 import {MatDialog} from '@angular/material';
-import {TableDetailComponent} from 'src/app/order/dialogs/table-detail/table-detail.component';
-import {ImageDetailComponent} from 'src/app/order/image-detail/image-detail.component';
+import {ImageDetailComponent} from 'src/app/order/dialogs/image-detail/image-detail.component';
+import {TableFormComponent} from 'src/app/order/dialogs/table-form/table-form.component';
+import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
+import {Store} from '@ngrx/store';
+import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
+import {addOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
 
 @Component({
 	selector: 'app-order-page',
@@ -13,8 +17,9 @@ import {ImageDetailComponent} from 'src/app/order/image-detail/image-detail.comp
 export class OrderPageComponent implements OnInit {
 	tables: Table[];
 	cart = new Array<OrderUnit>();
+	fake_id = 1;
 
-	constructor(private orderService: OrderService, private dialog: MatDialog) {
+	constructor(private orderService: OrderService, private dialog: MatDialog, private store: Store<OrderUnitState>) {
 	}
 
 	ngOnInit() {
@@ -34,15 +39,20 @@ export class OrderPageComponent implements OnInit {
 		});
 	}
 
-	addTableToCart(table: Table) {
-		this.dialog.open(TableDetailComponent, {
+	openForm(table: Table) {
+		this.dialog.open(TableFormComponent, {
 			data: {
-				table
+				'table': table
 			}
-		}).afterClosed().subscribe(res => {
-			this.cart.push(res);
-			console.log(res);
-			console.log(this.cart);
+		}).afterClosed().subscribe(result => {
+			if (result) {
+				const orderUnit: OrderUnit = {...result['order']};
+				orderUnit.id = this.fake_id;
+				orderUnit.table = table;
+				this.fake_id++;
+				this.store.dispatch(addOrderUnit({orderUnit}));
+			}
 		});
 	}
+
 }

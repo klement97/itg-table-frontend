@@ -7,7 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 
-import {TableFormComponent} from './table-form.component';
+import {TableFormComponent} from 'src/app/order/dialogs/table-form/table-form.component';
 
 describe('TableFormComponent', () => {
   let component: TableFormComponent;
