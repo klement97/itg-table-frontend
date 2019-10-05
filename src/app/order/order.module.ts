@@ -17,6 +17,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NavigationComponent} from 'src/app/navigation/navigation.component';
 import {AppRoutingModule} from 'src/app/app-routing.module';
+import {ImageDetailComponent} from './image-detail/image-detail.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {AppRoutingModule} from 'src/app/app-routing.module';
 		NavigationComponent,
 		OrderPageComponent,
 		TableFormComponent,
-		TableDetailComponent
+		TableDetailComponent,
+		ImageDetailComponent
 	],
 	imports: [
 		CommonModule,
@@ -48,7 +50,8 @@ import {AppRoutingModule} from 'src/app/app-routing.module';
 		MatChipsModule,
 	],
 	entryComponents: [
-		TableDetailComponent
+		TableDetailComponent,
+		ImageDetailComponent
 	],
 	exports: [OrderPageComponent, TableFormComponent, NavigationComponent, TableDetailComponent]
 })

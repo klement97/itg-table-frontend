@@ -3,6 +3,7 @@ import {OrderService} from 'src/app/order/order.service';
 import {Order, OrderUnit, Table} from 'src/app/order/_models/order.models';
 import {MatDialog} from '@angular/material';
 import {TableDetailComponent} from 'src/app/order/dialogs/table-detail/table-detail.component';
+import {ImageDetailComponent} from 'src/app/order/image-detail/image-detail.component';
 
 @Component({
 	selector: 'app-order-page',
@@ -23,6 +24,14 @@ export class OrderPageComponent implements OnInit {
 	getAllTables() {
 		return this.orderService.getTables()
 			.subscribe(response => this.tables = response['results']);
+	}
+
+	openPhoto(path: string) {
+		this.dialog.open(ImageDetailComponent, {
+			data: {
+				'path': path
+			}
+		});
 	}
 
 	addTableToCart(table: Table) {
