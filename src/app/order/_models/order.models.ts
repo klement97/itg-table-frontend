@@ -12,7 +12,7 @@ export class Table {
 
 export class Category {
   id: number;
-  name: string
+  name: string;
 }
 
 export class InnerColor {

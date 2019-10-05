@@ -1,26 +1,33 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport
-                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
-                 [opened]="(isHandset$ | async) === false">
-        <mat-toolbar>Menu</mat-toolbar>
+                 [mode]="'side'"
+                 [opened]="(isHandset$ | async) === false"
+                 [attr.role]="'navigation'">
+        <!-- insert logo here -->
+        <mat-toolbar>Italgold</mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item routerLink="/tables">Tables</a>
-            <a mat-list-item routerLink="/address/form">Address form</a>
-            <a mat-list-item href="#"></a>
+            <a class="mat-nav-list" mat-list-item routerLink="/tables">
+                <button mat-icon-button>
+                    <mat-icon>amp_stories</mat-icon>
+                </button>
+                Porosi e re</a>
+            <a class="mat-nav-list" mat-list-item routerLink="/address/form">
+                <button mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+                Shto tabaka</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar color="primary">
+        <mat-toolbar>
             <button
                     type="button"
                     aria-label="Toggle sidenav"
                     mat-icon-button
-                    (click)="drawer.toggle()"
-                    *ngIf="isHandset$ | async">
+                    (click)="drawer.toggle()">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <span>carwash-frontend</span>
+            <!--            <span>Italgold</span>-->
         </mat-toolbar>
 
         <router-outlet></router-outlet>
