@@ -4,7 +4,7 @@
                  [opened]="(isHandset$ | async) === false"
                  [attr.role]="'navigation'">
         <!-- insert logo here -->
-        <mat-toolbar>Italgold</mat-toolbar>
+        <mat-toolbar class="inside-toolbar">ITALGOLD</mat-toolbar>
         <mat-nav-list>
             <a class="mat-nav-list" mat-list-item routerLink="/tables">
                 <button mat-icon-button>
@@ -19,7 +19,7 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar>
+        <mat-toolbar class="outside-toolbar">
             <button
                     type="button"
                     aria-label="Toggle sidenav"

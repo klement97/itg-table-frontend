@@ -15,6 +15,7 @@
     <div class="card" *ngFor="let table of tables">
         <div class="card-image">
             <img src="{{table.image}}" alt="image">
+            <div class="card-info">{{table.width | number: '2.0'}} x {{table.height | number: '2.0'}} x {{table.depth | number: '2.0'}}</div>
         </div>
         <div class="card-footer">
             <button mat-icon-button color="primary">+</button>
