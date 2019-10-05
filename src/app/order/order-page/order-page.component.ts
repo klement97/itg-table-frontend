@@ -21,4 +21,8 @@ export class OrderPageComponent implements OnInit {
     return this.orderService.getTables()
       .subscribe(response => this.tables = response['results']);
   }
+
+  addTableToCart(table: Table) {
+
+  }
 }

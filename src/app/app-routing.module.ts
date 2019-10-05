@@ -5,13 +5,14 @@ import {TableFormComponent} from 'src/app/order/table-form/table-form.component'
 
 
 const routes: Routes = [
-  {path: 'tables', component: OrderPageComponent},
-  {path: 'address/form', component: TableFormComponent}
+	{path: '', redirectTo: 'tables', pathMatch: 'full'},
+	{path: 'tables', component: OrderPageComponent, pathMatch: 'full'},
+	{path: 'address/form', component: TableFormComponent, pathMatch: 'full'},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule {
 }
