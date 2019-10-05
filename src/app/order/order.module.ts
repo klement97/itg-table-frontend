@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
 	MatButtonModule,
-	MatCardModule, MatGridListModule, MatIconModule,
+	MatCardModule, MatDialogModule, MatGridListModule, MatIconModule,
 	MatInputModule, MatListModule, MatMenuModule,
 	MatRadioModule,
 	MatSelectModule,
@@ -21,14 +21,14 @@ import {AppRoutingModule} from 'src/app/app-routing.module';
 
 @NgModule({
 	declarations: [
-	  NavigationComponent,
+		NavigationComponent,
 		OrderPageComponent,
 		TableFormComponent,
 		TableDetailComponent
 	],
 	imports: [
 		CommonModule,
-    AppRoutingModule,
+		AppRoutingModule,
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
@@ -44,6 +44,7 @@ import {AppRoutingModule} from 'src/app/app-routing.module';
 		MatListModule,
 		MatGridListModule,
 		MatMenuModule,
+		MatDialogModule,
 	],
 	entryComponents: [
 		TableDetailComponent

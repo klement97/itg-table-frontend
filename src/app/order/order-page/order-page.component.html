@@ -5,6 +5,6 @@
     </mat-card-header>
     <img mat-card-image src="{{table.image}}" alt="">
     <mat-card-actions>
-        <button mat-raised-button color="primary">ADD</button>
+        <button (click)="addTableToCart(table)" mat-raised-button color="primary">ADD</button>
     </mat-card-actions>
 </mat-card>
