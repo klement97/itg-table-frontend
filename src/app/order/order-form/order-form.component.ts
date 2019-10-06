@@ -7,6 +7,8 @@ import {InnerColor, Order, OuterColor} from 'src/app/order/_store/_models/order.
 import {Observable} from 'rxjs';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
+import {MatDialog} from '@angular/material';
+import {InvoiceComponent} from 'src/app/order/dialogs/invoice/invoice.component';
 
 @Component({
 	selector: 'app-order-form',
@@ -18,8 +20,10 @@ export class OrderFormComponent implements OnInit {
 	innerColors: InnerColor[];
 	outerColors: OuterColor[];
 	cart$: Observable<OrderUnit[]>;
+	order = new Order();
 
-	constructor(private fb: FormBuilder, private store: Store<OrderUnitState>, private orderService: OrderService) {
+	constructor(private fb: FormBuilder, private store: Store<OrderUnitState>, private orderService: OrderService,
+							private dialog: MatDialog) {
 		this.cart$ = this.store.select(selectOrderUnits);
 	}
 
@@ -46,18 +50,27 @@ export class OrderFormComponent implements OnInit {
 	}
 
 	preparedData(): Order {
-		let order = new Order();
-		order = {...this.orderForm.value};
-		order.order_units = new Array<OrderUnit>();
+		this.order = {...this.orderForm.value};
+		this.order.order_units = new Array<OrderUnit>();
 		this.cart$.subscribe(units => {
 			for (let unit of units) {
 				let orderUnit = new OrderUnit();
 				orderUnit = {...unit};
 				orderUnit.table = unit.table.id;
-				order.order_units.push(orderUnit);
+				this.order.order_units.push(orderUnit);
 			}
 		});
-		return order;
+		return this.order;
+	}
+
+	print() {
+		this.dialog.open(InvoiceComponent, {
+			data: {
+				'order': this.preparedData()
+			}
+		}).afterOpened().subscribe(res => {
+			window.print();
+		});
 	}
 
 

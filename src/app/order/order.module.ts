@@ -32,6 +32,7 @@ import {orderUnitsFeatureKey} from 'src/app/order/_store/_reducers/order-unit.re
 import {OrderFormComponent} from './order-form/order-form.component';
 import * as fromTables from 'src/app/order/_store/_reducers/table.reducer';
 import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
+import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 
 @NgModule({
 	declarations: [
@@ -41,7 +42,8 @@ import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
 		TableDetailComponent,
 		ImageDetailComponent,
 		CartComponent,
-		OrderFormComponent
+		OrderFormComponent,
+		InvoiceComponent
 	],
 	imports: [
 		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),
@@ -72,6 +74,7 @@ import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
 		ImageDetailComponent,
 		TableFormComponent,
 		CartComponent,
+		InvoiceComponent,
 	],
 	exports: [OrderPageComponent, TableFormComponent, NavigationComponent, TableDetailComponent]
 })

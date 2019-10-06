@@ -1,5 +1,8 @@
 .content {
     padding: 10px;
+    height: auto;
+    min-height: calc(100vh - 50px);
+    box-sizing: border-box;
 }
 
 .full-width {

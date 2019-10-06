@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" id="content">
     <form [formGroup]="orderForm" novalidate (ngSubmit)="onSubmit()">
         <mat-card class="shipping-card">
             <div class="row full-width">
@@ -16,6 +16,9 @@
                         <button mat-raised-button color="primary" type="submit">
                             <mat-icon>save</mat-icon>
                             Ruaje
+                        </button>
+                        <button mat-raised-button class="btn-success" type="button" (click)="print()">
+                            <mat-icon>print</mat-icon>
                         </button>
                     </mat-card-actions>
                 </div>

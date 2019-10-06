@@ -12,6 +12,7 @@ mat-sidenav-content {
 }
 
 .outside-toolbar {
+  height: 50px;
   background: -webkit-linear-gradient(to right, #004e92, #000428);
   /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #004e92, #000428);

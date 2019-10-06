@@ -64,9 +64,8 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 		}).afterClosed().subscribe(result => {
 			if (result) {
 				const orderUnit: OrderUnit = {...result['order']};
-				orderUnit.id = this.fake_id;
+				orderUnit.id = this.fake_id++;
 				orderUnit.table = table;
-				this.fake_id++;
 				this.store.dispatch(addOrderUnit({orderUnit}));
 			}
 		});
