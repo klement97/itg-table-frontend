@@ -1,19 +1,29 @@
+<div class="cart-header">
+    <button mat-icon-button style="opacity: 0.6; margin: 0 10px" (click)="$event.stopPropagation()">
+        <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+    <p style="opacity: 0.5; font-size: 17px">Shporta</p>
+</div>
 <div *ngFor="let unit of orderUnits$ | async" class="unit">
     <div class="row">
-        <img src="{{unit.table.image}}" alt="foto">
-        <p>{{unit.table.code}}</p>
-        <mat-chip-list>
-            <mat-chip (click)="remove($event, unit)">
-                <mat-icon>remove</mat-icon>
-            </mat-chip>
-            <mat-chip>{{unit.amount}}</mat-chip>
-            <mat-chip (click)="add($event, unit)">
-                <mat-icon>add</mat-icon>
-            </mat-chip>
-            <mat-chip (click)="removeUnit($event, unit.id)">
-                <mat-icon>delete</mat-icon>
-            </mat-chip>
-        </mat-chip-list>
+        <div class="unit-info">
+            <span>{{unit.table.code}}</span>
+            <span>{{unit.table.price | number: '2.1'}} ALL</span>
+            <div class="buttons">
+                <button mat-icon-button (click)="remove($event, unit)">
+                    <mat-icon>remove</mat-icon>
+                </button>
+                <p>{{unit.amount}}</p>
+                <button mat-icon-button (click)="add($event, unit)">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button (click)="removeUnit($event, unit.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="unit-photo">
+            <img src="{{unit.table.image}}" alt="foto">
+        </div>
     </div>
-    <mat-divider></mat-divider>
 </div>

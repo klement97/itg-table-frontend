@@ -31,7 +31,7 @@
                     <mat-icon *ngIf="!(cartCount$ | async)">shopping_cart</mat-icon>
                     <mat-icon *ngIf="cartCount$ | async as count" matBadge="{{count}}">shopping_cart</mat-icon>
                 </button>
-                <mat-menu #menu="matMenu">
+                <mat-menu #menu="matMenu" class="mat-cart-panel">
                     <app-cart></app-cart>
                 </mat-menu>
             </div>

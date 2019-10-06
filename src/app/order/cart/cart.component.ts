@@ -45,6 +45,7 @@ export class CartComponent implements OnInit {
 	}
 
 	removeUnit(event, id) {
+		event.stopPropagation();
 		this.store.dispatch(deleteOrderUnit({id}))
 	}
 
