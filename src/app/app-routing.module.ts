@@ -6,10 +6,11 @@ import {LoginComponent} from 'src/app/auth/login/login.component';
 
 
 const routes: Routes = [
-	{path: '', redirectTo: 'tables', pathMatch: 'full'},
+	{path: '', redirectTo: 'auth/login', pathMatch: 'full'},
 	{path: 'tables', component: OrderPageComponent, pathMatch: 'full'},
 	{path: 'order/form', component: OrderFormComponent, pathMatch: 'full'},
 	{path: 'auth/login', component: LoginComponent, pathMatch: 'full'},
+	{path: 'auth/logout', component: LoginComponent, pathMatch: 'full'},
 ];
 
 @NgModule({

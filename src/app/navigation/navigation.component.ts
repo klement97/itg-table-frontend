@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
+import {AuthService} from 'src/app/auth/_services/auth.service';
 
 @Component({
 	selector: 'app-navigation',
@@ -21,7 +22,12 @@ export class NavigationComponent {
 			share()
 		);
 
-	constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog, private store: Store<OrderUnitState>) {
+	constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog, private store: Store<OrderUnitState>,
+							private auth: AuthService) {
 		this.cartCount$ = store.select(selectOrderCount);
+	}
+
+	logout() {
+		this.auth.logout().subscribe();
 	}
 }

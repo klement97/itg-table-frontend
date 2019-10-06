@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {User} from 'src/app/auth/user.model';
 import {catchError, map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 const API = `${environment.apiHost}`;
 const AUTH = `${API}/auth`;
@@ -18,7 +19,7 @@ const LOGOUT = `${TOKEN}/logout`;
 })
 export class AuthService {
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private router: Router) {
 		this.currentTokenSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(this.CURRENT_TOKEN)));
 		this.currentToken = this.currentTokenSubject.asObservable();
 	}
@@ -39,7 +40,8 @@ export class AuthService {
 			map(user => {
 				if (user) {
 					localStorage.setItem('user', JSON.stringify(user));
-					this.currentTokenSubject.next(user['user'].accessToken);
+					this.currentTokenSubject.next(user['auth_token']);
+					this.router.navigate(['/tables']);
 					return user;
 				}
 			}),
@@ -47,7 +49,14 @@ export class AuthService {
 		);
 	}
 
-	logout(token) {
-		this.http.post(`${LOGOUT}/`, token);
+	logout() {
+		const currentUser = JSON.parse(localStorage.getItem('user'));
+		return this.http.post(`${LOGOUT}/`, currentUser.auth_token).pipe(
+			map(response => {
+				localStorage.clear();
+				this.router.navigate(['/auth/login']);
+			})
+		);
+
 	}
 }

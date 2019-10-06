@@ -21,10 +21,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	submit() {
-		this.auth.login(this.loginForm.controls['username'].value,
-			this.loginForm.controls['password'].value).subscribe(
-			res => console.log(res)
-		);
+		this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).subscribe();
 	}
 
 }

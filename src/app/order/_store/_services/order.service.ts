@@ -2,6 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {Order} from 'src/app/order/_store/_models/order.models';
+import {catchError, map} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {of} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
+import {clearOrderUnits, deleteOrderUnits} from 'src/app/order/_store/_actions/order-unit.actions';
 
 const API = `${environment.apiHost}`;
 const TABLES_URL = `${API}/tables`;
@@ -13,7 +19,7 @@ const ORDERS_URL = `${API}/orders`;
 })
 export class OrderService {
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private router: Router, private store: Store<OrderUnitState>) {
 	}
 
 	getTables() {
@@ -25,6 +31,12 @@ export class OrderService {
 	}
 
 	createOrder(order: Order) {
-		return this.http.post(`${ORDERS_URL}/`, order);
+		return this.http.post(`${ORDERS_URL}/`, order).pipe(
+			map(() => {
+				this.store.dispatch(clearOrderUnits());
+				this.router.navigate(['/tables']);
+			}),
+			catchError(err => of(console.log(err)))
+		);
 	}
 }

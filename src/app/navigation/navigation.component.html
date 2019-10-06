@@ -27,6 +27,8 @@
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <div class="align-end">
+
+                <!-- CART -->
                 <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon *ngIf="!(cartCount$ | async)">shopping_cart</mat-icon>
                     <mat-icon *ngIf="cartCount$ | async as count" matBadge="{{count}}">shopping_cart</mat-icon>
@@ -34,6 +36,16 @@
                 <mat-menu #menu="matMenu" class="mat-cart-panel">
                     <app-cart></app-cart>
                 </mat-menu>
+                <!-- END CART -->
+
+                <!-- LOGIN -->
+                <button mat-icon-button [matMenuTriggerFor]="login">
+                    <mat-icon>person</mat-icon>
+                </button>
+                <mat-menu #login="matMenu" class="mat-user-panel">
+                    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+                </mat-menu>
+
             </div>
         </mat-toolbar>
         <router-outlet></router-outlet>
