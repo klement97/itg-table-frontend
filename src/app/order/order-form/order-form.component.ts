@@ -63,13 +63,11 @@ export class OrderFormComponent implements OnInit {
 		return this.order;
 	}
 
-	print() {
+	openInvoice() {
 		this.dialog.open(InvoiceComponent, {
 			data: {
 				'order': this.preparedData()
 			}
-		}).afterOpened().subscribe(res => {
-			window.print();
 		});
 	}
 

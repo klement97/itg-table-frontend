@@ -7,6 +7,7 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, reducers} from './reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
+import {AppRoutingModule} from 'src/app/app-routing.module';
 
 @NgModule({
 	declarations: [
@@ -24,6 +25,7 @@ import {environment} from '../environments/environment';
 			}
 		}),
 		StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+		AppRoutingModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]

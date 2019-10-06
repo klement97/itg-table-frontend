@@ -32,7 +32,8 @@ import {orderUnitsFeatureKey} from 'src/app/order/_store/_reducers/order-unit.re
 import {OrderFormComponent} from './order-form/order-form.component';
 import * as fromTables from 'src/app/order/_store/_reducers/table.reducer';
 import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
-import {InvoiceComponent} from './dialogs/invoice/invoice.component';
+import {NgxPrintModule} from 'ngx-print';
+import { InvoiceComponent } from './dialogs/invoice/invoice.component';
 
 @NgModule({
 	declarations: [
@@ -43,7 +44,7 @@ import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 		ImageDetailComponent,
 		CartComponent,
 		OrderFormComponent,
-		InvoiceComponent
+		InvoiceComponent,
 	],
 	imports: [
 		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),
@@ -53,6 +54,7 @@ import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
+		NgxPrintModule,
 		MatToolbarModule,
 		MatCardModule,
 		MatButtonModule,
@@ -74,7 +76,7 @@ import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 		ImageDetailComponent,
 		TableFormComponent,
 		CartComponent,
-		InvoiceComponent,
+		InvoiceComponent
 	],
 	exports: [OrderPageComponent, TableFormComponent, NavigationComponent, TableDetailComponent]
 })
