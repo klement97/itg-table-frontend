@@ -1,1 +1,63 @@
-<p>order-form works!</p>
+<div class="content">
+    <form [formGroup]="orderForm" novalidate (ngSubmit)="onSubmit()">
+        <mat-card class="shipping-card">
+            <div class="row full-width">
+                <mat-card-header>
+                    <mat-card-title>Përfundo porosinë</mat-card-title>
+                </mat-card-header>
+                <div class="col align-end">
+                    <mat-card-actions class="align-end">
+                        <a routerLink="/tables">
+                            <button mat-raised-button>
+                                <mat-icon>undo</mat-icon>
+                                Kthehu
+                            </button>
+                        </a>
+                        <button mat-raised-button color="primary" type="submit">
+                            <mat-icon>save</mat-icon>
+                            Ruaje
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </div>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Klienti" formControlName="customer">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <label for="inner_color">Ngjyra brëndshme</label>
+                        <mat-form-field class="full-width">
+                            <mat-select formControlName="inner_color" id="inner_color">
+                                <mat-option *ngFor="let color of innerColors" [value]="color.id">{{color.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <label for="outer_color">Ngjyra jasthme</label>
+                        <mat-form-field class="full-width">
+                            <mat-select formControlName="outer_color" id="outer_color">
+                                <mat-option *ngFor="let color of outerColors" [value]="color.id">{{color.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </form>
+    <div class="container">
+        <div class="card" *ngFor="let unit of cart$ | async">
+            <div class="card-image">
+                <img src="{{unit.table.image}}" alt="image">
+                <div class="card-info">Përmasat e zgjedhura: {{unit.width | number: '2.0'}} x {{unit.height | number: '2.0'}} x {{unit.depth}}</div>
+            </div>
+            <div class="card-footer">
+                <mat-chip-list>
+                    <mat-chip selected color="primary">{{unit.table.code}}</mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+</div>

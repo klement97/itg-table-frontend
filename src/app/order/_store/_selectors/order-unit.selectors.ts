@@ -3,7 +3,7 @@ import {
 	orderUnitsFeatureKey,
 	OrderUnitState,
 	selectAllOrderUnits,
-	selectCountOrderUnits
+	selectCountOrderUnits, selectIdsOrderUnit
 } from 'src/app/order/_store/_reducers/order-unit.reducer';
 
 export const selectOrderUnitState = createFeatureSelector<OrderUnitState>(orderUnitsFeatureKey);
@@ -16,4 +16,9 @@ export const selectOrderUnits = createSelector(
 export const selectOrderCount = createSelector(
 	selectOrderUnitState,
 	selectCountOrderUnits,
+);
+
+export const selectOrderUnitIds = createSelector(
+	selectOrderUnitState,
+	selectIdsOrderUnit
 );

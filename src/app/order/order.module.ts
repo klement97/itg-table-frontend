@@ -3,8 +3,14 @@ import {CommonModule} from '@angular/common';
 import {
 	MatBadgeModule,
 	MatButtonModule,
-	MatCardModule, MatChipsModule, MatDialogModule, MatGridListModule, MatIconModule,
-	MatInputModule, MatListModule, MatMenuModule,
+	MatCardModule,
+	MatChipsModule,
+	MatDialogModule,
+	MatGridListModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatMenuModule,
 	MatRadioModule,
 	MatSelectModule,
 	MatSidenavModule,
@@ -19,11 +25,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NavigationComponent} from 'src/app/navigation/navigation.component';
 import {AppRoutingModule} from 'src/app/app-routing.module';
 import {ImageDetailComponent} from './dialogs/image-detail/image-detail.component';
-import { CartComponent } from './cart/cart.component';
+import {CartComponent} from './cart/cart.component';
 import {StoreModule} from '@ngrx/store';
+import * as fromUnits from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {orderUnitsFeatureKey} from 'src/app/order/_store/_reducers/order-unit.reducer';
-import * as orderUnit from 'src/app/order/_store/_reducers/order-unit.reducer';
-import { OrderFormComponent } from './order-form/order-form.component';
+import {OrderFormComponent} from './order-form/order-form.component';
+import * as fromTables from 'src/app/order/_store/_reducers/table.reducer';
+import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
 
 @NgModule({
 	declarations: [
@@ -36,7 +44,8 @@ import { OrderFormComponent } from './order-form/order-form.component';
 		OrderFormComponent
 	],
 	imports: [
-		StoreModule.forFeature(orderUnitsFeatureKey, orderUnit.reducer),
+		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),
+		StoreModule.forFeature(tablesFeatureKey, fromTables.reducer),
 		CommonModule,
 		AppRoutingModule,
 		HttpClientModule,

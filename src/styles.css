@@ -6,4 +6,19 @@ body {
   padding: 0;
 }
 
+.btn-success {
+  background-color: #13a84a;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #971f00;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #b2802a;
+  color: white;
+}
+
 /*# sourceMappingURL=styles.css.map */

@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="card" *ngFor="let table of tables">
+    <div class="card" *ngFor="let table of tables$ | async">
         <div class="card-image">
             <img src="{{table.image}}" alt="image" (click)="openPhoto(table.image)">
             <!--            <div class="card-info">{{table.width | number: '2.0'}} x {{table.height | number: '2.0'}} x {{table.depth}}</div>-->

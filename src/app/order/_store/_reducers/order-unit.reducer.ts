@@ -60,3 +60,4 @@ export const {
 export const selectAllOrderUnits = selectAll;
 export const selectCountOrderUnits = selectTotal;
 export const selectEntityOrderUnits = selectEntities;
+export const selectIdsOrderUnit = selectIds;

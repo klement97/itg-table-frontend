@@ -1,3 +1,5 @@
+import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
+
 export class Table {
 	id: number;
 	code: string;
@@ -29,4 +31,7 @@ export class Order {
 	id: number;
 	customer: string;
 	date_created: string;
+	order_units: OrderUnit[];
+	inner_color: number;
+	outer_color: number;
 }

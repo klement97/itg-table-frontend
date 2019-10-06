@@ -52,4 +52,9 @@ mat-nav-list {
   z-index: 1;
 }
 
+.align-end {
+  flex: 1 1 auto;
+  text-align: end;
+}
+
 /*# sourceMappingURL=navigation.component.css.map */

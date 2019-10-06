@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {Update} from '@ngrx/entity';
-import {updateOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
+import {deleteOrderUnit, updateOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
 
 @Component({
 	selector: 'app-cart',
@@ -42,6 +42,10 @@ export class CartComponent implements OnInit {
 			}
 		};
 		this.store.dispatch(updateOrderUnit({orderUnit: update}));
+	}
+
+	removeUnit(event, id) {
+		this.store.dispatch(deleteOrderUnit({id}))
 	}
 
 }

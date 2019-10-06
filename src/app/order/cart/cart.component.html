@@ -10,6 +10,9 @@
             <mat-chip (click)="add($event, unit)">
                 <mat-icon>add</mat-icon>
             </mat-chip>
+            <mat-chip (click)="removeUnit($event, unit.id)">
+                <mat-icon>delete</mat-icon>
+            </mat-chip>
         </mat-chip-list>
     </div>
     <mat-divider></mat-divider>

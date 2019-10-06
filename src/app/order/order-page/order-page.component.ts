@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrderService} from 'src/app/order/_store/_services/order.service';
 import {Table} from 'src/app/order/_store/_models/order.models';
 import {MatDialog} from '@angular/material';
@@ -8,27 +8,44 @@ import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {addOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
+import * as fromTables from 'src/app/order/_store/_actions/table.actions';
+import {Observable, Subscription} from 'rxjs';
+import {selectAllTables} from 'src/app/order/_store/_reducers/table.reducer';
+import {selectTables} from 'src/app/order/_store/_selectors/table.selectors';
 
 @Component({
 	selector: 'app-order-page',
 	templateUrl: './order-page.component.html',
 	styleUrls: ['./order-page.component.scss']
 })
-export class OrderPageComponent implements OnInit {
-	tables: Table[];
-	cart = new Array<OrderUnit>();
+export class OrderPageComponent implements OnInit, OnDestroy {
+	tables$: Observable<Table[]>;
 	fake_id = 1;
+	subs$ = new Subscription();
 
 	constructor(private orderService: OrderService, private dialog: MatDialog, private store: Store<OrderUnitState>) {
+		this.tables$ = store.select(selectTables);
 	}
 
 	ngOnInit() {
-		this.getAllTables();
+		this.subs$ = this.store.select(selectTables).subscribe(
+			tables => {
+				if (!tables.length) {
+					this.getAllTables();
+				}
+			}
+		);
+	}
+
+	ngOnDestroy(): void {
+		this.subs$.unsubscribe();
 	}
 
 	getAllTables() {
 		return this.orderService.getTables()
-			.subscribe(response => this.tables = response['results']);
+			.subscribe(response => {
+				this.store.dispatch(fromTables.addTables({tables: response['results']}));
+			});
 	}
 
 	openPhoto(path: string) {

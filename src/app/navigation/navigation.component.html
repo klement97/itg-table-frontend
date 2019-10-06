@@ -9,12 +9,12 @@
                 <button mat-icon-button>
                     <mat-icon>amp_stories</mat-icon>
                 </button>
-                Porosi e re</a>
-            <a class="mat-nav-list" mat-list-item routerLink="">
+                Tabakatë</a>
+            <a class="mat-nav-list" mat-list-item routerLink="/order/form">
                 <button mat-icon-button>
                     <mat-icon>add</mat-icon>
                 </button>
-                Shto tabaka</a>
+                Përfundo porosinë</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -26,13 +26,15 @@
                     (click)="drawer.toggle()">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon *ngIf="!(cartCount$ | async)">shopping_cart</mat-icon>
-                <mat-icon *ngIf="cartCount$ | async as count" matBadge="{{count}}">shopping_cart</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" style="width: 900px">
-                <app-cart></app-cart>
-            </mat-menu>
+            <div class="align-end">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon *ngIf="!(cartCount$ | async)">shopping_cart</mat-icon>
+                    <mat-icon *ngIf="cartCount$ | async as count" matBadge="{{count}}">shopping_cart</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <app-cart></app-cart>
+                </mat-menu>
+            </div>
         </mat-toolbar>
 
         <router-outlet></router-outlet>
