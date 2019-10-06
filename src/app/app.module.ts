@@ -8,6 +8,9 @@ import {metaReducers, reducers} from './reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from 'src/app/app-routing.module';
+import {AuthModule} from 'src/app/auth/auth.module';
+import {InterceptService} from 'src/app/_interceptors/main.interceptor';
+import {httpInterceptorProviders} from 'src/app/_interceptors';
 
 @NgModule({
 	declarations: [
@@ -17,6 +20,7 @@ import {AppRoutingModule} from 'src/app/app-routing.module';
 		BrowserModule,
 		BrowserAnimationsModule,
 		OrderModule,
+		AuthModule,
 		StoreModule.forRoot(reducers, {
 			metaReducers,
 			runtimeChecks: {
@@ -27,7 +31,7 @@ import {AppRoutingModule} from 'src/app/app-routing.module';
 		StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 		AppRoutingModule,
 	],
-	providers: [],
+	providers: [httpInterceptorProviders],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
