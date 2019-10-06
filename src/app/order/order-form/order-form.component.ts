@@ -40,18 +40,19 @@ export class OrderFormComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.orderService.createOrder(this.prepareData()).subscribe(
+		this.orderService.createOrder(this.preparedData()).subscribe(
 			response => console.log(response)
 		);
 	}
 
-	prepareData(): Order {
+	preparedData(): Order {
 		let order = new Order();
-		order.order_units = Array<OrderUnit>();
 		order = {...this.orderForm.value};
+		order.order_units = new Array<OrderUnit>();
 		this.cart$.subscribe(units => {
 			for (let unit of units) {
 				let orderUnit = new OrderUnit();
+				orderUnit = {...unit};
 				orderUnit.table = unit.table.id;
 				order.order_units.push(orderUnit);
 			}

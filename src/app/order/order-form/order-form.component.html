@@ -31,7 +31,7 @@
                         <label for="inner_color">Ngjyra brëndshme</label>
                         <mat-form-field class="full-width">
                             <mat-select formControlName="inner_color" id="inner_color">
-                                <mat-option *ngFor="let color of innerColors" [value]="color.id">{{color.name}}</mat-option>
+                                <mat-option *ngFor="let color of innerColors" [value]="color.id">{{color.code}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -39,7 +39,7 @@
                         <label for="outer_color">Ngjyra jasthme</label>
                         <mat-form-field class="full-width">
                             <mat-select formControlName="outer_color" id="outer_color">
-                                <mat-option *ngFor="let color of outerColors" [value]="color.id">{{color.name}}</mat-option>
+                                <mat-option *ngFor="let color of outerColors" [value]="color.id">{{color.code}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

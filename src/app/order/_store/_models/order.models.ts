@@ -4,27 +4,21 @@ export class Table {
 	id: number;
 	code: string;
 	image: string;
-	height: number;
-	width: number;
-	depth: number;
-	category: Category;
+	width: number;  // gjeresi
+	height: number;  // lartesi
+	depth: number;  // gjatesi
 	inner_color: InnerColor;
 	outer_color: OuterColor;
 }
 
-export class Category {
-	id: number;
-	name: string;
-}
-
 export class InnerColor {
 	id: number;
-	name: string;
+	code: string;
 }
 
 export class OuterColor {
 	id: number;
-	name: string;
+	code: string;
 }
 
 export class Order {
@@ -34,4 +28,13 @@ export class Order {
 	order_units: OrderUnit[];
 	inner_color: number;
 	outer_color: number;
+
+	init() {
+		this.id = null;
+		this.customer = '';
+		this.date_created = '';
+		this.order_units = new Array<OrderUnit>();
+		this.inner_color = null;
+		this.outer_color = null;
+	}
 }

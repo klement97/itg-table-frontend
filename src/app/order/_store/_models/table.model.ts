@@ -1,4 +1,4 @@
-import {Category, InnerColor, OuterColor} from 'src/app/order/_store/_models/order.models';
+import {InnerColor, OuterColor} from 'src/app/order/_store/_models/order.models';
 
 export class Table {
 	id: number;
@@ -7,7 +7,6 @@ export class Table {
 	height: number;
 	width: number;
 	depth: number;
-	category: Category;
 	inner_color: InnerColor;
 	outer_color: OuterColor;
 }
