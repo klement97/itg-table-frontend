@@ -12,6 +12,7 @@
   margin-top: 20px;
   width: 31.5%;
   min-width: 320px;
+  max-width: 350px;
   height: 400px;
   background-color: white;
   box-sizing: border-box;
