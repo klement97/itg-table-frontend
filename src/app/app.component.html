@@ -1,1 +1,9 @@
-<app-navigation></app-navigation>
+<div fxLayout="row" fxFlex="100">
+    <app-navigation *ngIf="showSidebar" fxLayout="column" fxFlex="300px"></app-navigation>
+    <div class="content" fxLayout="column" fxFlex>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<app-footer *ngIf="showFooter" fxLayout="column"></app-footer>
+

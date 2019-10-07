@@ -1,6 +1,27 @@
 <form [formGroup]="loginForm">
-    <input type="text" placeholder="username" formControlName="username">
-    <input type="password" name="password" id="" placeholder="password" formControlName="password">
+    <mat-card class="shipping-card">
 
-    <button (click)="submit()">login</button>
+        <div class="row full-width">
+            <mat-card-header>
+                <mat-card-title>ITALGOLD</mat-card-title>
+            </mat-card-header>
+        </div>
+
+        <mat-card-content>
+            <div class="col">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="username" formControlName="username">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" name="password" id="" placeholder="password" formControlName="password">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-raised-button (click)="submit()">
+                LOGIN
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </form>

@@ -1,28 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {
-	MatBadgeModule,
-	MatButtonModule,
-	MatCardModule,
-	MatChipsModule,
-	MatDialogModule,
-	MatGridListModule,
-	MatIconModule,
-	MatInputModule,
-	MatListModule,
-	MatMenuModule,
-	MatRadioModule,
-	MatSelectModule,
-	MatSidenavModule,
-	MatToolbarModule
-} from '@angular/material';
-import {LayoutModule} from '@angular/cdk/layout';
 import {OrderPageComponent} from 'src/app/order/order-page/order-page.component';
 import {TableFormComponent} from 'src/app/order/dialogs/table-form/table-form.component';
 import {TableDetailComponent} from 'src/app/order/dialogs/table-detail/table-detail.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NavigationComponent} from 'src/app/navigation/navigation.component';
 import {AppRoutingModule} from 'src/app/app-routing.module';
 import {ImageDetailComponent} from './dialogs/image-detail/image-detail.component';
 import {CartComponent} from './cart/cart.component';
@@ -33,11 +15,20 @@ import {OrderFormComponent} from './order-form/order-form.component';
 import * as fromTables from 'src/app/order/_store/_reducers/table.reducer';
 import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
 import {NgxPrintModule} from 'ngx-print';
-import { InvoiceComponent } from './dialogs/invoice/invoice.component';
+import {InvoiceComponent} from './dialogs/invoice/invoice.component';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatChipsModule,
+	MatFormFieldModule,
+	MatIconModule,
+	MatInputModule,
+	MatSelectModule
+} from '@angular/material';
+import {OrderRoutingModule} from 'src/app/order/order-routing.module';
 
 @NgModule({
 	declarations: [
-		NavigationComponent,
 		OrderPageComponent,
 		TableFormComponent,
 		TableDetailComponent,
@@ -50,26 +41,18 @@ import { InvoiceComponent } from './dialogs/invoice/invoice.component';
 		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),
 		StoreModule.forFeature(tablesFeatureKey, fromTables.reducer),
 		CommonModule,
-		AppRoutingModule,
+		OrderRoutingModule,
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
 		NgxPrintModule,
-		MatToolbarModule,
-		MatCardModule,
-		MatButtonModule,
-		MatInputModule,
-		MatSelectModule,
-		MatRadioModule,
-		LayoutModule,
-		MatSidenavModule,
-		MatIconModule,
-		MatListModule,
-		MatGridListModule,
-		MatMenuModule,
-		MatDialogModule,
 		MatChipsModule,
-		MatBadgeModule,
+		MatCardModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatButtonModule,
+		MatIconModule,
+		MatSelectModule,
 	],
 	entryComponents: [
 		TableDetailComponent,
@@ -78,7 +61,15 @@ import { InvoiceComponent } from './dialogs/invoice/invoice.component';
 		CartComponent,
 		InvoiceComponent
 	],
-	exports: [OrderPageComponent, TableFormComponent, NavigationComponent, TableDetailComponent]
+	exports: [
+		OrderPageComponent,
+		TableFormComponent,
+		TableDetailComponent,
+		ImageDetailComponent,
+		CartComponent,
+		OrderFormComponent,
+		InvoiceComponent,
+	]
 })
 export class OrderModule {
 }
