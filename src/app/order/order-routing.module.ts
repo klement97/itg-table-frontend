@@ -4,7 +4,7 @@ import {OrderPageComponent} from 'src/app/order/order-page/order-page.component'
 import {OrderFormComponent} from 'src/app/order/order-form/order-form.component';
 
 const routes: Routes = [
-	{path: 'tables', component: OrderPageComponent, pathMatch: 'full'},
+	{path: 'order/tables', component: OrderPageComponent, pathMatch: 'full'},
 	{path: 'order/form', component: OrderFormComponent, pathMatch: 'full'},
 ];
 

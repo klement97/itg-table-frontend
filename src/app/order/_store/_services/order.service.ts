@@ -34,7 +34,7 @@ export class OrderService {
 		return this.http.post(`${ORDERS_URL}/`, order).pipe(
 			map(() => {
 				this.store.dispatch(clearOrderUnits());
-				this.router.navigate(['/tables']);
+				this.router.navigate(['order/tables']);
 			}),
 			catchError(err => of(console.log(err)))
 		);

@@ -41,7 +41,7 @@ export class AuthService {
 				if (user) {
 					localStorage.setItem('user', JSON.stringify(user));
 					this.currentTokenSubject.next(user['auth_token']);
-					this.router.navigate(['/tables']);
+					this.router.navigate(['order/tables']);
 					return user;
 				}
 			}),
