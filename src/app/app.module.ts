@@ -11,22 +11,37 @@ import {httpInterceptorProviders} from 'src/app/_interceptors';
 import {OrderModule} from 'src/app/order/order.module';
 import {AuthModule} from 'src/app/auth/auth.module';
 import {LayoutModule} from 'src/app/layout/layout.module';
-import {MaterialModule} from 'src/app/material/material.module';
 import {
 	MatAutocompleteModule,
-	MatButtonModule, MatButtonToggleModule, MatCardModule,
-	MatCheckboxModule, MatChipsModule,
-	MatDatepickerModule, MatDialogModule, MatExpansionModule,
-	MatFormFieldModule, MatGridListModule, MatIconModule,
+	MatButtonModule,
+	MatButtonToggleModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatChipsModule,
+	MatDatepickerModule,
+	MatDialogModule,
+	MatExpansionModule,
+	MatFormFieldModule,
+	MatGridListModule,
+	MatIconModule,
 	MatInputModule,
 	MatListModule,
-	MatMenuModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule,
+	MatMenuModule,
+	MatPaginatorModule,
+	MatProgressBarModule,
+	MatProgressSpinnerModule,
 	MatRadioModule,
 	MatSelectModule,
 	MatSidenavModule,
 	MatSliderModule,
-	MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule, MatTabsModule,
-	MatToolbarModule, MatTooltipModule
+	MatSlideToggleModule,
+	MatSnackBarModule,
+	MatSortModule,
+	MatStepperModule,
+	MatTableModule,
+	MatTabsModule,
+	MatToolbarModule,
+	MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
