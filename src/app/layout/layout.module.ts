@@ -12,12 +12,13 @@ import {
 	MatToolbarModule
 } from '@angular/material';
 import {OrderModule} from 'src/app/order/order.module';
+import {RouterModule} from '@angular/router';
+import { SidenavComponent } from './sidenav/sidenav.component';
 import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
-	declarations: [FooterComponent, NavigationComponent, HeaderComponent, SidebarComponent],
+	declarations: [FooterComponent, NavigationComponent, SidenavComponent, HeaderComponent],
 	imports: [
 		CommonModule,
 		MatSidenavModule,
@@ -28,6 +29,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 		MatMenuModule,
 		OrderModule,
 		MatBadgeModule,
+		RouterModule,
 	],
 	exports: [FooterComponent, NavigationComponent],
 })

@@ -5,7 +5,6 @@ import {TableFormComponent} from 'src/app/order/dialogs/table-form/table-form.co
 import {TableDetailComponent} from 'src/app/order/dialogs/table-detail/table-detail.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppRoutingModule} from 'src/app/app-routing.module';
 import {ImageDetailComponent} from './dialogs/image-detail/image-detail.component';
 import {CartComponent} from './cart/cart.component';
 import {StoreModule} from '@ngrx/store';
