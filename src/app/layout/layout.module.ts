@@ -13,12 +13,10 @@ import {
 } from '@angular/material';
 import {OrderModule} from 'src/app/order/order.module';
 import {RouterModule} from '@angular/router';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
-	declarations: [FooterComponent, NavigationComponent, SidenavComponent, HeaderComponent],
+	declarations: [FooterComponent, NavigationComponent],
 	imports: [
 		CommonModule,
 		MatSidenavModule,
