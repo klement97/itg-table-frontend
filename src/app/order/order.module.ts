@@ -13,7 +13,6 @@ import {orderUnitsFeatureKey} from 'src/app/order/_store/_reducers/order-unit.re
 import {OrderFormComponent} from './order-form/order-form.component';
 import * as fromTables from 'src/app/order/_store/_reducers/table.reducer';
 import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
-import {NgxPrintModule} from 'ngx-print';
 import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 import {
 	MatButtonModule,
@@ -44,7 +43,6 @@ import {OrderRoutingModule} from 'src/app/order/order-routing.module';
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
-		NgxPrintModule,
 		MatChipsModule,
 		MatCardModule,
 		MatFormFieldModule,
