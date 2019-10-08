@@ -23,7 +23,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 	fake_id = 1;
 	subs$ = new Subscription();
 
-	constructor(private orderService: OrderService, private dialog: MatDialog, private store: Store<OrderUnitState>) {
+	constructor(private orderService: OrderService, public dialog: MatDialog, private store: Store<OrderUnitState>) {
 		this.tables$ = store.select(selectTables);
 	}
 

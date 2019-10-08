@@ -23,7 +23,7 @@ export class OrderFormComponent implements OnInit {
 	order = new Order();
 
 	constructor(private fb: FormBuilder, private store: Store<OrderUnitState>, private orderService: OrderService,
-							private dialog: MatDialog) {
+							public dialog: MatDialog) {
 		this.cart$ = this.store.select(selectOrderUnits);
 	}
 

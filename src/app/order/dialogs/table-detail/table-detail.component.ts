@@ -9,8 +9,8 @@ import {Table} from 'src/app/order/_store/_models/order.models';
 })
 export class TableDetailComponent implements OnInit {
 
-	constructor(private dialogRef: MatDialogRef<TableDetailComponent>,
-							@Inject(MAT_DIALOG_DATA) private data: Table) {
+	constructor(public dialogRef: MatDialogRef<TableDetailComponent>,
+							@Inject(MAT_DIALOG_DATA) public data: Table) {
 	}
 
 	ngOnInit() {

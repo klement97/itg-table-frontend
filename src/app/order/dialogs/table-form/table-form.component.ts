@@ -18,7 +18,7 @@ export class TableFormComponent {
 	});
 
 	constructor(private fb: FormBuilder,
-							private dialogRef: MatDialogRef<TableFormComponent>,
-							@Inject(MAT_DIALOG_DATA) private data: Table) {
+							public dialogRef: MatDialogRef<TableFormComponent>,
+							@Inject(MAT_DIALOG_DATA) public data: Table) {
 	}
 }

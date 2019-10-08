@@ -24,7 +24,7 @@ export class NavigationComponent {
 			share()
 		);
 
-	constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog, private store: Store<OrderUnitState>,
+	constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
 							private auth: AuthService, private router: Router) {
 		this.cartCount$ = store.select(selectOrderCount);
 		router.events.subscribe(_ => this.drawer.close());
