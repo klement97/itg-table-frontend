@@ -24,6 +24,7 @@ import {
 	MatSelectModule
 } from '@angular/material';
 import {OrderRoutingModule} from 'src/app/order/order-routing.module';
+import { OrderListComponent } from './order-list/order-list.component';
 
 @NgModule({
 	declarations: [
@@ -34,6 +35,7 @@ import {OrderRoutingModule} from 'src/app/order/order-routing.module';
 		CartComponent,
 		OrderFormComponent,
 		InvoiceComponent,
+		OrderListComponent,
 	],
 	imports: [
 		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),
