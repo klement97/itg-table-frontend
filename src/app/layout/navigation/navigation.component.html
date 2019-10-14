@@ -1,6 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport
-                 [mode]="'over'"
+                 [mode]="'side'"
                  [opened]="false"
                  [attr.role]="'navigation'">
         <mat-toolbar class="inside-toolbar">ITALGOLD</mat-toolbar>
@@ -9,12 +9,20 @@
                 <button mat-icon-button>
                     <mat-icon>amp_stories</mat-icon>
                 </button>
-                Tabakatë</a>
+                Tabakatë
+            </a>
             <a class="mat-nav-list" mat-list-item routerLink="/order/form">
                 <button mat-icon-button>
                     <mat-icon>add</mat-icon>
                 </button>
-                Përfundo porosinë</a>
+                Përfundo porosinë
+            </a>
+            <a class="mat-nav-list" mat-list-item routerLink="/order/list">
+                <button mat-icon-button>
+                    <mat-icon>list</mat-icon>
+                </button>
+                Lista e porosive
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -1,1 +1,46 @@
-<p>order-list works!</p>
+<div class="content">
+    <div style="height: 4px">
+        <mat-progress-bar *ngIf="loading"></mat-progress-bar>
+    </div>
+    <mat-table [dataSource]="orders$ | async">
+        <!-- Customer -->
+        <ng-container cdkColumnDef="customer">
+            <mat-header-cell *cdkHeaderCellDef> Klienti</mat-header-cell>
+            <mat-cell *cdkCellDef="let order"> {{order.customer}} </mat-cell>
+        </ng-container>
+
+        <!-- Date Created -->
+        <ng-container cdkColumnDef="date_created">
+            <mat-header-cell *cdkHeaderCellDef> Data</mat-header-cell>
+            <mat-cell *cdkCellDef="let order"> {{order.date_created}} </mat-cell>
+        </ng-container>
+
+        <!-- Total Price -->
+        <ng-container cdkColumnDef="total_price">
+            <mat-header-cell *cdkHeaderCellDef> Çmimi total</mat-header-cell>
+            <mat-cell *cdkCellDef="let order"> {{order.total_price}} $</mat-cell>
+        </ng-container>
+
+        <!-- Total Table Count -->
+        <ng-container cdkColumnDef="total_table_count">
+            <mat-header-cell *cdkHeaderCellDef> Numri total i tabakave</mat-header-cell>
+            <mat-cell *cdkCellDef="let order"> {{order.total_table_count}} copë</mat-cell>
+        </ng-container>
+
+        <!-- Actions -->
+        <ng-container cdkColumnDef="actions">
+            <mat-header-cell *cdkHeaderCellDef> Veprime</mat-header-cell>
+            <mat-cell *cdkCellDef="let order">
+                <span>
+                    <button mat-icon-button (click)="openDetails(order)"><mat-icon>visibility</mat-icon></button>
+                    <button mat-icon-button (click)="updateOrder(order)"><mat-icon>update</mat-icon></button>
+                    <button mat-icon-button (click)="deleteOrder(order.id)"><mat-icon>delete_sweep</mat-icon></button>
+                </span>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let order; columns: displayedColumns"></mat-row>
+    </mat-table>
+</div>

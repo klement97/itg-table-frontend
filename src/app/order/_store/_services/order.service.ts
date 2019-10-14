@@ -39,4 +39,8 @@ export class OrderService {
 			catchError(err => of(console.log(err)))
 		);
 	}
+
+	getOrderList(page: number) {
+		return this.http.get(`${ORDERS_URL}/?page=${page}`);
+	}
 }

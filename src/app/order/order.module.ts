@@ -20,11 +20,14 @@ import {
 	MatChipsModule,
 	MatFormFieldModule,
 	MatIconModule,
-	MatInputModule,
-	MatSelectModule
+	MatInputModule, MatProgressBarModule,
+	MatSelectModule, MatTableModule
 } from '@angular/material';
 import {OrderRoutingModule} from 'src/app/order/order-routing.module';
 import { OrderListComponent } from './order-list/order-list.component';
+import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
+import {ordersFeatureKey} from 'src/app/order/_store/_reducers/order.reducer';
+import {CdkTableModule} from '@angular/cdk/table';
 
 @NgModule({
 	declarations: [
@@ -40,6 +43,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 	imports: [
 		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),
 		StoreModule.forFeature(tablesFeatureKey, fromTables.reducer),
+		StoreModule.forFeature(ordersFeatureKey, fromOrder.reducer),
 		CommonModule,
 		OrderRoutingModule,
 		HttpClientModule,
@@ -52,6 +56,9 @@ import { OrderListComponent } from './order-list/order-list.component';
 		MatButtonModule,
 		MatIconModule,
 		MatSelectModule,
+		MatProgressBarModule,
+		MatTableModule,
+		CdkTableModule,
 	],
 	entryComponents: [
 		TableDetailComponent,

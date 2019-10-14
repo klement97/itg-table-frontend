@@ -9,6 +9,7 @@ import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {MatDialog} from '@angular/material';
 import {InvoiceComponent} from 'src/app/order/dialogs/invoice/invoice.component';
+import {Router} from '@angular/router';
 
 @Component({
 	selector: 'app-order-form',
@@ -23,7 +24,7 @@ export class OrderFormComponent implements OnInit {
 	order = new Order();
 
 	constructor(private fb: FormBuilder, private store: Store<OrderUnitState>, private orderService: OrderService,
-							public dialog: MatDialog) {
+							public dialog: MatDialog, private router: Router) {
 		this.cart$ = this.store.select(selectOrderUnits);
 	}
 
@@ -45,7 +46,8 @@ export class OrderFormComponent implements OnInit {
 
 	onSubmit() {
 		this.orderService.createOrder(this.preparedData()).subscribe(
-			response => console.log(response)
+			response => this.router.navigate(['/order/list'])
+			// todo: make order list add one action here
 		);
 	}
 
