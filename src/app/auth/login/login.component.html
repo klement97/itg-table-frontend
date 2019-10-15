@@ -1,27 +1,23 @@
-<form [formGroup]="loginForm">
-    <mat-card class="shipping-card">
+<section>
 
-        <div class="row full-width">
-            <mat-card-header>
-                <mat-card-title>ITALGOLD</mat-card-title>
-            </mat-card-header>
-        </div>
+    <div class="side-picture" id="picture_login">
+        <picture class="cover">
+            <source class="cover" type="image/webp" srcset="../../../assets/img/ezgif.com-gif-maker.webp">
+            <img class="cover" src="../../../assets/img/ezgif.com-gif-maker.webp" alt="image">
+        </picture>
+    </div>
 
-        <mat-card-content>
-            <div class="col">
-                <mat-form-field>
-                    <input matInput type="text" placeholder="username" formControlName="username">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput type="password" name="password" id="" placeholder="password" formControlName="password">
-                </mat-form-field>
-            </div>
-        </mat-card-content>
+    <div class="login-form">
+        <form [formGroup]="loginForm">
+            <mat-form-field>
+                <input matInput type="text" placeholder="username" formControlName="username">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="password" name="password" id="" placeholder="password" formControlName="password">
+            </mat-form-field>
 
-        <mat-card-actions>
-            <button mat-raised-button (click)="submit()">
-                LOGIN
-            </button>
-        </mat-card-actions>
-    </mat-card>
-</form>
+            <button mat-raised-button (click)="submit()">LOGIN</button>
+        </form>
+    </div>
+
+</section>

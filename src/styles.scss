@@ -3,6 +3,7 @@
 
 body {
   font-family: Poppings sans-serif;
+  color: rgb(82, 89, 124);
   margin: 0;
   padding: 0;
 }
@@ -20,4 +21,18 @@ body {
 .btn-warning {
   background-color: #b2802a;
   color: white;
+}
+
+.data-table {
+  font-size: 13px;
+
+  & tr td {
+    padding-right: 20px;
+    color: rgb(100, 108, 154);
+    font-family: Poppings, sans-serif;
+  }
+
+  & td:last-child {
+    padding: 0 !important;
+  }
 }

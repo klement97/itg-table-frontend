@@ -13,10 +13,11 @@ import {
 } from '@angular/material';
 import {OrderModule} from 'src/app/order/order.module';
 import {RouterModule} from '@angular/router';
+import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
-	declarations: [FooterComponent, NavigationComponent],
+	declarations: [FooterComponent, NavigationComponent, DeleteDialogComponent],
 	imports: [
 		CommonModule,
 		MatSidenavModule,

@@ -2,6 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 body {
   font-family: Poppings sans-serif;
+  color: #52597c;
   margin: 0;
   padding: 0;
 }
@@ -19,6 +20,18 @@ body {
 .btn-warning {
   background-color: #b2802a;
   color: white;
+}
+
+.data-table {
+  font-size: 13px;
+}
+.data-table tr td {
+  padding-right: 20px;
+  color: #646c9a;
+  font-family: Poppings, sans-serif;
+}
+.data-table td:last-child {
+  padding: 0 !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

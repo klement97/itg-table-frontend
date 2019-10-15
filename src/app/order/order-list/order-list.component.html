@@ -1,46 +1,47 @@
-<div class="content">
-    <div style="height: 4px">
-        <mat-progress-bar *ngIf="loading"></mat-progress-bar>
-    </div>
-    <mat-table [dataSource]="orders$ | async">
-        <!-- Customer -->
-        <ng-container cdkColumnDef="customer">
-            <mat-header-cell *cdkHeaderCellDef> Klienti</mat-header-cell>
-            <mat-cell *cdkCellDef="let order"> {{order.customer}} </mat-cell>
-        </ng-container>
+<div class="header">
+    <h4>Lista e porosive</h4>
+</div>
+<div style="height: 5px">
+    <mat-progress-bar style="height: 5px" *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</div>
+<table mat-table [dataSource]="orders$ | async" class="mat-elevation-z4 data-table" style="overflow-x: auto; width: 100%">
+    <!-- Customer -->
+    <ng-container matColumnDef="customer">
+        <th mat-header-cell *matHeaderCellDef> Klienti</th>
+        <td mat-cell *matCellDef="let order"> {{order.customer}} </td>
+    </ng-container>
 
-        <!-- Date Created -->
-        <ng-container cdkColumnDef="date_created">
-            <mat-header-cell *cdkHeaderCellDef> Data</mat-header-cell>
-            <mat-cell *cdkCellDef="let order"> {{order.date_created}} </mat-cell>
-        </ng-container>
+    <!-- Date Created -->
+    <ng-container matColumnDef="date_created">
+        <th mat-header-cell *matHeaderCellDef> Data</th>
+        <td mat-cell *matCellDef="let order"> {{order.date_created}} </td>
+    </ng-container>
 
-        <!-- Total Price -->
-        <ng-container cdkColumnDef="total_price">
-            <mat-header-cell *cdkHeaderCellDef> Çmimi total</mat-header-cell>
-            <mat-cell *cdkCellDef="let order"> {{order.total_price}} $</mat-cell>
-        </ng-container>
+    <!-- Total Price -->
+    <ng-container matColumnDef="total_price">
+        <th mat-header-cell *matHeaderCellDef> Çmimi total</th>
+        <td mat-cell *matCellDef="let order"> {{order.total_price}} $</td>
+    </ng-container>
 
-        <!-- Total Table Count -->
-        <ng-container cdkColumnDef="total_table_count">
-            <mat-header-cell *cdkHeaderCellDef> Numri total i tabakave</mat-header-cell>
-            <mat-cell *cdkCellDef="let order"> {{order.total_table_count}} copë</mat-cell>
-        </ng-container>
+    <!-- Total Table Count -->
+    <ng-container matColumnDef="total_table_count">
+        <th mat-header-cell *matHeaderCellDef> Numri total i tabakave</th>
+        <td mat-cell *matCellDef="let order"> {{order.total_table_count}} copë</td>
+    </ng-container>
 
-        <!-- Actions -->
-        <ng-container cdkColumnDef="actions">
-            <mat-header-cell *cdkHeaderCellDef> Veprime</mat-header-cell>
-            <mat-cell *cdkCellDef="let order">
-                <span>
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Veprime</th>
+        <td mat-cell *matCellDef="let order">
+                <span style="display: flex; flex-direction: row">
                     <button mat-icon-button (click)="openDetails(order)"><mat-icon>visibility</mat-icon></button>
                     <button mat-icon-button (click)="updateOrder(order)"><mat-icon>update</mat-icon></button>
                     <button mat-icon-button (click)="deleteOrder(order.id)"><mat-icon>delete_sweep</mat-icon></button>
                 </span>
-            </mat-cell>
-        </ng-container>
+        </td>
+    </ng-container>
 
-        <!-- Header and Row Declarations -->
-        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *cdkRowDef="let order; columns: displayedColumns"></mat-row>
-    </mat-table>
-</div>
+    <!-- Header and Row Declarations -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

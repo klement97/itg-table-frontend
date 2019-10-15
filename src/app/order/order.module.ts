@@ -28,6 +28,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import {ordersFeatureKey} from 'src/app/order/_store/_reducers/order.reducer';
 import {CdkTableModule} from '@angular/cdk/table';
+import { OrderDetailDialogComponent } from './dialogs/order-detail-dialog/order-detail-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 		OrderFormComponent,
 		InvoiceComponent,
 		OrderListComponent,
+		OrderDetailDialogComponent,
 	],
 	imports: [
 		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),

@@ -1,8 +1,33 @@
+section {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.side-picture {
+    width: 65%;
+    height: 100%;
+    position: relative;
+    min-height: 100%;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+}
+
 .content {
     padding: 10px;
     height: auto;
     min-height: calc(100vh - 50px);
     box-sizing: border-box;
+}
+
+.login-form {
+    background-color: red;
 }
 
 .full-width {

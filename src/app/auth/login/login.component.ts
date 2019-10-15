@@ -18,6 +18,14 @@ export class LoginComponent implements OnInit {
 			username: [''],
 			password: [''],
 		});
+
+		let height = screen.availHeight;
+		let picture = document.getElementById('picture_login');
+		picture.style.width = height * 1.65 + 'px';
+		let section = document.getElementsByTagName('section')[0];
+		section.style.minHeight = height + 'px';
+
+		document.getElementsByClassName('login-form')[0].style.width = screen.availWidth - height * 1.65 + 'px';
 	}
 
 	submit() {

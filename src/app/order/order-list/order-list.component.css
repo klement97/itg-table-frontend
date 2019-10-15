@@ -1,0 +1,12 @@
+.content {
+    box-shadow: 1px 0 3px gray;
+}
+
+.header {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0 10px;
+    margin: 5px 0;
+    box-shadow: 1px 0 5px darkgray;
+    border-top-left-radius: 2px;
+}
