@@ -27,7 +27,55 @@ section {
 }
 
 .login-form {
-    background-color: red;
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #596187 3px 0 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#login_button {
+    position: relative;
+}
+
+#login_button {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto 10px auto auto;
+    transform: rotate(0deg);
+    border-radius: 50%;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    animation: rotation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .full-width {
@@ -133,3 +181,6 @@ mat-chip-list {
     margin-right: 20px;
 }
 
+input {
+    padding-left: 10px;
+}
