@@ -25,13 +25,14 @@ export class LoginComponent implements OnInit {
 
 	submit() {
 		this.loading = true;
-		this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).subscribe(
-			response => {
-				if (response) {
-					this.loading = false;
+		this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
+			.subscribe(
+				response => {
+					if (response) {
+						this.loading = false;
+					}
 				}
-			}
-		);
+			);
 	}
 
 	makeStyling() {

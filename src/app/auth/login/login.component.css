@@ -11,7 +11,6 @@ section {
     width: 65%;
     height: 100%;
     position: relative;
-    min-height: 100%;
 }
 
 .cover {
@@ -19,12 +18,12 @@ section {
     height: 100%;
 }
 
-.content {
-    padding: 10px;
-    height: auto;
-    min-height: calc(100vh - 50px);
-    box-sizing: border-box;
-}
+/*.content {*/
+/*    padding: 10px;*/
+/*    height: auto;*/
+/*    min-height: calc(100vh - 50px);*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 .login-form {
     width: 35%;
@@ -183,4 +182,45 @@ mat-chip-list {
 
 input {
     padding-left: 10px;
+}
+
+@media (max-width: 480px) {
+    section {
+        flex-direction: column;
+    }
+
+    .side-picture {
+        width: 100%;
+        height: 35%;
+    }
+
+    .login-form {
+        width: 100%;
+        height: 65%;
+    }
+
+    form {
+        transform: scale(1.3);
+    }
+
+}
+
+@media only screen and (min-width: 481px) and (max-width: 1250px) {
+    section {
+        flex-direction: column;
+    }
+
+    .side-picture {
+        width: 100%;
+        height: 45%;
+    }
+
+    .login-form {
+        width: 100%;
+        height: 55%;
+    }
+
+    form {
+        transform: scale(1.7);
+    }
 }
