@@ -184,7 +184,7 @@ input {
     padding-left: 10px;
 }
 
-@media (max-width: 480px) {
+@media only screen and (min-width: 200px) and (max-width: 480px) {
     section {
         flex-direction: column;
     }
@@ -200,7 +200,7 @@ input {
     }
 
     form {
-        transform: scale(1.3);
+        transform: scale(1.1);
     }
 
 }
