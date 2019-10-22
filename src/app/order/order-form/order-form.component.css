@@ -52,17 +52,17 @@
     margin-top: 20px;
     width: 31.5%;
     min-width: 320px;
-    height: 400px;
+    min-height: 400px;
+    height: auto;
     background-color: white;
     box-sizing: border-box;
-    overflow: hidden;
     border-radius: 5px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .card-image {
     width: 100%;
-    height: 80%;
+    min-height: 320px;
     position: relative;
 }
 
@@ -85,12 +85,12 @@
 }
 
 .card-footer {
+    padding: 10px;
     width: 100%;
-    height: 20%;
+    height: auto;
     position: relative;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -104,7 +104,7 @@
     box-shadow: gray 0 8px 10px;
 }
 
-mat-chip-list {
-    margin-right: 20px;
+.description-text {
+    word-break: break-word;
 }
 

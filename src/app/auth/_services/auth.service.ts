@@ -14,6 +14,8 @@ const TOKEN = `${AUTH}/token`;
 const LOGIN = `${TOKEN}/login`;
 const LOGOUT = `${TOKEN}/logout`;
 
+export let isLoggedIn: boolean = false;
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -42,6 +44,7 @@ export class AuthService {
 					localStorage.setItem('user', JSON.stringify(user));
 					this.currentTokenSubject.next(user['auth_token']);
 					this.router.navigate(['order/tables']);
+					isLoggedIn = true;
 					return user;
 				}
 			}),
@@ -52,9 +55,10 @@ export class AuthService {
 	logout() {
 		const currentUser = JSON.parse(localStorage.getItem('user'));
 		return this.http.post(`${LOGOUT}/`, currentUser.auth_token).pipe(
-			map(response => {
+			map(() => {
+				// this.router.navigate(['/auth/login']);
 				localStorage.clear();
-				this.router.navigate(['/auth/login']);
+				isLoggedIn = false;
 			})
 		);
 

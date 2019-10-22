@@ -17,7 +17,7 @@ import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 import {
 	MatButtonModule,
 	MatCardModule,
-	MatChipsModule,
+	MatChipsModule, MatExpansionModule,
 	MatFormFieldModule,
 	MatIconModule,
 	MatInputModule, MatProgressBarModule,
@@ -61,6 +61,7 @@ import { OrderDetailDialogComponent } from './dialogs/order-detail-dialog/order-
 		MatProgressBarModule,
 		MatTableModule,
 		CdkTableModule,
+		MatExpansionModule,
 	],
 	entryComponents: [
 		TableDetailComponent,

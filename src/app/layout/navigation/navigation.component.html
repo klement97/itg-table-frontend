@@ -3,21 +3,29 @@
                  [mode]="'side'"
                  [opened]="false"
                  [attr.role]="'navigation'">
-        <mat-toolbar class="inside-toolbar">ITALGOLD</mat-toolbar>
+        <mat-toolbar class="inside-toolbar">ITALGOLD
+            <button style="margin-left: 50px;"
+                    type="button"
+                    aria-label="Toggle sidenav"
+                    mat-icon-button
+                    (click)="drawer.toggle()">
+                <mat-icon aria-label="Side nav toggle icon">menu_open</mat-icon>
+            </button>
+        </mat-toolbar>
         <mat-nav-list>
-            <a class="mat-nav-list" mat-list-item routerLink="order/tables">
+            <a class="mat-nav-list" mat-list-item routerLink="order/tables" routerLinkActive="active">
                 <button mat-icon-button>
                     <mat-icon>amp_stories</mat-icon>
                 </button>
                 Tabakatë
             </a>
-            <a class="mat-nav-list" mat-list-item routerLink="/order/form">
+            <a class="mat-nav-list" mat-list-item routerLink="/order/form" routerLinkActive="active">
                 <button mat-icon-button>
                     <mat-icon>add</mat-icon>
                 </button>
                 Përfundo porosinë
             </a>
-            <a class="mat-nav-list" mat-list-item routerLink="/order/list">
+            <a class="mat-nav-list" mat-list-item routerLink="/order/list" routerLinkActive="active">
                 <button mat-icon-button>
                     <mat-icon>list</mat-icon>
                 </button>
@@ -27,12 +35,12 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar class="outside-toolbar">
-            <button
+            <button *ngIf="!drawer.opened"
                     type="button"
                     aria-label="Toggle sidenav"
                     mat-icon-button
                     (click)="drawer.toggle()">
-                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                <mat-icon aria-label="Side nav toggle icon">double_arrow</mat-icon>
             </button>
             <div class="align-end">
 

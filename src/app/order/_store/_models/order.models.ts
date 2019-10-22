@@ -7,6 +7,7 @@ export class Table {
 	width: number;  // gjeresi
 	height: number;  // lartesi
 	depth: number;  // gjatesi
+	price: number;
 	inner_color: InnerColor;
 	outer_color: OuterColor;
 }

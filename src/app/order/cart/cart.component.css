@@ -48,3 +48,9 @@
     width: 80px;
     height: 80px;
 }
+
+#checkout_button_id {
+    position: absolute;
+    right: 0;
+    margin: auto;
+}

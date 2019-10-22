@@ -7,6 +7,7 @@ export class Table {
 	height: number;
 	width: number;
 	depth: number;
+	price: number;
 	inner_color: InnerColor;
 	outer_color: OuterColor;
 }

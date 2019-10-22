@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/auth/_services/auth.service';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
 	selector: 'app-login',
@@ -17,8 +19,8 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.loginForm = this.fb.group({
-			username: [''],
-			password: [''],
+			username: ['', [Validators.required]],
+			password: ['', [Validators.required]],
 		});
 		// this.makeStyling();
 	}
@@ -31,7 +33,10 @@ export class LoginComponent implements OnInit {
 					if (response) {
 						this.loading = false;
 					}
-				}
+				},
+				catchError(err => {
+					return of(console.log(err));
+				})
 			);
 	}
 

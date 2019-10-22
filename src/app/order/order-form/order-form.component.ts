@@ -22,6 +22,7 @@ export class OrderFormComponent implements OnInit {
 	outerColors: OuterColor[];
 	cart$: Observable<OrderUnit[]>;
 	order = new Order();
+	panelOpened: boolean = false;
 
 	constructor(private fb: FormBuilder, private store: Store<OrderUnitState>, private orderService: OrderService,
 							public dialog: MatDialog, private router: Router) {
@@ -39,8 +40,8 @@ export class OrderFormComponent implements OnInit {
 	initForm() {
 		this.orderForm = this.fb.group({
 			customer: ['', Validators.required],
-			outer_color: [null, Validators.required],
-			inner_color: [null, Validators.required],
+			outer_color: [0, Validators.required],
+			inner_color: [0, Validators.required],
 		});
 	}
 
