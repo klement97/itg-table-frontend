@@ -68,7 +68,8 @@ import { OrderDetailDialogComponent } from './dialogs/order-detail-dialog/order-
 		ImageDetailComponent,
 		TableFormComponent,
 		CartComponent,
-		InvoiceComponent
+		InvoiceComponent,
+		OrderDetailDialogComponent
 	],
 	exports: [
 		OrderPageComponent,
