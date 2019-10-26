@@ -7,7 +7,7 @@
             <button mat-icon-button (click)="openForm(table)"><mat-icon>add_shopping_cart</mat-icon></button>
             <mat-chip-list>
                 <mat-chip selected color="primary">Kodi: {{table.code}}</mat-chip>
-                <mat-chip selected style="background-color: #32870f">Çmimi: {{ table.price | number: '': 'en'}} $</mat-chip>
+                <mat-chip selected style="background-color: #32870f">Çmimi: ${{ table.price | number: '': 'en'}}</mat-chip>
             </mat-chip-list>
         </div>
     </div>

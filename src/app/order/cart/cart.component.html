@@ -11,7 +11,7 @@
     <div class="row">
         <div class="unit-info">
             <span style="margin-bottom: 10px">Kodi: <span style="padding: 3px ;border-radius: 3px; background-color: #004e92; color: white">{{unit.table.code}}</span></span>
-            <span style="margin-bottom: 10px">Çmimi: <span style="padding: 3px ;border-radius: 3px; background-color: #004e92; color: white">{{unit.table.price | number: '2.1'}} $</span></span>
+            <span style="margin-bottom: 10px">Çmimi: <span style="padding: 3px ;border-radius: 3px; background-color: #004e92; color: white">${{unit.table.price | number: '2.1'}}</span></span>
             <div class="buttons">
                 <button mat-icon-button (click)="remove($event, unit)">
                     <mat-icon style="border-radius: 3px; border: 0.5px solid #949d95">exposure_neg_1</mat-icon>
@@ -33,6 +33,6 @@
 
 <div *ngIf="orderCount$ | async as count">
     <div class="total_section" *ngIf="count > 0">
-        Çmimi total: {{totalPrice}} $
+        Çmimi total: ${{totalPrice | number: '': 'en'}}
     </div>
 </div>

@@ -61,7 +61,7 @@
                 <mat-chip-list>
                     <mat-chip selected color="primary">Kodi: {{unit.table.code}}</mat-chip>
                     <mat-chip selected style="background-color: #ff4646">Sasia: {{unit.amount}} copë</mat-chip>
-                    <mat-chip selected style="background-color: #32870f">Çmimi total: {{ (unit.amount * unit.table.price) | number: '': 'en'}} $</mat-chip>
+                    <mat-chip selected style="background-color: #32870f">Çmimi total: ${{ (unit.amount * unit.table.price) | number: '': 'en'}}</mat-chip>
                 </mat-chip-list>
                 <div class="description-text">
                     <p>{{unit.description}}</p>
