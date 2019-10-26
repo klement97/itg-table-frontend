@@ -7,6 +7,12 @@ body {
   padding: 0;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .btn-success {
   background-color: #13a84a;
   color: white;
@@ -32,6 +38,10 @@ body {
 }
 .data-table td:last-child {
   padding: 0 !important;
+}
+
+mat-dialog-container {
+  border-radius: 2px !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

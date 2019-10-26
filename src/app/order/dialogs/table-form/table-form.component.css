@@ -12,12 +12,6 @@
   margin: 5px 0;
 }
 
-//.row {
-//  display: flex;
-//  flex-direction: row;
-//  flex-wrap: wrap;
-//}
-
 .col {
   flex: 1;
   margin-right: 20px;
@@ -30,3 +24,5 @@
 .mat-card {
   box-shadow: none !important;
 }
+
+/*# sourceMappingURL=table-form.component.css.map */

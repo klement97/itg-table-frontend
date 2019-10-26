@@ -91,10 +91,10 @@ form {
     margin: 5px 0;
 }
 
-.row {
-    display: flex;
-    flex-direction: row;
-}
+/*.row {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
 
 .col {
     flex: 1;

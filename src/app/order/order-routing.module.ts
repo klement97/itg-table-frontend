@@ -9,7 +9,7 @@ const routes: Routes = [
 	{path: 'order/form', component: OrderFormComponent, pathMatch: 'full'},
 	{path: 'order/list', component: OrderListComponent, pathMatch: 'full'},
 
-	{path: '**', redirectTo: 'order/tables'},
+	{path: '', redirectTo: 'order/tables', pathMatch: 'full'},
 ];
 
 @NgModule({

@@ -56,7 +56,7 @@ export class AuthService {
 		const currentUser = JSON.parse(localStorage.getItem('user'));
 		return this.http.post(`${LOGOUT}/`, currentUser.auth_token).pipe(
 			map(() => {
-				// this.router.navigate(['/auth/login']);
+				this.router.navigate(['/auth/login']);
 				localStorage.clear();
 				isLoggedIn = false;
 			})
