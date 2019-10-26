@@ -43,7 +43,7 @@ export class AuthService {
 				if (user) {
 					localStorage.setItem('user', JSON.stringify(user));
 					this.currentTokenSubject.next(user['auth_token']);
-					this.router.navigate(['']);
+					this.router.navigate(['order/tables']);
 					isLoggedIn = true;
 					return user;
 				}
