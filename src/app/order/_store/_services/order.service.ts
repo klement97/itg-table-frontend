@@ -13,6 +13,7 @@ const API = `${environment.apiHost}`;
 const TABLES_URL = `${API}/tables`;
 const COLORS_URL = `${API}/colors`;
 const ORDERS_URL = `${API}/orders`;
+const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
 
 @Injectable({
 	providedIn: 'root'
@@ -42,5 +43,9 @@ export class OrderService {
 
 	getOrderList(page: number) {
 		return this.http.get(`${ORDERS_URL}/?page=${page}`);
+	}
+
+	sendOrderMail(to: string, order: Order) {
+		return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {'to_email': to, 'order': order});
 	}
 }
