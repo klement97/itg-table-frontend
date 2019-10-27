@@ -35,6 +35,7 @@ export class OrderFormComponent implements OnInit {
 			this.outerColors = res['outer_colors'];
 		});
 		this.initForm();
+		this.orderService.sendOrderMail('klementomeri97@gmail.com', this.preparedData()).subscribe();
 	}
 
 	initForm() {
