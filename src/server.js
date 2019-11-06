@@ -8,7 +8,7 @@ app.use(express.static('./dist/table-frontend'));
 
 app.get('/*', function (req, res) {
 
-    res.sendFile(path.join('/dist/table-frontend/index.html'));
+    res.sendFile(path.join('./dist/table-frontend/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
