@@ -2,7 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/auth/_services/auth.service';
 import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {of, Observable} from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromError from 'src/app/auth/_store/_reducers/error.reducer';
+import * as ErrorActions from 'src/app/auth/_store/_actions/error.actions';
+import { selectHasError, selectError } from '../_store/_selectors/error.selectors';
 
 @Component({
 	selector: 'app-login',
@@ -14,7 +18,16 @@ export class LoginComponent implements OnInit {
 	hide = true;
 	loading: boolean = false;
 
-	constructor(private fb: FormBuilder, private auth: AuthService) {
+	hasError: Observable<boolean>;
+	errorMessage: string = '';
+
+	constructor(private fb: FormBuilder, private auth: AuthService, private store: Store<fromError.State>) {
+		this.hasError = store.select(selectHasError);
+		store.select(selectError).subscribe(error => {
+			if (error) {
+				this.errorMessage = error.error.detail;
+			}
+		})
 	}
 
 	ngOnInit() {
@@ -22,7 +35,6 @@ export class LoginComponent implements OnInit {
 			username: ['', [Validators.required]],
 			password: ['', [Validators.required]],
 		});
-		// this.makeStyling();
 	}
 
 	submit() {
@@ -34,18 +46,7 @@ export class LoginComponent implements OnInit {
 						this.loading = false;
 					}
 				},
-				catchError(err => {
-					return of(console.log(err));
-				})
 			);
-	}
-
-	makeStyling() {
-		let height = screen.availHeight;
-		let picture = document.getElementById('picture_login');
-		picture.style.width = height * 1.65 + 'px';
-		let section = document.getElementsByTagName('section')[0];
-		section.style.minHeight = height + 'px';
 	}
 
 }

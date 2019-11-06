@@ -1,9 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import * as fromError from 'src/app/auth/_store/_reducers/error.reducer';
+import * as ErrorActions from 'src/app/auth/_store/_actions/error.actions';
 
 @Injectable()
 export class InterceptService implements HttpInterceptor {
+	constructor(private store: Store<fromError.State>) {
+	}
 
 	private userToken: string;
 
@@ -12,6 +18,7 @@ export class InterceptService implements HttpInterceptor {
 		const currentUser = JSON.parse(localStorage.getItem('user'));
 		if (currentUser) {
 			this.userToken = currentUser.access;
+			this.store.dispatch(ErrorActions.clearError());
 			request = request.clone({
 				setHeaders: {
 					Authorization: `Token ${this.userToken}`
@@ -21,6 +28,13 @@ export class InterceptService implements HttpInterceptor {
 		}
 
 
-		return next.handle(request);
+		return next.handle(request)
+			.pipe(
+				catchError(err => {
+					console.log(err);
+					this.store.dispatch(ErrorActions.loadError({error: err}));
+					return throwError(err);
+				})
+			);
 	}
 }

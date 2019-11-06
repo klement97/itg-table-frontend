@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {User} from 'src/app/auth/user.model';
 import {catchError, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
@@ -47,8 +47,7 @@ export class AuthService {
 					isLoggedIn = true;
 					return user;
 				}
-			}),
-			catchError(err => of(console.log(err)))
+			})
 		);
 	}
 

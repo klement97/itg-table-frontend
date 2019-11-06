@@ -25,8 +25,8 @@
             </mat-form-field>
 
 
-            <button color="primary" mat-raised-button (click)="submit()">Kyçu
-                <span id="login_button" *ngIf="loading"></span></button>
+            <button [disabled]="loading" color="primary" mat-raised-button (click)="submit()">
+                Kyçu<span id="login_button" *ngIf="loading"></span></button>
         </form>
     </div>
 
