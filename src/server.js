@@ -10,7 +10,7 @@ app.use(express.static('./dist/table-frontend'));
 app.get('/*', function (req, res) {
     console.log('path: ', path);
     console.log('dirname: ', __dirname);
-    res.sendFile('index.html', {root: '~/app/dist/table-frontend'});
+    res.sendFile('index.html', {root: '~/app/dist/table-frontend/'});
 });
 
 // Start the app by listening on the default Heroku port
