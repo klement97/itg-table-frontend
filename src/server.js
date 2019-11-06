@@ -7,7 +7,8 @@ const app = express();
 app.use(express.static('./dist/table-frontend'));
 
 app.get('/*', function (req, res) {
-
+    console.log('path: ', path);
+    console.log('dirname: ', __dirname);
     res.sendFile(path.join(__dirname + '/dist/table-frontend/index.html'));
 });
 
