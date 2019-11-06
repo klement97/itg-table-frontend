@@ -8,8 +8,7 @@ const app = express();
 app.use(express.static('./dist/table-frontend'));
 
 app.get('/*', function (req, res) {
-    console.log('path: ', path);
-    console.log('dirname: ', __dirname);
+    /* __dirname gives /app/src */
     res.sendFile('index.html', {root: 'dist/table-frontend/'});
 });
 
