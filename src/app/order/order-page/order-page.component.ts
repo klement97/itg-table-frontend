@@ -11,7 +11,6 @@ import {addOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
 import * as fromTables from 'src/app/order/_store/_actions/table.actions';
 import {Observable, Subscription} from 'rxjs';
 import {selectTables} from 'src/app/order/_store/_selectors/table.selectors';
-import {FAKE_ID} from 'src/app/order/const';
 import {selectFakeId} from 'src/app/order/_store/_selectors/order-unit.selectors';
 
 @Component({

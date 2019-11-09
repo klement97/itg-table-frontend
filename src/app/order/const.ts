@@ -17,5 +17,3 @@ export function buildQueryString(sort: string = '', sort_direction: string = '',
 	}
 	return '';
 }
-
-export let FAKE_ID = 1;
