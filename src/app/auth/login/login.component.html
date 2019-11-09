@@ -7,10 +7,12 @@
         </picture>
     </div>
 
-    <div class="login-form">
-        <!-- todo: implement error message here  -->
-        <form [formGroup]="loginForm">
 
+    <div class="login-form">
+        <form [formGroup]="loginForm">
+            <div class="login-error" *ngIf="hasError">
+                {{errorMessage}}
+            </div>
             <mat-form-field>
                 <mat-label>Emri i përdoruesit</mat-label>
                 <input matInput type="text" size="13px" formControlName="username">
@@ -25,8 +27,8 @@
             </mat-form-field>
 
 
-            <button color="primary" mat-raised-button (click)="submit()">Kyçu
-                <span id="login_button" *ngIf="loading"></span></button>
+            <button [disabled]="loading" color="primary" mat-raised-button (click)="submit()">
+                Kyçu<span id="login_button" *ngIf="loading"></span></button>
         </form>
     </div>
 

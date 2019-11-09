@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/auth/_services/auth.service';
-import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
 
 @Component({
 	selector: 'app-login',
@@ -14,6 +12,9 @@ export class LoginComponent implements OnInit {
 	hide = true;
 	loading: boolean = false;
 
+	hasError: boolean;
+	errorMessage: string = '';
+
 	constructor(private fb: FormBuilder, private auth: AuthService) {
 	}
 
@@ -22,30 +23,26 @@ export class LoginComponent implements OnInit {
 			username: ['', [Validators.required]],
 			password: ['', [Validators.required]],
 		});
-		// this.makeStyling();
 	}
 
 	submit() {
 		this.loading = true;
 		this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
 			.subscribe(
-				response => {
-					if (response) {
-						this.loading = false;
-					}
+				() => {
+					this.loading = false;
 				},
-				catchError(err => {
-					return of(console.log(err));
-				})
+				error => {
+					this.loading = false;
+					this.hasError = true;
+					console.log(error['error']['non_field_errors']);
+					if (error['error']['non_field_errors']) {
+						this.errorMessage = 'Kredenciale të gabuara!';
+					} else {
+						this.errorMessage = 'Problem me serverin!';
+					}
+				}
 			);
-	}
-
-	makeStyling() {
-		let height = screen.availHeight;
-		let picture = document.getElementById('picture_login');
-		picture.style.width = height * 1.65 + 'px';
-		let section = document.getElementsByTagName('section')[0];
-		section.style.minHeight = height + 'px';
 	}
 
 }
