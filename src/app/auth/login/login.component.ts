@@ -1,12 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/auth/_services/auth.service';
-import {catchError} from 'rxjs/operators';
-import {of, Observable} from 'rxjs';
-import { Store } from '@ngrx/store';
-import * as fromError from 'src/app/auth/_store/_reducers/error.reducer';
-import * as ErrorActions from 'src/app/auth/_store/_actions/error.actions';
-import { selectHasError, selectError } from '../_store/_selectors/error.selectors';
 
 @Component({
 	selector: 'app-login',
@@ -18,16 +12,10 @@ export class LoginComponent implements OnInit {
 	hide = true;
 	loading: boolean = false;
 
-	hasError: Observable<boolean>;
+	hasError: boolean;
 	errorMessage: string = '';
 
-	constructor(private fb: FormBuilder, private auth: AuthService, private store: Store<fromError.State>) {
-		this.hasError = store.select(selectHasError);
-		store.select(selectError).subscribe(error => {
-			if (error) {
-				this.errorMessage = error.error.detail;
-			}
-		})
+	constructor(private fb: FormBuilder, private auth: AuthService) {
 	}
 
 	ngOnInit() {
@@ -42,10 +30,18 @@ export class LoginComponent implements OnInit {
 		this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
 			.subscribe(
 				response => {
-					if (response) {
-						this.loading = false;
-					}
+					this.loading = false;
 				},
+				error => {
+					this.loading = false;
+					this.hasError = true;
+					console.log(error['error']['non_field_errors']);
+					if (error['error']['non_field_errors']) {
+						this.errorMessage = 'Kredenciale të gabuara!';
+					} else {
+						this.errorMessage = 'Problem me serverin!';
+					}
+				}
 			);
 	}
 

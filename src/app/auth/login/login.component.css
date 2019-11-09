@@ -34,6 +34,20 @@ section {
     box-shadow: #596187 3px 0 10px;
 }
 
+.login-error {
+    display: flex;
+    flex-direction: column;
+    background-color: #d64640;
+    color: white;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: gray 3px 0 10px;
+    border-radius: 3px;
+    transform: translateY(-15px);
+}
+
 form {
     display: flex;
     flex-direction: column;
