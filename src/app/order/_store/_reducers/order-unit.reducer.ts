@@ -1,21 +1,24 @@
 import {Action, createReducer, on} from '@ngrx/store';
-import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
+import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import * as OrderUnitActions from 'src/app/order/_store/_actions/order-unit.actions';
 
-export const orderUnitsFeatureKey = 'orderUnits';
+export const orderUnitsFeatureKey = 'order-units';
 
 export interface OrderUnitState extends EntityState<OrderUnit> {
+	fakeId: number;
 }
 
 export const adapter: EntityAdapter<OrderUnit> = createEntityAdapter<OrderUnit>();
 
-export const initialState: OrderUnitState = adapter.getInitialState({});
+export const initialState: OrderUnitState = adapter.getInitialState({
+	fakeId: 1,
+});
 
 const orderUnitReducer = createReducer(
 	initialState,
 	on(OrderUnitActions.addOrderUnit,
-		(state, action) => adapter.addOne(action.orderUnit, state)
+		(state, action) => adapter.addOne(action.orderUnit, {...state, fakeId: state.fakeId + 1})
 	),
 	on(OrderUnitActions.upsertOrderUnit,
 		(state, action) => adapter.upsertOne(action.orderUnit, state)

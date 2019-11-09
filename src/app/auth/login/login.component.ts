@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 		this.loading = true;
 		this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
 			.subscribe(
-				response => {
+				() => {
 					this.loading = false;
 				},
 				error => {

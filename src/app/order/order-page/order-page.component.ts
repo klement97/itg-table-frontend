@@ -10,8 +10,9 @@ import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer'
 import {addOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
 import * as fromTables from 'src/app/order/_store/_actions/table.actions';
 import {Observable, Subscription} from 'rxjs';
-import {selectAllTables} from 'src/app/order/_store/_reducers/table.reducer';
 import {selectTables} from 'src/app/order/_store/_selectors/table.selectors';
+import {FAKE_ID} from 'src/app/order/const';
+import {selectFakeId} from 'src/app/order/_store/_selectors/order-unit.selectors';
 
 @Component({
 	selector: 'app-order-page',
@@ -20,11 +21,12 @@ import {selectTables} from 'src/app/order/_store/_selectors/table.selectors';
 })
 export class OrderPageComponent implements OnInit, OnDestroy {
 	tables$: Observable<Table[]>;
-	fake_id = 1;
+	fakeId: number;
 	subs$ = new Subscription();
 
 	constructor(private orderService: OrderService, public dialog: MatDialog, private store: Store<OrderUnitState>) {
 		this.tables$ = store.select(selectTables);
+		store.select(selectFakeId).subscribe(fakeId => this.fakeId = fakeId);
 	}
 
 	ngOnInit() {
@@ -64,7 +66,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 		}).afterClosed().subscribe(result => {
 			if (result) {
 				const orderUnit: OrderUnit = {...result['order']};
-				orderUnit.id = this.fake_id++;
+				orderUnit.id = this.fakeId;
 				orderUnit.table = table;
 				this.store.dispatch(addOrderUnit({orderUnit}));
 			}
