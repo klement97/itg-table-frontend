@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
-import {clearOrderUnits, deleteOrderUnits} from 'src/app/order/_store/_actions/order-unit.actions';
+import {clearOrderUnits} from 'src/app/order/_store/_actions/order-unit.actions';
 
 const API = `${environment.apiHost}`;
 const TABLES_URL = `${API}/tables`;
