@@ -13,7 +13,7 @@ import {
 } from '@angular/material';
 import {OrderModule} from 'src/app/order/order.module';
 import {RouterModule} from '@angular/router';
-import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
+import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
 
 
 @NgModule({

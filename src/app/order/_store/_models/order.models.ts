@@ -15,11 +15,13 @@ export class Table {
 export class InnerColor {
 	id: number;
 	code: string;
+	hex_code: string;
 }
 
 export class OuterColor {
 	id: number;
 	code: string;
+	hex_code: string;
 }
 
 export class Order {

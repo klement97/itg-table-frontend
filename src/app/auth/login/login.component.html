@@ -9,25 +9,25 @@
 
 
     <div class="login-form">
-        <form [formGroup]="loginForm">
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
             <div class="login-error" *ngIf="hasError">
                 {{errorMessage}}
             </div>
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Emri i përdoruesit</mat-label>
-                <input matInput type="text" size="13px" formControlName="username">
+                <input matInput type="text" size="13px" formControlName="username" autofocus>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Fjalëkalim</mat-label>
                 <input matInput [type]="hide ? 'password' : 'text'" size="13px" formControlName="password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Fshihe fjalëkalimin'" [attr.aria-pressed]="hide">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Fshihe fjalëkalimin'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
 
 
-            <button [disabled]="loading" color="primary" mat-raised-button (click)="submit()">
+            <button type="submit" [disabled]="loading" color="primary" mat-raised-button>
                 Kyçu<span id="login_button" *ngIf="loading"></span></button>
         </form>
     </div>

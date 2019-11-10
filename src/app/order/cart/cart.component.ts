@@ -7,7 +7,6 @@ import {selectOrderCount, selectOrderUnits} from 'src/app/order/_store/_selector
 import {Update} from '@ngrx/entity';
 import {deleteOrderUnit, updateOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
 import {Router} from '@angular/router';
-import {take} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-cart',

@@ -1,13 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
-import {filter, map, share, withLatestFrom} from 'rxjs/operators';
+import {map, share} from 'rxjs/operators';
 import {MatDialog, MatSidenav} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
-import {AuthService} from 'src/app/auth/_services/auth.service';
-import {NavigationEnd, Router} from '@angular/router';
+import {AuthService} from 'src/app/auth/_store/_services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
 	selector: 'app-navigation',

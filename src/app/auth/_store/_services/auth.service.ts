@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from 'src/app/auth/user.model';
-import {catchError, map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 const API = `${environment.apiHost}`;

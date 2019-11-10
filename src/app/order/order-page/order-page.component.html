@@ -4,7 +4,7 @@
             <img src="{{table.image}}" alt="image" (click)="openPhoto(table.image)">
         </div>
         <div class="card-footer">
-            <button mat-icon-button (click)="openForm(table)"><mat-icon>add_shopping_cart</mat-icon></button>
+            <button mat-icon-button (click)="openForm(table)"><mat-icon style="color: #32870f">add_shopping_cart</mat-icon></button>
             <mat-chip-list>
                 <mat-chip selected color="primary">Kodi: {{table.code}}</mat-chip>
                 <mat-chip selected style="background-color: #32870f">Çmimi: ${{ table.price | number: '': 'en'}}</mat-chip>
