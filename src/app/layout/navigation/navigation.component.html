@@ -3,13 +3,14 @@
                  [mode]="'side'"
                  [opened]="false"
                  [attr.role]="'navigation'">
-        <mat-toolbar class="inside-toolbar">ITALGOLD
+        <mat-toolbar class="inside-toolbar">
+            ITALGOLD
             <button style="margin-left: 50px;"
                     type="button"
                     aria-label="Toggle sidenav"
                     mat-icon-button
                     (click)="drawer.toggle()">
-                <mat-icon aria-label="Side nav toggle icon">menu_open</mat-icon>
+                <mat-icon style="transform: rotateY(180deg)" aria-label="Side nav toggle icon">double_arrow</mat-icon>
             </button>
         </mat-toolbar>
         <mat-nav-list>
