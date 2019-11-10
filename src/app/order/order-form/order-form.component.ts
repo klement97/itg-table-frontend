@@ -7,7 +7,7 @@ import {InnerColor, Order, OuterColor} from 'src/app/order/_store/_models/order.
 import {Observable} from 'rxjs';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 
@@ -25,7 +25,7 @@ export class OrderFormComponent implements OnInit {
 	panelOpened: boolean = false;
 
 	constructor(private fb: FormBuilder, private store: Store<OrderUnitState>, private orderService: OrderService,
-							public dialog: MatDialog, private router: Router) {
+							public dialog: MatDialog, private router: Router, private snackbar: MatSnackBar) {
 		this.cart$ = this.store.select(selectOrderUnits);
 	}
 
@@ -69,7 +69,7 @@ export class OrderFormComponent implements OnInit {
 		return this.order;
 	}
 
-	openInvoice() {
+	openEmailSendDialog() {
 		const order = this.preparedData();
 		let to_emails: string[] = [];
 
@@ -86,7 +86,17 @@ export class OrderFormComponent implements OnInit {
 					for (let item of result['to_emails']) {
 						to_emails.push(item['email']);
 					}
-					this.orderService.sendOrderMail(to_emails, order).subscribe();
+					this.orderService.sendOrderMail(to_emails, order).subscribe(
+						() => {
+							this.snackbar.open('Email u dërgua me sukses!', 'OK', {
+								duration: 2500, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-success'
+							});
+						},
+						() => {
+							this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
+								duration: 3000, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-danger'
+							});
+						});
 				}
 			}
 		});
