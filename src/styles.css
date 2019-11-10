@@ -80,4 +80,12 @@ mat-dialog-container {
   color: white !important;
 }
 
+.padding-0 {
+  padding: 0 !important;
+}
+
+.padding-0 .mat-dialog-container {
+  padding: 0 !important;
+}
+
 /*# sourceMappingURL=styles.css.map */

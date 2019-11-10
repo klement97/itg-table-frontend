@@ -59,6 +59,8 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 
 	openForm(table: Table) {
 		this.dialog.open(TableFormComponent, {
+			maxHeight: '450px',
+			panelClass: 'padding-0',
 			data: {
 				'table': table
 			}

@@ -1,33 +1,37 @@
-<form [formGroup]="orderForm" novalidate>
+<form [formGroup]="orderForm">
     <mat-card class="shipping-card">
         <mat-card-header>
-            <mat-card-title>Informacione shtesë</mat-card-title>
+            <mat-card-title>Informacione shtesë për {{data['table'].code}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="row">
                 <div class="col">
-                    <h3>{{this.data['table'].code}}</h3>
+                    <img src="{{data['table'].image}}" width="100px" height="100px" alt="table">
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Sasia" formControlName="amount" type="number">
+                        <mat-label>Sasia</mat-label>
+                        <input matInput formControlName="amount" type="number">
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input type="number" matInput placeholder="Gjatësi" formControlName="height">
+                        <mat-label>Lartësi</mat-label>
+                        <input type="number" matInput formControlName="height">
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input type="number" matInput placeholder="Gjerësi" formControlName="width">
+                        <mat-label>Gjerësi</mat-label>
+                        <input type="number" matInput formControlName="width">
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input type="number" matInput placeholder="Lartësi" formControlName="depth">
+                        <mat-label>Gjatësi</mat-label>
+                        <input type="number" matInput formControlName="depth">
                     </mat-form-field>
                 </div>
             </div>
@@ -45,7 +49,9 @@
                 Shto
             </button>
             <button mat-raised-button type="button" (click)="dialogRef.close()">
-                <mat-icon>reply</mat-icon>Mbyll</button>
+                <mat-icon>reply</mat-icon>
+                Mbyll
+            </button>
         </mat-card-actions>
     </mat-card>
 </form>

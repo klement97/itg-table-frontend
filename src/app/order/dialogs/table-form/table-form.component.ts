@@ -10,11 +10,11 @@ import {Table} from 'src/app/order/_store/_models/order.models';
 })
 export class TableFormComponent {
 	orderForm = this.fb.group({
+		amount: [1],
 		height: [this.data['table'].height, Validators.required],
 		width: [this.data['table'].width, Validators.required],
 		depth: [this.data['table'].depth, Validators.required],
 		description: [''],
-		amount: [1],
 	});
 
 	constructor(private fb: FormBuilder,
