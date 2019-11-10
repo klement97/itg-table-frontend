@@ -88,4 +88,14 @@ mat-dialog-container {
   padding: 0 !important;
 }
 
+@media print {
+  body {
+    margin: 0 !important;
+  }
+
+  .mat-sidenav-container {
+    display: none !important;
+  }
+}
+
 /*# sourceMappingURL=styles.css.map */

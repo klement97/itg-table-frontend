@@ -1,19 +1,19 @@
 <div class="content" id="content">
     <form [formGroup]="orderForm" novalidate (ngSubmit)="onSubmit()">
         <mat-card class="shipping-card">
-            <div class="row full-width">
+            <div class="row full-width header-row">
                 <mat-card-header>
                     <mat-card-title>Përfundo porosinë</mat-card-title>
                 </mat-card-header>
                 <div class="col align-end">
                     <mat-card-actions class="align-end">
-                        <a routerLink="/order/tables">
-                            <button mat-raised-button>
+<!--                        <a>-->
+                            <button mat-stroked-button routerLink="/order/tables">
                                 <mat-icon>undo</mat-icon>
                                 Kthehu
                             </button>
-                        </a>
-                        <button mat-raised-button color="primary" type="submit">
+<!--                        </a>-->
+                        <button mat-stroked-button color="primary" type="submit">
                             <mat-icon>save</mat-icon>
                             Ruaje
                         </button>
@@ -60,7 +60,7 @@
         <div class="card" *ngFor="let unit of cart$ | async">
             <div class="card-image">
                 <img src="{{unit.table.image}}" alt="image">
-                <div class="card-info">Përmasat e zgjedhura: {{unit.width | number: '2.0'}} x {{unit.height | number: '2.0'}} x {{unit.depth}}</div>
+                <div class="card-info">Përmasat e zgjedhura: {{unit.width | number: '2.0'}} x {{unit.height}} x {{unit.depth | number: '2.0'}}</div>
             </div>
             <div class="card-footer">
                 <mat-chip-list>
