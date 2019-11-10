@@ -32,7 +32,6 @@ export class OrderListComponent implements OnInit {
 			this.loading = false;
 			this.count = response['count'];
 			this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-			catchError(err => of(console.log('error: ', err)));
 		});
 	}
 
@@ -53,6 +52,14 @@ export class OrderListComponent implements OnInit {
 			}
 		};
 		this.dialog.open(OrderDetailDialogComponent, config);
+	}
+
+	changePage() {
+		this.orderService.getOrderList(this.paginator.pageIndex + 1).subscribe(
+			response => {
+				this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+			}
+		);
 	}
 
 }

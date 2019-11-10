@@ -20,7 +20,7 @@ import {
 	MatChipsModule, MatExpansionModule,
 	MatFormFieldModule,
 	MatIconModule,
-	MatInputModule, MatProgressBarModule,
+	MatInputModule, MatPaginatorModule, MatProgressBarModule,
 	MatSelectModule, MatTableModule
 } from '@angular/material';
 import {OrderRoutingModule} from 'src/app/order/order-routing.module';
@@ -62,6 +62,7 @@ import { OrderDetailDialogComponent } from './dialogs/order-detail-dialog/order-
 		MatTableModule,
 		CdkTableModule,
 		MatExpansionModule,
+		MatPaginatorModule,
 	],
 	entryComponents: [
 		TableDetailComponent,
