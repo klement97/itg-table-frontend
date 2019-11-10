@@ -39,11 +39,11 @@ export class SendOrderEmailDialogComponent implements OnInit {
 	}
 
 	removeEmail(index: number) {
-
+		this.emails.controls.splice(index, 1);
 	}
 
 	onYesClick() {
-		this.dialogRef.close();
+		this.dialogRef.close({'to_emails': this.toEmailsForm.value.to_emails});
 	}
 
 	onNoClick() {

@@ -1,12 +1,17 @@
-<!--<form [formGroup]="toEmailsForm">-->
-    <div formArrayName="to_emails">
-        <div *ngFor="let email of toEmailsForm.get('to_emails')['controls']; let i = index; ">
+<form [formGroup]="toEmailsForm">
+    <button mat-stroked-button color="primary" (click)="addEmail()">+ Shto</button>
+    <div formArrayName="to_emails" *ngFor="let email of emails.controls; let i = index; ">
+        <div [formGroupName]="i">
             <mat-form-field>
                 <label>
                     * Email:
-                    <input type="email" matInput formControlName="i">
+                    <input type="email" matInput formControlName="email">
+                    <button mat-stroked-button color="warn" (click)="removeEmail(i)">- Hiqe</button>
                 </label>
             </mat-form-field>
         </div>
     </div>
-<!--</form>-->
+</form>
+
+<button mat-raised-button color="primary" (click)="onYesClick()">Dergoje</button>
+<button mat-stroked-button (click)="onNoClick()">Anulloje</button>

@@ -71,7 +71,7 @@ export class OrderFormComponent implements OnInit {
 
 	openInvoice() {
 		const order = this.preparedData();
-		let to_emails: string[];
+		let to_emails: string[] = [];
 
 		const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
 			width: '30%',
@@ -82,7 +82,10 @@ export class OrderFormComponent implements OnInit {
 		dialogRef$.afterClosed().subscribe(result => {
 			if (result) {
 				if (result['to_emails']) {
-					this.orderService.sendOrderMail(result['to_emails'], order);
+					for (let item of result['to_emails']) {
+						to_emails.push(item['email']);
+					}
+					this.orderService.sendOrderMail(to_emails, order).subscribe();
 				}
 			}
 		});
