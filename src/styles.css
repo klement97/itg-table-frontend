@@ -1,47 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 body {
-  font-family: Poppings sans-serif;
-  color: #52597c;
-  margin: 0;
-  padding: 0;
+    font-family: Poppings sans-serif;
+    color: #52597c;
+    margin: 0;
+    padding: 0;
 }
 
 .row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .btn-success {
-  background-color: #13a84a;
-  color: white;
+    background-color: #13a84a;
+    color: white;
 }
 
 .btn-danger {
-  background-color: #971f00;
-  color: white;
+    background-color: #971f00;
+    color: white;
 }
 
 .btn-warning {
-  background-color: #b2802a;
-  color: white;
+    background-color: #b2802a;
+    color: white;
 }
 
 .data-table {
-  font-size: 13px;
+    font-size: 13px;
 }
+
 .data-table tr td {
-  padding-right: 20px;
-  color: #646c9a;
-  font-family: Poppings, sans-serif;
+    padding-right: 20px;
+    color: #646c9a;
+    font-family: Poppings, sans-serif;
 }
+
 .data-table td:last-child {
-  padding: 0 !important;
+    padding: 0 !important;
 }
 
 mat-dialog-container {
-  border-radius: 2px !important;
+    border-radius: 2px !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

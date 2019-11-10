@@ -1,17 +1,28 @@
 <form [formGroup]="toEmailsForm">
-    <button mat-stroked-button color="primary" (click)="addEmail()">+ Shto</button>
-    <div formArrayName="to_emails" *ngFor="let email of emails.controls; let i = index; ">
+    <button mat-stroked-button class="" (click)="addEmail()" style="transform: translateY(-10px)">
+        <mat-icon>add</mat-icon>
+    </button>
+    <div formArrayName="to_emails" *ngFor="let email of emails.controls; let i = index;">
         <div [formGroupName]="i">
-            <mat-form-field>
-                <label>
-                    * Email:
+            <div class="row">
+                <mat-form-field style="width: 80%">
+                    <mat-label>e-mail</mat-label>
                     <input type="email" matInput formControlName="email">
-                    <button mat-stroked-button color="warn" (click)="removeEmail(i)">- Hiqe</button>
-                </label>
-            </mat-form-field>
+                    <mat-error *ngIf="toEmailsForm.controls.to_emails['controls'][i].controls.email.invalid">Vendosni nje e-mail të saktë</mat-error>
+                </mat-form-field>
+                <button class="form-array-remove-button" mat-icon-button mat-stroked-button color="warn" [disabled]="emails.length == 1" (click)="removeEmail(i)">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
 </form>
 
-<button mat-raised-button color="primary" (click)="onYesClick()">Dergoje</button>
-<button mat-stroked-button (click)="onNoClick()">Anulloje</button>
+<button mat-raised-button color="primary" (click)="onYesClick()">
+    <mat-icon>send</mat-icon>
+    Dergoje
+</button>&nbsp;
+<button mat-stroked-button (click)="onNoClick()">
+    <mat-icon>cancel</mat-icon>
+    Anulloje
+</button>

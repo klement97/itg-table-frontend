@@ -26,7 +26,7 @@ export class SendOrderEmailDialogComponent implements OnInit {
 
 	createEmail(): FormGroup {
 		return this.fb.group({
-			email: ['', Validators.required]
+			email: ['', [Validators.required, Validators.email]]
 		});
 	}
 
@@ -43,7 +43,9 @@ export class SendOrderEmailDialogComponent implements OnInit {
 	}
 
 	onYesClick() {
-		this.dialogRef.close({'to_emails': this.toEmailsForm.value.to_emails});
+		if (this.toEmailsForm.valid) {
+			this.dialogRef.close({'to_emails': this.toEmailsForm.value.to_emails});
+		}
 	}
 
 	onNoClick() {

@@ -76,6 +76,7 @@ export class OrderFormComponent implements OnInit {
 		const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
 			width: '30%',
 			minWidth: '300px',
+			maxHeight: '450px',
 			data: {'order': order}
 		});
 
