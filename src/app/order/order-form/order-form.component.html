@@ -27,24 +27,29 @@
             <mat-card-content>
                 <div class="row">
                     <div class="col">
-                        <mat-form-field class="full-width">
-                            <input type="text" matInput placeholder="Klienti" formControlName="customer">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Klienti</mat-label>
+                            <input type="text" matInput formControlName="customer">
+                            <mat-hint>Emri i plotë i klientit</mat-hint>
+                            <mat-error>Klienti duhet plotësuar</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col">
-                        <mat-form-field class="full-width">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Ngjyra brëndshme</mat-label>
                             <mat-select formControlName="inner_color" id="inner_color">
-                                <mat-option [value]="0">Ngjyra e brëndshme</mat-option>
-                                <mat-option *ngFor="let color of innerColors" [value]="color.id">{{color.code}}</mat-option>
+                                <mat-option [style.background-color]="color.hex_code" *ngFor="let color of innerColors" [value]="color.id">{{color.code}}</mat-option>
                             </mat-select>
+                            <mat-error>Ngjyra duhet plotësuar</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col">
-                        <mat-form-field class="full-width">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Ngjyra jashtme</mat-label>
                             <mat-select formControlName="outer_color" id="outer_color">
-                                <mat-option [value]="0">Ngjyra e jashtme</mat-option>
-                                <mat-option *ngFor="let color of outerColors" [value]="color.id">{{color.code}}</mat-option>
+                                <mat-option [style.background-color]="color.hex_code" *ngFor="let color of outerColors" [value]="color.id">{{color.code}}</mat-option>
                             </mat-select>
+                            <mat-error>Ngjyra duhet plotësuar</mat-error>
                         </mat-form-field>
                     </div>
                 </div>

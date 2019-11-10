@@ -46,21 +46,21 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 	initForm() {
 		this.orderForm = this.fb.group({
 			customer: ['', Validators.required],
-			outer_color: [0, Validators.required],
-			inner_color: [0, Validators.required],
+			outer_color: [null, Validators.required],
+			inner_color: [null, Validators.required],
 		});
 	}
 
 	onSubmit() {
-		if (this.orderCount > 0) {
+		if (this.orderCount === 0) {
+			this.cartEmptySnack();
+		} else if (this.orderForm.invalid) {
+			this.formInvalidSnack();
+		} else {
 			this.orderService.createOrder(this.preparedData()).subscribe(
 				response => this.router.navigate(['/order/list'])
 				// todo: make order list add one action here
 			);
-		} else {
-			this.snackbar.open('Asnje produkt në shport!', '', {
-				verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-warning', duration: 1300
-			});
 		}
 	}
 
@@ -84,7 +84,11 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 		const order = this.preparedData();
 		let to_emails: string[] = [];
 
-		if (this.orderCount > 0) {
+		if (this.orderCount === 0) {
+			this.cartEmptySnack();
+		} else if (this.orderForm.invalid) {
+			this.formInvalidSnack();
+		} else {
 			const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
 				width: '30%',
 				minWidth: '300px',
@@ -112,11 +116,19 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 					}
 				}
 			});
-		} else {
-			this.snackbar.open('Asnje produkt në shport!', '', {
-				verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-warning', duration: 1300
-			});
 		}
+	}
+
+	cartEmptySnack() {
+		this.snackbar.open('Asnje produkt në shport!', '', {
+			verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-warning', duration: 1300
+		});
+	}
+
+	formInvalidSnack() {
+		this.snackbar.open('Forma nuk eshte valide!', '', {
+			verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-danger', duration: 1300
+		});
 	}
 
 
