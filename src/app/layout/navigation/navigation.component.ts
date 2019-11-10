@@ -6,7 +6,7 @@ import {MatDialog, MatSidenav} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
-import {AuthService} from 'src/app/auth/_services/auth.service';
+import {AuthService} from 'src/app/auth/_store/_services/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
