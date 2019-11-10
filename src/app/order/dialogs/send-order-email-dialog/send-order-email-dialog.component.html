@@ -10,8 +10,8 @@
                     <input type="email" matInput formControlName="email">
                     <mat-error *ngIf="toEmailsForm.controls.to_emails['controls'][i].controls.email.invalid">Vendosni nje e-mail të saktë</mat-error>
                 </mat-form-field>
-                <button class="form-array-remove-button" mat-icon-button mat-stroked-button color="warn" [disabled]="emails.length == 1" (click)="removeEmail(i)">
-                    <mat-icon>remove</mat-icon>
+                <button class="form-array-remove-button" mat-icon-button color="warn" [disabled]="emails.length == 1" (click)="removeEmail(i)">
+                    <mat-icon>cancel</mat-icon>
                 </button>
             </div>
         </div>
