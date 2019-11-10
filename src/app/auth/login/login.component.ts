@@ -33,16 +33,23 @@ export class LoginComponent implements OnInit {
 					this.loading = false;
 				},
 				error => {
+					this.checkForCache();
 					this.loading = false;
 					this.hasError = true;
-					console.log(error['error']['non_field_errors']);
 					if (error['error']['non_field_errors']) {
 						this.errorMessage = 'Kredenciale të gabuara!';
-					} else {
-						this.errorMessage = 'Problem me serverin!';
 					}
 				}
 			);
+	}
+
+	checkForCache() {
+		if (localStorage.user) {
+			localStorage.clear();
+			this.errorMessage = 'Problem me serverin!\nProvojeni përsëri!';
+		} else {
+			this.errorMessage = 'Problem me serverin!';
+		}
 	}
 
 }
