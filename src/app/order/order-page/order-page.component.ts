@@ -51,6 +51,8 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 
 	openPhoto(path: string) {
 		this.dialog.open(ImageDetailComponent, {
+			maxHeight: '95vh',
+			panelClass: 'padding-0',
 			data: {
 				'path': path
 			}
