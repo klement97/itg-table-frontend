@@ -35,7 +35,7 @@ export class OrderFormComponent implements OnInit {
 			this.outerColors = res['outer_colors'];
 		});
 		this.initForm();
-		this.orderService.sendOrderMail('klementomeri97@gmail.com', this.preparedData()).subscribe();
+		// this.orderService.sendOrderMail('klementomeri97@gmail.com', this.preparedData()).subscribe();
 	}
 
 	initForm() {
@@ -60,6 +60,8 @@ export class OrderFormComponent implements OnInit {
 			for (let unit of units) {
 				let orderUnit = new OrderUnit();
 				orderUnit = {...unit};
+				// changing orderUnit table attribute from table object to table's id here
+				// to be able to send it to WriteSerializer
 				orderUnit.table = unit.table.id;
 				this.order.order_units.push(orderUnit);
 			}
