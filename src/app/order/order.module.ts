@@ -17,18 +17,23 @@ import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 import {
 	MatButtonModule,
 	MatCardModule,
-	MatChipsModule, MatExpansionModule,
+	MatChipsModule,
+	MatExpansionModule,
 	MatFormFieldModule,
 	MatIconModule,
-	MatInputModule, MatPaginatorModule, MatProgressBarModule,
-	MatSelectModule, MatTableModule
+	MatInputModule,
+	MatPaginatorModule,
+	MatProgressBarModule,
+	MatSelectModule,
+	MatTableModule
 } from '@angular/material';
 import {OrderRoutingModule} from 'src/app/order/order-routing.module';
-import { OrderListComponent } from './order-list/order-list.component';
+import {OrderListComponent} from './order-list/order-list.component';
 import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import {ordersFeatureKey} from 'src/app/order/_store/_reducers/order.reducer';
 import {CdkTableModule} from '@angular/cdk/table';
-import { OrderDetailDialogComponent } from './dialogs/order-detail-dialog/order-detail-dialog.component';
+import {OrderDetailDialogComponent} from './dialogs/order-detail-dialog/order-detail-dialog.component';
+import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/send-order-email-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -41,6 +46,7 @@ import { OrderDetailDialogComponent } from './dialogs/order-detail-dialog/order-
 		InvoiceComponent,
 		OrderListComponent,
 		OrderDetailDialogComponent,
+		SendOrderEmailDialogComponent,
 	],
 	imports: [
 		StoreModule.forFeature(orderUnitsFeatureKey, fromUnits.reducer),
@@ -70,7 +76,8 @@ import { OrderDetailDialogComponent } from './dialogs/order-detail-dialog/order-
 		TableFormComponent,
 		CartComponent,
 		InvoiceComponent,
-		OrderDetailDialogComponent
+		OrderDetailDialogComponent,
+		SendOrderEmailDialogComponent,
 	],
 	exports: [
 		OrderPageComponent,

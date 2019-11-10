@@ -45,7 +45,7 @@ export class OrderService {
 		return this.http.get(`${ORDERS_URL}/?page=${page}`);
 	}
 
-	sendOrderMail(to: string, order: Order) {
-		return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {'to_email': to, 'order': order});
+	sendOrderMail(to_emails: string[], order: Order) {
+		return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails, order});
 	}
 }

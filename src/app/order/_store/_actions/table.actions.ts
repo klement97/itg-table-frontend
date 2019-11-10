@@ -1,7 +1,7 @@
-import { createAction, props } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
+import {createAction, props} from '@ngrx/store';
+import {Update} from '@ngrx/entity';
 
-import { Table } from 'src/app/order/_store/_models/table.model';
+import {Table} from 'src/app/order/_store/_models/table.model';
 
 export const loadTables = createAction(
   '[Table/API] Load Tables', 

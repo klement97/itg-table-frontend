@@ -1,0 +1,12 @@
+<!--<form [formGroup]="toEmailsForm">-->
+    <div formArrayName="to_emails">
+        <div *ngFor="let email of toEmailsForm.get('to_emails')['controls']; let i = index; ">
+            <mat-form-field>
+                <label>
+                    * Email:
+                    <input type="email" matInput formControlName="i">
+                </label>
+            </mat-form-field>
+        </div>
+    </div>
+<!--</form>-->

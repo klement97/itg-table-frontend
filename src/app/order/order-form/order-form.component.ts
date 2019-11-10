@@ -8,8 +8,8 @@ import {Observable} from 'rxjs';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {MatDialog} from '@angular/material';
-import {InvoiceComponent} from 'src/app/order/dialogs/invoice/invoice.component';
 import {Router} from '@angular/router';
+import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 
 @Component({
 	selector: 'app-order-form',
@@ -70,9 +70,20 @@ export class OrderFormComponent implements OnInit {
 	}
 
 	openInvoice() {
-		this.dialog.open(InvoiceComponent, {
-			data: {
-				'order': this.preparedData()
+		const order = this.preparedData();
+		let to_emails: string[];
+
+		const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
+			width: '30%',
+			minWidth: '300px',
+			data: {'order': order}
+		});
+
+		dialogRef$.afterClosed().subscribe(result => {
+			if (result) {
+				if (result['to_emails']) {
+					this.orderService.sendOrderMail(result['to_emails'], order);
+				}
 			}
 		});
 	}

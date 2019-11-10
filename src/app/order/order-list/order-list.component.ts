@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {OrderService} from 'src/app/order/_store/_services/order.service';
-import {catchError} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import * as OrderActions from 'src/app/order/_store/_actions/order.actions';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {MatDialog, MatDialogConfig, MatPaginator} from '@angular/material';
 import {Order} from 'src/app/order/_store/_models/order.models';
 import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';

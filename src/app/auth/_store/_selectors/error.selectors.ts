@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromError from 'src/app/auth/_store/_reducers/error.reducer';
 
 export const selectErrorState = createFeatureSelector<fromError.State>(fromError.errorFeatureKey);

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TableDetailComponent } from './table-detail.component';
+import {TableDetailComponent} from './table-detail.component';
 
 describe('TableDetailComponent', () => {
   let component: TableDetailComponent;

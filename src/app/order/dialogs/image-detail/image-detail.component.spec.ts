@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ImageDetailComponent } from 'src/app/order/dialogs/image-detail/image-detail.component';
+import {ImageDetailComponent} from 'src/app/order/dialogs/image-detail/image-detail.component';
 
 describe('ImageDetailComponent', () => {
   let component: ImageDetailComponent;
