@@ -103,3 +103,13 @@
     word-break: break-word;
 }
 
+@media print {
+    .header-row {
+        display: none;
+    }
+
+    .card {
+        height: 300px;
+    }
+}
+
