@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
 					this.loading = false;
 				},
 				error => {
-					this.checkForCache();
+					if (this.checkForCache()) {
+						this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).subscribe();
+					}
 					this.loading = false;
 					this.hasError = true;
 					if (error['error']['non_field_errors']) {
@@ -43,10 +45,15 @@ export class LoginComponent implements OnInit {
 			);
 	}
 
+	hasTokenExpired() {
+
+	}
+
 	checkForCache() {
 		if (localStorage.user) {
 			localStorage.clear();
-			this.errorMessage = 'Problem me serverin!\nProvojeni përsëri!';
+			this.errorMessage = 'Problem me serverin!\n Po kryhet ri-autentikimi automatik...';
+			return true;
 		} else {
 			this.errorMessage = 'Problem me serverin!';
 		}

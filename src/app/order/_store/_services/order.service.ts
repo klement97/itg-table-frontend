@@ -8,11 +8,13 @@ import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {clearOrderUnits} from 'src/app/order/_store/_actions/order-unit.actions';
+import {buildQueryString} from 'src/app/order/const';
 
 const API = `${environment.apiHost}`;
 const TABLES_URL = `${API}/tables`;
 const COLORS_URL = `${API}/colors`;
 const ORDERS_URL = `${API}/orders`;
+const ORDER_FILTER_URL = `${ORDERS_URL}/filter`;
 const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
 
 @Injectable({
@@ -41,8 +43,12 @@ export class OrderService {
 		);
 	}
 
-	getOrderList(page: number) {
-		return this.http.get(`${ORDERS_URL}/?page=${page}`);
+	getOrderList(page: number, ordering?: string, filter?) {
+		return this.http.get(`${ORDERS_URL}${buildQueryString(page, ordering, null, filter)}`);
+	}
+
+	filterOrderList(filter) {
+		return this.http.post(`${ORDER_FILTER_URL}/`, filter);
 	}
 
 	sendOrderMail(to_emails: string[], order: Order) {

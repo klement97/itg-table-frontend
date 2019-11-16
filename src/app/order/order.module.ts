@@ -24,7 +24,7 @@ import {
 	MatInputModule,
 	MatPaginatorModule,
 	MatProgressBarModule,
-	MatSelectModule,
+	MatSelectModule, MatSortModule,
 	MatTableModule
 } from '@angular/material';
 import {OrderRoutingModule} from 'src/app/order/order-routing.module';
@@ -69,6 +69,7 @@ import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/s
 		CdkTableModule,
 		MatExpansionModule,
 		MatPaginatorModule,
+		MatSortModule,
 	],
 	entryComponents: [
 		TableDetailComponent,
