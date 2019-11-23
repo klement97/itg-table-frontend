@@ -34,8 +34,6 @@ body {
 }
 .data-table tr td {
   padding-right: 20px;
-  color: #646c9a;
-  font-family: Poppings, sans-serif;
 }
 .data-table td:last-child {
   padding: 0 !important;

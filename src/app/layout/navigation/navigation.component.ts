@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-  cartCount$: Observable<number>;
+  cartCount: number;
   @ViewChild('drawer', {static: true}) drawer: MatSidenav;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -25,8 +25,8 @@ export class NavigationComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
-              private auth: AuthService, private router: Router, private snackbar: MatSnackBar) {
-    this.cartCount$ = store.select(selectOrderCount);
+              private auth: AuthService, private router: Router) {
+    store.select(selectOrderCount).subscribe(count => this.cartCount = count);
     router.events.subscribe(_ => this.drawer.close());
   }
 

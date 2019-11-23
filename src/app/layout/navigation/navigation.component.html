@@ -38,8 +38,8 @@
 
         <!-- CART -->
         <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon *ngIf="!(cartCount$ | async)">shopping_cart</mat-icon>
-          <mat-icon *ngIf="cartCount$ | async as count" matBadge="{{count}}">shopping_cart</mat-icon>
+          <mat-icon *ngIf="cartCount == 0">shopping_cart</mat-icon>
+          <mat-icon *ngIf="cartCount > 0" matBadge="{{cartCount}}">shopping_cart</mat-icon>
         </button>
         <mat-menu #menu="matMenu" class="mat-cart-panel">
           <app-cart></app-cart>

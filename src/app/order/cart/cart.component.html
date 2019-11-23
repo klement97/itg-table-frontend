@@ -13,12 +13,12 @@
             <span style="margin-bottom: 10px">Kodi: <span style="padding: 3px ;border-radius: 3px; background-color: #004e92; color: white">{{unit.table.code}}</span></span>
             <span style="margin-bottom: 10px">Çmimi: <span style="padding: 3px ;border-radius: 3px; background-color: #004e92; color: white">${{unit.table.price | number: '2.1'}}</span></span>
             <div class="buttons">
-                <button mat-icon-button (click)="remove($event, unit)">
-                    <mat-icon style="border-radius: 3px; border: 0.5px solid #949d95">exposure_neg_1</mat-icon>
+                <button [disabled]="unit.amount == 1" mat-icon-button (click)="remove($event, unit)">
+                    <mat-icon style="border-radius: 3px; border: 0.5px solid #949d95">remove</mat-icon>
                 </button>
                 <mat-chip selected style="border-radius: 7px; background-color: #429d42; color: white; ">{{unit.amount}}</mat-chip>
                 <button mat-icon-button (click)="add($event, unit)">
-                    <mat-icon style="border-radius: 3px; border: 0.5px solid #949d95">plus_one</mat-icon>
+                    <mat-icon style="border-radius: 3px; border: 0.5px solid #949d95">add</mat-icon>
                 </button>
                 <button mat-icon-button (click)="removeUnit($event, unit.id)">
                     <mat-icon>delete</mat-icon>

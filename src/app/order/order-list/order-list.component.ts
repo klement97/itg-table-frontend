@@ -8,79 +8,83 @@ import {MatDialog, MatDialogConfig, MatPaginator, Sort} from '@angular/material'
 import {Order} from 'src/app/order/_store/_models/order.models';
 import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';
 import {OrderDetailDialogComponent} from 'src/app/order/dialogs/order-detail-dialog/order-detail-dialog.component';
+import {Router} from '@angular/router';
+import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
 
 @Component({
-	selector: 'app-order-list',
-	templateUrl: './order-list.component.html',
-	styleUrls: ['./order-list.component.css']
+  selector: 'app-order-list',
+  templateUrl: './order-list.component.html',
+  styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
-	@ViewChild('paginator', {static: true}) paginator: MatPaginator;
-	count: number = 0;
-	displayedColumns: string[] = ['customer', 'date_created', 'total_price', 'total_table_count', 'actions'];
-	loading: boolean = true;
+  @ViewChild('paginator', {static: true}) paginator: MatPaginator;
+  count: number = 0;
+  displayedColumns: string[] = ['customer', 'date_created', 'total_price', 'total_table_count', 'actions'];
+  loading: boolean = true;
 
-	orders$: Observable<Order[]>;
+  orders$: Observable<Order[]>;
 
-	constructor(private orderService: OrderService, private store: Store<fromOrder.State>, private dialog: MatDialog) {
-		this.orders$ = store.select(selectOrderList);
-	}
+  constructor(private orderService: OrderService, private store: Store<fromOrder.State>, private dialog: MatDialog,
+              private router: Router) {
+    this.orders$ = store.select(selectOrderList);
+  }
 
-	ngOnInit() {
-		this.getOrders(null);
-	}
+  ngOnInit() {
+    this.getOrders(null);
+  }
 
-	getOrders(ordering) {
-		const filter = {};
-		filter['order'] = ordering;
-		filter['customer'] = '%';
-		filter['date_from'] = '';
-		filter['date_where'] = '';
+  getOrders(ordering) {
+    const filter = {};
+    filter['order'] = ordering;
+    filter['customer'] = '%';
+    filter['date_from'] = '';
+    filter['date_where'] = '';
 
-		// this.orderService.filterOrderList(filter).subscribe(response => {
-		// 	this.loading = false;
-		// 	this.count = response['count'];
-		// 	this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-		// });
-		this.orderService.getOrderList(this.paginator.pageIndex + 1, '', null).subscribe(response => {
-			this.loading = false;
-			this.count = response['count'];
-			this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-		});
-	}
+    // this.orderService.filterOrderList(filter).subscribe(response => {
+    // 	this.loading = false;
+    // 	this.count = response['count'];
+    // 	this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+    // });
+    this.orderService.getOrderList(this.paginator.pageIndex + 1, '', null).subscribe(response => {
+      this.loading = false;
+      this.count = response['count'];
+      this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+    });
+  }
 
-	updateOrder(order: Order) {
-		console.log('updating order: ', order);
-	}
+  deleteOrder(id: number) {
+    console.log('deleting order: ', id);
+  }
 
-	deleteOrder(id: number) {
-		console.log('deleting order: ', id);
-	}
+  showDetails(order) {
+    const config: MatDialogConfig = {
+      width: '25%',
+      minWidth: '300px',
+      data: {
+        'order': order
+      }
+    };
+    this.dialog.open(OrderDetailDialogComponent, config);
+  }
 
-	showDetails(order) {
-		const config: MatDialogConfig = {
-			width: '25%',
-			minWidth: '300px',
-			data: {
-				'order': order
-			}
-		};
-		this.dialog.open(OrderDetailDialogComponent, config);
-	}
+  updateOrder(id) {
+    this.store.dispatch(clearOrderUnits());
+    this.router.navigate([`/order/form/${id}`]);
+  }
 
-	changeSort(event: Sort) {
-		const field = event.active;
-		const direction = '' ? event.direction === 'asc' : '-';
-		const ordering = `${direction}${field}`;
-		this.getOrders(ordering);
-	}
+  changeSort(event: Sort) {
+    const field = event.active;
+    const direction = '' ? event.direction === 'asc' : '-';
+    const ordering = `${direction}${field}`;
+    this.getOrders(ordering);
+  }
 
-	changePage() {
-		this.orderService.getOrderList(this.paginator.pageIndex + 1).subscribe(
-			response => {
-				this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-			}
-		);
-	}
+  changePage() {
+    this.orderService.getOrderList(this.paginator.pageIndex + 1).subscribe(
+      response => {
+        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+      }
+    );
+  }
 
 }
