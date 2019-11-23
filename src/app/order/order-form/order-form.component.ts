@@ -10,7 +10,6 @@ import {selectOrderCount, selectOrderUnits} from 'src/app/order/_store/_selector
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
-import {selectAllOrderEntities} from '../_store/_reducers/order.reducer';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {loadOrderUnits} from '../_store/_actions/order-unit.actions';
 import {addOrderForUpdate} from '../_store/_actions/order.actions';

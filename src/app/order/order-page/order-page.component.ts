@@ -9,13 +9,13 @@ import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {addOrderUnit, loadOrderUnits} from 'src/app/order/_store/_actions/order-unit.actions';
 import * as fromTables from 'src/app/order/_store/_actions/table.actions';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {selectTables} from 'src/app/order/_store/_selectors/table.selectors';
 import {selectFakeId} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {ActivatedRoute} from '@angular/router';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {takeUntil} from 'rxjs/operators';
-import {addOrder, addOrderForUpdate} from '../_store/_actions/order.actions';
+import {addOrderForUpdate} from '../_store/_actions/order.actions';
 
 @Component({
   selector: 'app-order-page',
