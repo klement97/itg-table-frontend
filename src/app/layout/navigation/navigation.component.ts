@@ -10,27 +10,28 @@ import {AuthService} from 'src/app/auth/_store/_services/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
-	selector: 'app-navigation',
-	templateUrl: './navigation.component.html',
-	styleUrls: ['./navigation.component.scss']
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-	cartCount$: Observable<number>;
-	@ViewChild('drawer', {static: true}) drawer: MatSidenav;
+  cartCount: number;
+  @ViewChild('drawer', {static: true}) drawer: MatSidenav;
 
-	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-		.pipe(
-			map(result => result.matches),
-			share()
-		);
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      share()
+    );
 
-	constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
-							private auth: AuthService, private router: Router) {
-		this.cartCount$ = store.select(selectOrderCount);
-		router.events.subscribe(_ => this.drawer.close());
-	}
+  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
+              private auth: AuthService, private router: Router) {
+    store.select(selectOrderCount).subscribe(count => this.cartCount = count);
+    router.events.subscribe(_ => this.drawer.close());
+  }
 
-	logout() {
-		this.auth.logout().subscribe();
-	}
+
+  logout() {
+    this.auth.logout().subscribe();
+  }
 }

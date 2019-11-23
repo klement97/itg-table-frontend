@@ -15,17 +15,18 @@ import * as fromTables from 'src/app/order/_store/_reducers/table.reducer';
 import {tablesFeatureKey} from 'src/app/order/_store/_reducers/table.reducer';
 import {InvoiceComponent} from './dialogs/invoice/invoice.component';
 import {
-	MatButtonModule,
-	MatCardModule,
-	MatChipsModule,
-	MatExpansionModule,
-	MatFormFieldModule,
-	MatIconModule,
-	MatInputModule,
-	MatPaginatorModule,
-	MatProgressBarModule,
-	MatSelectModule,
-	MatTableModule
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatSelectModule,
+  MatSortModule,
+  MatTableModule
 } from '@angular/material';
 import {OrderRoutingModule} from 'src/app/order/order-routing.module';
 import {OrderListComponent} from './order-list/order-list.component';
@@ -69,6 +70,7 @@ import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/s
 		CdkTableModule,
 		MatExpansionModule,
 		MatPaginatorModule,
+		MatSortModule,
 	],
 	entryComponents: [
 		TableDetailComponent,

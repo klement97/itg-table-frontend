@@ -1,10 +1,7 @@
-export function buildQueryString(sort: string = '', sort_direction: string = '', page: number = 0, page_size: number = 10, filter: any): string {
+export function buildQueryString(page: number = 0, ordering: string = '', page_size: number = 10, filter: any): string {
 	const queryString = [];
-	if (sort) {
-		queryString.push(`sort=${sort}`);
-	}
-	if (sort_direction) {
-		queryString.push(`sort_direction=${sort_direction}`);
+	if (ordering) {
+		queryString.push(`ordering=${ordering}`);
 	}
 	if (page) {
 		queryString.push(`page=${page}`);

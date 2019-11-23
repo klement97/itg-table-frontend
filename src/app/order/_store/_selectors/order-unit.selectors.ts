@@ -1,10 +1,10 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {
-	orderUnitsFeatureKey,
-	OrderUnitState,
-	selectAllOrderUnits,
-	selectCountOrderUnits,
-	selectIdsOrderUnit
+  orderUnitsFeatureKey,
+  OrderUnitState,
+  selectAllOrderUnits,
+  selectCountOrderUnits,
+  selectIdsOrderUnit
 } from 'src/app/order/_store/_reducers/order-unit.reducer';
 
 export const selectOrderUnitState = createFeatureSelector<OrderUnitState>(orderUnitsFeatureKey);

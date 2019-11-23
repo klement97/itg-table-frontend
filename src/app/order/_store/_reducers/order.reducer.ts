@@ -6,19 +6,24 @@ import * as OrderActions from 'src/app/order/_store/_actions/order.actions';
 export const ordersFeatureKey = 'orders';
 
 export interface State extends EntityState<Order> {
-  // additional entities state properties
+  update: boolean;
+  updateOrderId: number;
 }
 
 export const adapter: EntityAdapter<Order> = createEntityAdapter<Order>();
 
 export const initialState: State = adapter.getInitialState({
-  // additional entity state properties
+  update: false,
+  updateOrderId: null,
 });
 
 const orderReducer = createReducer(
   initialState,
   on(OrderActions.addOrder,
-    (state, action) => adapter.addOne(action.order, state)
+    (state, action) => adapter.addOne(action.order, {...state, update: false, updateOrderId: null})
+  ),
+  on(OrderActions.addOrderForUpdate,
+    (state, action) => adapter.addOne(action.order, {...state, update: true, updateOrderId: action.order.id})
   ),
   on(OrderActions.upsertOrder,
     (state, action) => adapter.upsertOne(action.order, state)
@@ -61,3 +66,4 @@ export const {
 } = adapter.getSelectors();
 
 export const selectAllOrders = selectAll;
+export const selectAllOrderEntities = selectEntities;
