@@ -64,6 +64,16 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	openSnack() {
+		this.snackbar.open('', 'OK', {
+			panelClass: ['snack-success', 'left-to-right'],
+			horizontalPosition: 'center',
+			verticalPosition: 'top',
+			announcementMessage: 'announcement message',
+			politeness: 'off'
+		});
+	}
+
 	preparedData(): Order {
 		this.order = {...this.orderForm.value};
 		this.order.order_units = new Array<OrderUnit>();

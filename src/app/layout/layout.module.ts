@@ -14,10 +14,11 @@ import {
 import {OrderModule} from 'src/app/order/order.module';
 import {RouterModule} from '@angular/router';
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
+import { SnackServiceComponent } from './snack-service/snack-service.component';
 
 
 @NgModule({
-	declarations: [FooterComponent, NavigationComponent, DeleteDialogComponent],
+	declarations: [FooterComponent, NavigationComponent, DeleteDialogComponent, SnackServiceComponent],
 	imports: [
 		CommonModule,
 		MatSidenavModule,

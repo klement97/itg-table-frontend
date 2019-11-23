@@ -1,18 +1,9 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport
-                 [mode]="'side'"
+                 [mode]="'over'"
                  [opened]="false"
                  [attr.role]="'navigation'">
-        <mat-toolbar class="inside-toolbar">
-            ITALGOLD
-            <button style="margin-left: 50px;"
-                    type="button"
-                    aria-label="Toggle sidenav"
-                    mat-icon-button
-                    (click)="drawer.toggle()">
-                <mat-icon style="transform: rotateY(180deg)" aria-label="Side nav toggle icon">double_arrow</mat-icon>
-            </button>
-        </mat-toolbar>
+        <mat-toolbar class="inside-toolbar">ITALGOLD</mat-toolbar>
         <mat-nav-list>
             <a class="mat-nav-list" mat-list-item routerLink="order/tables" routerLinkActive="active">
                 <button mat-icon-button>
@@ -56,15 +47,13 @@
                 <!-- END CART -->
 
                 <!-- LOGIN -->
-                <button mat-icon-button [matMenuTriggerFor]="login">
-                    <mat-icon>person</mat-icon>
+                <button mat-stroked-button (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    Logout
                 </button>
-                <mat-menu #login="matMenu" class="mat-user-panel">
-                    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
-                </mat-menu>
 
             </div>
         </mat-toolbar>
-
+        <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

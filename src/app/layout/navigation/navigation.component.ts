@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, share} from 'rxjs/operators';
-import {MatDialog, MatSidenav} from '@angular/material';
+import {MatDialog, MatSidenav, MatSnackBar} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
@@ -25,10 +25,11 @@ export class NavigationComponent {
 		);
 
 	constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
-							private auth: AuthService, private router: Router) {
+							private auth: AuthService, private router: Router, private snackbar: MatSnackBar) {
 		this.cartCount$ = store.select(selectOrderCount);
 		router.events.subscribe(_ => this.drawer.close());
 	}
+
 
 	logout() {
 		this.auth.logout().subscribe();

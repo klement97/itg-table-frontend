@@ -8,6 +8,10 @@ body {
   padding: 0;
 }
 
+.active {
+  background-color: rgba(0, 4, 40, 0.7);
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -90,6 +94,7 @@ mat-dialog-container {
 .padding-0 .mat-dialog-container {
   padding: 0 !important;
 }
+
 
 @media print {
   body {
