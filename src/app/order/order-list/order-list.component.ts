@@ -10,6 +10,7 @@ import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';
 import {OrderDetailDialogComponent} from 'src/app/order/dialogs/order-detail-dialog/order-detail-dialog.component';
 import {Router} from '@angular/router';
 import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
+import {markUpdateAsTrue} from 'src/app/order/_store/_actions/order.actions';
 
 @Component({
   selector: 'app-order-list',
@@ -69,6 +70,7 @@ export class OrderListComponent implements OnInit {
 
   updateOrder(id) {
     this.store.dispatch(clearOrderUnits());
+    this.store.dispatch(markUpdateAsTrue({orderId: id}));
     this.router.navigate([`/order/form/${id}`]);
   }
 

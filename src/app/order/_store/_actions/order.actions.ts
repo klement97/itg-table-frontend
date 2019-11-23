@@ -18,6 +18,11 @@ export const addOrderForUpdate = createAction(
   props<{ order: Order }>()
 );
 
+export const markUpdateAsTrue = createAction(
+  '[Order List] Mark Update As True',
+  props<{ orderId: number }>()
+);
+
 export const upsertOrder = createAction(
   '[Order/API] Upsert Order',
   props<{ order: Order }>()

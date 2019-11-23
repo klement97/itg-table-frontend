@@ -8,6 +8,7 @@ import {Update} from '@ngrx/entity';
 import {deleteOrderUnit, updateOrderUnit} from 'src/app/order/_store/_actions/order-unit.actions';
 import {Router} from '@angular/router';
 import {selectUpdateOrderId} from '../_store/_selectors/order.selectors';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<OrderUnitState>, private router: Router) {
     this.orderUnits$ = store.select(selectOrderUnits);
-    this.orderCount$ = store.select(selectOrderCount);
+    this.orderCount$ = store.select(selectOrderCount).pipe(delay(1000));
   }
 
   ngOnInit() {
