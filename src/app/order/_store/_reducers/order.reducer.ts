@@ -19,6 +19,9 @@ export const initialState: State = adapter.getInitialState({
 
 const orderReducer = createReducer(
   initialState,
+  on(OrderActions.markUpdateAsTrue,
+    (state, action) => ({...state, update: true, updateOrderId: action.orderId})
+  ),
   on(OrderActions.addOrder,
     (state, action) => adapter.addOne(action.order, {...state, update: false, updateOrderId: null})
   ),
