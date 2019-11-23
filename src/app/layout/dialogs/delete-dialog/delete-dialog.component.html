@@ -1,1 +1,14 @@
-<p>delete-dialog works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{_title}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+        <p style="text-align: center">{{_message}}</p>
+    </mat-card-content>
+    <hr>
+    <mat-card-actions align="end">
+        <button mat-stroked-button color="primary" (click)="onNoClick()">Jo</button>
+        <button mat-stroked-button color="warn" (click)="onYesClick()">Po</button>
+    </mat-card-actions>
+</mat-card>
