@@ -1,4 +1,4 @@
-<table class="data-table">
+<table border>
     <thead>
     <tr>
         <th>ID</th>
@@ -9,7 +9,34 @@
     </thead>
 
     <tbody>
-    <tr></tr>
+    <tr *ngIf="order">
+        <td>{{order.id}}</td>
+        <td>{{order.date_created}}</td>
+        <td>{{order['total_price']}}</td>
+        <td>{{order['total_table_count']}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<table border>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Tabaka</th>
+        <th>Çmimi</th>
+        <th>Sasia</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let unit of order.order_units">
+        <td>{{unit.id}}</td>
+        <td>{{unit.table.code}}</td>
+        <td>{{unit.amount}} copë</td>
+        <td>{{unit.price | number: '' : 'en'}}</td>
+        <td>{{(unit.amount * unit.price) | number: '' : 'en'}}</td>
+    </tr>
     </tbody>
 </table>
 

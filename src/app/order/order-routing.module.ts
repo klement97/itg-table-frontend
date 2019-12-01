@@ -5,15 +5,15 @@ import {OrderFormComponent} from 'src/app/order/order-form/order-form.component'
 import {OrderListComponent} from 'src/app/order/order-list/order-list.component';
 
 const routes: Routes = [
-  {path: 'order/tables', component: OrderPageComponent, pathMatch: 'full'},
-  {path: 'order/tables/:order_id', component: OrderPageComponent, pathMatch: 'full'},
+  {path: 'order/tables', component: OrderPageComponent, pathMatch: 'full', data: {animation: 'Home'}},
+  {path: 'order/tables/:order_id', component: OrderPageComponent, pathMatch: 'full', data: {animation: 'Home'}},
 
-  {path: 'order/form', component: OrderFormComponent, pathMatch: 'full'},
-  {path: 'order/form/:order_id', component: OrderFormComponent, pathMatch: 'full'},
+  {path: 'order/form', component: OrderFormComponent, pathMatch: 'full', data: {animation: 'Contact'}},
+  {path: 'order/form/:order_id', component: OrderFormComponent, pathMatch: 'full', data: {animation: 'Contact'}},
 
-  {path: 'order/list', component: OrderListComponent, pathMatch: 'full'},
+  {path: 'order/list', component: OrderListComponent, pathMatch: 'full', data: {animation: 'About'}},
 
-  {path: '', redirectTo: 'order/tables', pathMatch: 'full'},
+  {path: '', redirectTo: 'order/tables', pathMatch: 'full', data: {animation: 'Home'}},
 ];
 
 @NgModule({

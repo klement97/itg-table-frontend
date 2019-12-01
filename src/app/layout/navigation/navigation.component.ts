@@ -9,40 +9,52 @@ import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selec
 import {AuthService} from 'src/app/auth/_store/_services/auth.service';
 import {Router} from '@angular/router';
 import {selectUpdateOrderId} from '../../order/_store/_selectors/order.selectors';
+import {DeleteDialogComponent} from 'src/app/layout/dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+	selector: 'app-navigation',
+	templateUrl: './navigation.component.html',
+	styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-  cartCount: number;
-  updateOrderId: number;
-  @ViewChild('drawer', {static: true}) drawer: MatSidenav;
+	cartCount: number;
+	updateOrderId: number;
+	@ViewChild('drawer', {static: true}) drawer: MatSidenav;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      share()
-    );
+	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+		.pipe(
+			map(result => result.matches),
+			share()
+		);
 
-  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
-              private auth: AuthService, private router: Router) {
-    store.select(selectOrderCount).subscribe(count => this.cartCount = count);
-    store.select(selectUpdateOrderId).subscribe(id => this.updateOrderId = id);
-    router.events.subscribe(_ => this.drawer.close());
-  }
+	constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
+							private auth: AuthService, private router: Router) {
+		store.select(selectOrderCount).subscribe(count => this.cartCount = count);
+		store.select(selectUpdateOrderId).subscribe(id => this.updateOrderId = id);
+		router.events.subscribe(_ => this.drawer.close());
+	}
 
-  goToOrderForm() {
-    let id: string = '';
-    if (this.updateOrderId) {
-      id += this.updateOrderId;
-    }
-    this.router.navigate([`/order/form/${id}`]);
-  }
+	goToOrderForm() {
+		let id: string = '';
+		if (this.updateOrderId) {
+			id += this.updateOrderId;
+		}
+		this.router.navigate([`/order/form/${id}`]);
+	}
 
 
-  logout() {
-    this.auth.logout().subscribe();
-  }
+	logout() {
+		const dialogRef$ = this.dialog.open(DeleteDialogComponent, {
+			width: '30%',
+			minWidth: '250px',
+			panelClass: 'padding-0',
+			data: {title: '', message: 'Jeni të sigurt që doni të dilni?'}
+		});
+
+		dialogRef$.afterClosed().subscribe(result => {
+			if (result && result.delete) {
+				this.auth.logout().subscribe();
+			}
+		});
+	}
 }
