@@ -1,4 +1,4 @@
-<table border>
+<table class="data-table mat-elevation-z1" style="width: 100%">
     <thead>
     <tr>
         <th>ID</th>
@@ -12,16 +12,16 @@
     <tr *ngIf="order">
         <td>{{order.id}}</td>
         <td>{{order.date_created}}</td>
-        <td>{{order['total_price']}}</td>
-        <td>{{order['total_table_count']}}</td>
+        <td>${{order['total_price']}}</td>
+        <td>{{order['total_table_count']}} copë</td>
     </tr>
     </tbody>
 </table>
-
-<table border>
+<br/>
+<table class="data-table mat-elevation-z1">
     <thead>
     <tr>
-        <th>#</th>
+        <th>ID</th>
         <th>Tabaka</th>
         <th>Çmimi</th>
         <th>Sasia</th>
@@ -34,10 +34,10 @@
         <td>{{unit.id}}</td>
         <td>{{unit.table.code}}</td>
         <td>{{unit.amount}} copë</td>
-        <td>{{unit.price | number: '' : 'en'}}</td>
-        <td>{{(unit.amount * unit.price) | number: '' : 'en'}}</td>
+        <td>${{unit.price | number: '' : 'en'}}</td>
+        <td>${{(unit.amount * unit.price) | number: '' : 'en'}}</td>
     </tr>
     </tbody>
 </table>
-
-<button mat-raised-button (click)="close()">Mbyllë</button>
+<br/>
+<button mat-stroked-button disableRipple color="primary" style="float: right" (click)="close()">Mbyllë</button>

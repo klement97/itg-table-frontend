@@ -31,15 +31,23 @@ body {
 }
 
 .data-table {
-  font-size: 13px;
+  width: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+}
 
-  & tr td {
-    padding-right: 20px;
-  }
+.data-table th {
+  font-size: smaller;
+  color: rgba(0, 0, 0, .54);
+  text-align: start;
+}
 
-  & td:last-child {
-    padding: 0 !important;
-  }
+.data-table tr td th {
+  padding: 16px 20px;
+}
+
+.data-table td:last-child {
+  padding: 0;
 }
 
 mat-dialog-container {
