@@ -9,7 +9,6 @@ import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderCount, selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {loadOrderUnits} from '../_store/_actions/order-unit.actions';
 import {addOrderForUpdate} from '../_store/_actions/order.actions';
@@ -100,12 +99,12 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     } else {
       if (this.update) {
         this.orderService.updateOrder(this.preparedData()).subscribe(
-          response => this.router.navigate(['/order/list'])
+          () => this.router.navigate(['/order/list'])
           // todo: make order list update one action here
         );
       } else {
         this.orderService.createOrder(this.preparedData()).subscribe(
-          response => this.router.navigate(['/order/list'])
+          () => this.router.navigate(['/order/list'])
           // todo: make order list add one action here
         );
       }
@@ -129,45 +128,6 @@ export class OrderFormComponent implements OnInit, OnDestroy {
       this.order.id = this.orderId;
     }
     return this.order;
-  }
-
-  openEmailSendDialog() {
-    const order = this.preparedData();
-    let to_emails: string[] = [];
-
-    if (this.orderCount === 0) {
-      this.cartEmptySnack();
-    } else if (this.orderForm.invalid) {
-      this.formInvalidSnack();
-    } else {
-      const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
-        width: '30%',
-        minWidth: '300px',
-        maxHeight: '450px',
-        data: {'order': order}
-      });
-
-      dialogRef$.afterClosed().subscribe(result => {
-        if (result) {
-          if (result['to_emails']) {
-            for (let item of result['to_emails']) {
-              to_emails.push(item['email']);
-            }
-            this.orderService.sendOrderMail(to_emails, order).subscribe(
-              () => {
-                this.snackbar.open('Email u dërgua me sukses!', 'OK', {
-                  duration: 2500, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-success'
-                });
-              },
-              () => {
-                this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
-                  duration: 3000, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-danger'
-                });
-              });
-          }
-        }
-      });
-    }
   }
 
   cartEmptySnack() {
