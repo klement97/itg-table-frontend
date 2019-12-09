@@ -23,7 +23,7 @@
         <!-- Date Created -->
         <ng-container matColumnDef="date_created">
             <th mat-header-cell mat-sort-header *matHeaderCellDef> Data</th>
-            <td mat-cell *matCellDef="let order"> {{order.date_created}} </td>
+            <td mat-cell *matCellDef="let order"> {{order.date_created | date: 'dd/M/y HH:MM'}} </td>
         </ng-container>
 
         <!-- Total Price -->

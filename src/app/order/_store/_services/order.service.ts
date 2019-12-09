@@ -2,12 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {Order} from 'src/app/order/_store/_models/order.models';
-import {map} from 'rxjs/operators';
-import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {Store} from '@ngrx/store';
-import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
-import {clearOrderUnits} from 'src/app/order/_store/_actions/order-unit.actions';
 import {buildQueryString} from 'src/app/order/const';
 
 const API = `${environment.apiHost}`;
@@ -22,7 +17,7 @@ const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
 })
 export class OrderService {
 
-	constructor(private http: HttpClient, private router: Router, private store: Store<OrderUnitState>) {
+	constructor(private http: HttpClient) {
 	}
 
 	getTables() {
@@ -34,12 +29,7 @@ export class OrderService {
 	}
 
 	createOrder(order: Order) {
-		return this.http.post(`${ORDERS_URL}/`, order).pipe(
-			map(() => {
-				this.store.dispatch(clearOrderUnits());
-				this.router.navigate(['order/tables']);
-			})
-		);
+		return this.http.post(`${ORDERS_URL}/`, order);
 	}
 
 	updateOrder(order: Order) {
