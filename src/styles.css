@@ -1,5 +1,4 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 body {
   margin: 0;
   padding: 0;
@@ -38,7 +37,7 @@ body {
 
 .data-table th {
   font-size: smaller;
-  color: rgba(0, 0, 0, .54);
+  color: rgba(0, 0, 0, 0.54);
   text-align: start;
 }
 
@@ -107,3 +106,5 @@ mat-dialog-container {
     display: none !important;
   }
 }
+
+/*# sourceMappingURL=styles.css.map */
