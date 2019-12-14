@@ -1,6 +1,4 @@
-//Install express server
 const express = require('express');
-const path = require('path');
 
 const app = express();
 
@@ -8,7 +6,6 @@ const app = express();
 app.use(express.static('./dist/table-frontend'));
 
 app.get('/*', function (req, res) {
-    /* __dirname gives /app/src */
     res.sendFile('index.html', {root: 'dist/table-frontend/'});
 });
 

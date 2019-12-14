@@ -7,7 +7,8 @@ import {InnerColor, Order, OuterColor} from 'src/app/order/_store/_models/order.
 import {Observable, Subscription} from 'rxjs';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderCount, selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {clearOrderUnits, loadOrderUnits} from '../_store/_actions/order-unit.actions';
