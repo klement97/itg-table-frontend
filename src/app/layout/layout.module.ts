@@ -3,13 +3,14 @@ import {CommonModule} from '@angular/common';
 import {FooterComponent} from 'src/app/layout/footer/footer.component';
 import {NavigationComponent} from 'src/app/layout/navigation/navigation.component';
 import {
-  MatBadgeModule,
-  MatButtonModule,
-  MatIconModule,
-  MatListModule,
-  MatMenuModule,
-  MatSidenavModule,
-  MatToolbarModule
+	MatBadgeModule,
+	MatButtonModule,
+	MatCardModule,
+	MatIconModule,
+	MatListModule,
+	MatMenuModule,
+	MatSidenavModule,
+	MatToolbarModule
 } from '@angular/material';
 import {OrderModule} from 'src/app/order/order.module';
 import {RouterModule} from '@angular/router';
@@ -30,8 +31,10 @@ import {SnackServiceComponent} from './snack-service/snack-service.component';
 		OrderModule,
 		MatBadgeModule,
 		RouterModule,
+		MatCardModule,
 	],
-	exports: [FooterComponent, NavigationComponent],
+	exports: [FooterComponent, NavigationComponent, DeleteDialogComponent],
+	entryComponents: [DeleteDialogComponent]
 })
 export class LayoutModule {
 }

@@ -18,9 +18,9 @@ import * as MAT from '@angular/material';
     AppComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     AppRoutingModule,
     BrowserModule,
-    BrowserAnimationsModule,
     OrderModule,
     AuthModule,
     LayoutModule,

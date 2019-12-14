@@ -17,10 +17,6 @@
                             <mat-icon>save</mat-icon>
                             Ruaje
                         </button>
-                        <button mat-raised-button class="btn-success" type="button" (click)="openEmailSendDialog()">
-                            <mat-icon>email</mat-icon>
-                            Dërgo Faturën
-                        </button>
                     </mat-card-actions>
                 </div>
             </div>
@@ -38,7 +34,7 @@
                         <mat-form-field appearance="outline" class="full-width">
                             <mat-label>Ngjyra brëndshme</mat-label>
                             <mat-select formControlName="inner_color" id="inner_color">
-                                <mat-option [style.background-color]="color.hex_code" style="color: white" *ngFor="let color of innerColors" [value]="color.id">{{color.code}}</mat-option>
+                                <mat-option *ngFor="let color of innerColors" [value]="color.id">{{color.code}}</mat-option>
                             </mat-select>
                             <mat-error>Ngjyra duhet plotësuar</mat-error>
                         </mat-form-field>
@@ -47,7 +43,7 @@
                         <mat-form-field appearance="outline" class="full-width">
                             <mat-label>Ngjyra jashtme</mat-label>
                             <mat-select formControlName="outer_color" id="outer_color">
-                                <mat-option [style.background-color]="color.hex_code" style="color: white" *ngFor="let color of outerColors" [value]="color.id">{{color.code}}</mat-option>
+                                <mat-option *ngFor="let color of outerColors" [value]="color.id">{{color.code}}</mat-option>
                             </mat-select>
                             <mat-error>Ngjyra duhet plotësuar</mat-error>
                         </mat-form-field>

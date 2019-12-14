@@ -128,6 +128,7 @@
   },
   "defaultProject": "table-frontend",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "defaultCollection": "@ngrx/schematics",
+    "analytics": "2ce44f6b-ca85-4d82-a8f9-4b42ab78ced8"
   }
 }

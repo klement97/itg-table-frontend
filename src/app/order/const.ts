@@ -14,3 +14,8 @@ export function buildQueryString(page: number = 0, ordering: string = '', page_s
 	}
 	return '';
 }
+
+export class DeleteDialogDataModel {
+	title: string;
+	message: string;
+}

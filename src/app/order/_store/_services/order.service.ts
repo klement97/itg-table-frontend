@@ -2,12 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {Order} from 'src/app/order/_store/_models/order.models';
-import {map} from 'rxjs/operators';
-import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {Store} from '@ngrx/store';
-import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
-import {clearOrderUnits} from 'src/app/order/_store/_actions/order-unit.actions';
 import {buildQueryString} from 'src/app/order/const';
 
 const API = `${environment.apiHost}`;
@@ -18,47 +13,46 @@ const ORDER_FILTER_URL = `${ORDERS_URL}/filter`;
 const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class OrderService {
 
-  constructor(private http: HttpClient, private router: Router, private store: Store<OrderUnitState>) {
-  }
+	constructor(private http: HttpClient) {
+	}
 
-  getTables() {
-    return this.http.get(`${TABLES_URL}/`);
-  }
+	getTables() {
+		return this.http.get(`${TABLES_URL}/`);
+	}
 
-  getColors() {
-    return this.http.get(`${COLORS_URL}/`);
-  }
+	getColors() {
+		return this.http.get(`${COLORS_URL}/`);
+	}
 
-  createOrder(order: Order) {
-    return this.http.post(`${ORDERS_URL}/`, order).pipe(
-      map(() => {
-        this.store.dispatch(clearOrderUnits());
-        this.router.navigate(['order/tables']);
-      })
-    );
-  }
+	createOrder(order: Order) {
+		return this.http.post(`${ORDERS_URL}/`, order);
+	}
 
-  updateOrder(order: Order) {
-    return this.http.put(`${ORDERS_URL}/${order.id}/`, order);
-  }
+	updateOrder(order: Order) {
+		return this.http.put(`${ORDERS_URL}/${order.id}/`, order);
+	}
 
-  getOrderList(page: number, ordering?: string, filter?) {
-    return this.http.get(`${ORDERS_URL}${buildQueryString(page, ordering, null, filter)}`);
-  }
+	getOrderList(page: number, ordering?: string, filter?) {
+		return this.http.get(`${ORDERS_URL}${buildQueryString(page, ordering, null, filter)}`);
+	}
 
-  getOrder(id: number): Observable<any> {
-    return this.http.get(`${ORDERS_URL}/${id}/`);
-  }
+	getOrder(id: number): Observable<any> {
+		return this.http.get(`${ORDERS_URL}/${id}/`);
+	}
 
-  filterOrderList(filter) {
-    return this.http.post(`${ORDER_FILTER_URL}/`, filter);
-  }
+	deleteOrder(id: number) {
+		return this.http.delete(`${ORDERS_URL}/${id}/`);
+	}
 
-  sendOrderMail(to_emails: string[], order: Order) {
-    return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails, order});
-  }
+	filterOrderList(filter) {
+		return this.http.post(`${ORDER_FILTER_URL}/`, filter);
+	}
+
+	sendOrderMail(to_emails: string[], order: Order) {
+		return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails, order});
+	}
 }

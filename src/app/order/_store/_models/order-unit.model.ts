@@ -6,6 +6,7 @@ export class OrderUnit {
   table: any;
   description: string;
   amount: number;
+  price: number;
 
   constructor() {
     this.id = null;
@@ -15,5 +16,6 @@ export class OrderUnit {
     this.table = null;
     this.description = '';
     this.amount = null;
+    this.price = null;
   }
 }

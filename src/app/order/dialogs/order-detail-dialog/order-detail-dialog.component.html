@@ -1,4 +1,4 @@
-<table class="data-table">
+<table class="data-table mat-elevation-z1" style="width: 100%">
     <thead>
     <tr>
         <th>ID</th>
@@ -9,8 +9,35 @@
     </thead>
 
     <tbody>
-    <tr></tr>
+    <tr *ngIf="order">
+        <td>{{order.id}}</td>
+        <td>{{order.date_created | date: 'dd/M/y HH:MM'}}</td>
+        <td>${{order['total_price']}}</td>
+        <td>{{order['total_table_count']}} copë</td>
+    </tr>
     </tbody>
 </table>
+<br/>
+<table class="data-table mat-elevation-z1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tabaka</th>
+        <th>Çmimi</th>
+        <th>Sasia</th>
+        <th>Total</th>
+    </tr>
+    </thead>
 
-<button mat-raised-button (click)="close()">Mbyllë</button>
+    <tbody>
+    <tr *ngFor="let unit of order.order_units">
+        <td>{{unit.id}}</td>
+        <td>{{unit.table.code}}</td>
+        <td>{{unit.amount}} copë</td>
+        <td>${{unit.price | number: '' : 'en'}}</td>
+        <td>${{(unit.amount * unit.price) | number: '' : 'en'}}</td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<button mat-stroked-button disableRipple color="primary" style="float: right" (click)="close()">Mbyllë</button>
