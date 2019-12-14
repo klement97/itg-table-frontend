@@ -1,12 +1,5 @@
-import {
-   transition,
-   trigger,
-   query,
-   style,
-   animate,
-   group,
-   animateChild
-} from '@angular/animations';
+import {animate, group, query, style, transition, trigger} from '@angular/animations';
+
 export const slideInAnimation =
    trigger('routeAnimations', [
         transition('Contact => *', [

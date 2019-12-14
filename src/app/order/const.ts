@@ -1,5 +1,3 @@
-import {Action} from '@ngrx/store';
-
 export function buildQueryString(page: number = 0, ordering: string = '', page_size: number = 10, filter: any): string {
 	const queryString = [];
 	if (ordering) {

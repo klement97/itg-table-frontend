@@ -11,8 +11,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {clearOrderUnits, loadOrderUnits} from '../_store/_actions/order-unit.actions';
-import {addOrder, addOrderForUpdate, updateOrder} from '../_store/_actions/order.actions';
-import {Update} from '@ngrx/entity';
+import {addOrderForUpdate} from '../_store/_actions/order.actions';
 
 @Component({
 	selector: 'app-order-form',

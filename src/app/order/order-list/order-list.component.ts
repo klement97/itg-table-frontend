@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
 import {DeleteDialogComponent} from 'src/app/layout/dialogs/delete-dialog/delete-dialog.component';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
-import {take} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-order-list',
