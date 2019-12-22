@@ -31,7 +31,7 @@ export class NavigationComponent {
 							private auth: AuthService, private router: Router) {
 		store.select(selectOrderCount).subscribe(count => this.cartCount = count);
 		store.select(selectUpdateOrderId).subscribe(id => this.updateOrderId = id);
-		router.events.subscribe(_ => this.drawer.close());
+		// router.events.subscribe(_ => this.drawer.close());
 	}
 
 	goToOrderForm() {
@@ -56,7 +56,7 @@ export class NavigationComponent {
 
 		dialogRef$.afterClosed().subscribe(result => {
 			if (result && result.confirmed) {
-				this.auth.logout().subscribe().unsubscribe();
+				this.auth.logout().subscribe();
 			}
 		});
 	}

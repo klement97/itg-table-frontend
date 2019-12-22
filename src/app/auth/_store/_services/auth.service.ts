@@ -23,18 +23,11 @@ export class AuthService {
 
 	constructor(private http: HttpClient, private router: Router) {
 		this.currentTokenSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(this.CURRENT_TOKEN)));
-		this.currentToken = this.currentTokenSubject.asObservable();
 	}
 
 	private readonly CURRENT_TOKEN = 'user';
-	private readonly CURRENT_USERNAME = 'username';
 
 	private currentTokenSubject: BehaviorSubject<User>;
-	public currentToken: Observable<User>;
-
-	public getCurrentTokenValue(): User {
-		return this.currentTokenSubject.value;
-	}
 
 	login(username, password) {
 		return this.http.post(`${LOGIN}/`,
@@ -43,7 +36,7 @@ export class AuthService {
 				if (user) {
 					localStorage.setItem('user', JSON.stringify(user));
 					this.currentTokenSubject.next(user['auth_token']);
-					this.router.navigate(['order/tables']);
+					this.router.navigate(['order/tables']).then();
 					isLoggedIn = true;
 					return user;
 				}
@@ -55,11 +48,18 @@ export class AuthService {
 		const currentUser = JSON.parse(localStorage.getItem('user'));
 		return this.http.post(`${LOGOUT}/`, currentUser.auth_token).pipe(
 			map(() => {
-				this.router.navigate(['/auth/login']);
-				localStorage.clear();
-				isLoggedIn = false;
+				this.router.navigate(['/auth/login']).then(
+					() => {
+						localStorage.clear();
+						isLoggedIn = false;
+					}
+				);
 			})
 		);
 
+	}
+
+	userInfo() {
+		return this.http.get(`${CURRENT_USER}/`);
 	}
 }
