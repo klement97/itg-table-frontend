@@ -2,15 +2,14 @@ import {Component, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, share} from 'rxjs/operators';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSidenav} from '@angular/material/sidenav';
+import {MatDialog, MatSidenav} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {AuthService} from 'src/app/auth/_store/_services/auth.service';
 import {Router} from '@angular/router';
 import {selectUpdateOrderId} from '../../order/_store/_selectors/order.selectors';
-import {DeleteDialogComponent} from 'src/app/layout/dialogs/delete-dialog/delete-dialog.component';
+import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
 
 @Component({
 	selector: 'app-navigation',
@@ -40,21 +39,24 @@ export class NavigationComponent {
 		if (this.updateOrderId) {
 			id += this.updateOrderId;
 		}
-		this.router.navigate([`/order/form/${id}`]);
+		this.router.navigate([`/order/form/${id}`]).then();
 	}
 
 
 	logout() {
-		const dialogRef$ = this.dialog.open(DeleteDialogComponent, {
-			width: '30%',
+		const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
+			width: '35%',
 			minWidth: '250px',
 			panelClass: 'padding-0',
-			data: {title: '', message: 'Jeni të sigurt që doni të dilni?'}
+			data: {
+				title: '',
+				message: 'Jeni të sigurt që doni të dilni?'
+			}
 		});
 
 		dialogRef$.afterClosed().subscribe(result => {
-			if (result && result.delete) {
-				this.auth.logout().subscribe();
+			if (result && result.confirmed) {
+				this.auth.logout().subscribe().unsubscribe();
 			}
 		});
 	}

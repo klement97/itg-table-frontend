@@ -5,18 +5,13 @@ import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import * as OrderActions from 'src/app/order/_store/_actions/order.actions';
 import {markUpdateAsTrue} from 'src/app/order/_store/_actions/order.actions';
 import {Observable} from 'rxjs';
-
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Sort} from '@angular/material/sort';
-
+import {MatDialog, MatPaginator, MatSnackBar, Sort} from '@angular/material';
 import {Order} from 'src/app/order/_store/_models/order.models';
 import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';
 import {OrderDetailDialogComponent} from 'src/app/order/dialogs/order-detail-dialog/order-detail-dialog.component';
 import {Router} from '@angular/router';
 import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
-import {DeleteDialogComponent} from 'src/app/layout/dialogs/delete-dialog/delete-dialog.component';
+import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 
 @Component({
@@ -62,7 +57,7 @@ export class OrderListComponent implements OnInit {
 	}
 
 	deleteOrder(id: number) {
-		const dialogRef$ = this.dialog.open(DeleteDialogComponent, {
+		const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
 			minWidth: '300px',
 			width: '30%',
 			data: {title: `Porosia me ID: ${id}`},
@@ -70,7 +65,7 @@ export class OrderListComponent implements OnInit {
 		});
 
 		dialogRef$.afterClosed().subscribe(result => {
-			if (result.delete) {
+			if (result.confirmed) {
 				this.orderService.deleteOrder(id).subscribe(() => {
 					this.store.dispatch(OrderActions.deleteOrder({id}));
 				});

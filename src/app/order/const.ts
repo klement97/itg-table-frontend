@@ -15,7 +15,10 @@ export function buildQueryString(page: number = 0, ordering: string = '', page_s
 	return '';
 }
 
-export class DeleteDialogDataModel {
+export class ConfirmationDialogDataModel {
 	title: string;
 	message: string;
+	cancelButton?: boolean;
+	cancelButtonText?: string;
+	confirmButtonText?: string;
 }

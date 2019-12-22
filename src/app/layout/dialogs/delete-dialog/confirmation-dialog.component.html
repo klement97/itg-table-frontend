@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title id="title_id">{{_title}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+        <p id="message_id" style="text-align: center">{{_message}}</p>
+    </mat-card-content>
+    <hr>
+    <mat-card-actions align="end">
+        <button id="cancel_button_id" *ngIf="_cancelButton" mat-stroked-button class="btn-danger-outline" (click)="onNoClick()">{{_cancelButtonText}}
+        </button>
+        <button id="confirm_button_id" mat-stroked-button (click)="onYesClick()" class="btn-success-outline">{{_confirmButtonText}}
+        </button>
+    </mat-card-actions>
+</mat-card>
