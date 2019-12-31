@@ -1,5 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 import {slideInAnimation} from 'src/app/routing-animation';
 
 @Component({

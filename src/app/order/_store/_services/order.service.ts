@@ -37,7 +37,7 @@ export class OrderService {
 	}
 
 	getOrderList(page: number, ordering?: string, filter?) {
-		return this.http.get(`${ORDERS_URL}${buildQueryString(page, ordering, null, filter)}`);
+		return this.http.get(`${ORDERS_URL}/${buildQueryString(page, ordering, null, filter)}`);
 	}
 
 	getOrder(id: number): Observable<any> {

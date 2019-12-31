@@ -12,15 +12,16 @@ import {OrderModule} from 'src/app/order/order.module';
 import {AuthModule} from 'src/app/auth/auth.module';
 import {LayoutModule} from 'src/app/layout/layout.module';
 import * as M from '@angular/material';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    BrowserModule,
     OrderModule,
     AuthModule,
     LayoutModule,
@@ -63,6 +64,7 @@ import * as M from '@angular/material';
     M.MatTableModule,
     M.MatSortModule,
     M.MatPaginatorModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

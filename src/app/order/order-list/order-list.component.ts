@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
 	selector: 'app-order-list',
@@ -27,32 +28,35 @@ export class OrderListComponent implements OnInit {
 
 	orders$: Observable<Order[]>;
 
-	constructor(private orderService: OrderService, private store: Store<fromOrder.State>, private dialog: MatDialog,
-							private router: Router, private snackbar: MatSnackBar) {
+	filterForm: FormGroup;
+
+	constructor(private orderService: OrderService,
+							private store: Store<fromOrder.State>,
+							private dialog: MatDialog,
+							private router: Router,
+							private snackbar: MatSnackBar,
+							private fb: FormBuilder) {
 		this.orders$ = store.select(selectOrderList);
 	}
 
 	ngOnInit() {
-		this.getOrders(null);
+		this.getOrders('');
+		this.initiateFilterForm();
 	}
 
 	getOrders(ordering) {
-		const filter = {};
-		filter['order'] = ordering;
-		filter['customer'] = '%';
-		filter['date_from'] = '';
-		filter['date_where'] = '';
-
-		// this.orderService.filterOrderList(filter).subscribe(response => {
-		// 	this.loading = false;
-		// 	this.count = response['count'];
-		// 	this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-		// });
-
-		this.orderService.getOrderList(this.paginator.pageIndex + 1, '', null).subscribe(response => {
+		this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, null).subscribe(response => {
 			this.loading = false;
 			this.count = response['count'];
 			this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+		});
+	}
+
+	initiateFilterForm() {
+		this.filterForm = this.fb.group({
+			customer__icontains: [''],
+			date_created_gte: [''],
+			date_created_lte: ['']
 		});
 	}
 
@@ -128,6 +132,18 @@ export class OrderListComponent implements OnInit {
 				}
 			}
 		});
+	}
+
+	filterOrders() {
+		this.paginator.pageIndex = 0;
+		this.orderService.getOrderList(this.paginator.pageIndex, '', this.filterForm.value).subscribe(
+			response => {
+				this.store.dispatch(OrderActions.loadOrders(response['results']));
+			},
+			error => {
+				console.log(error);
+			}
+		);
 	}
 
 }

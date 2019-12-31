@@ -1,6 +1,19 @@
 <section>
     <div class="header">
         <h4>Lista e porosive</h4>
+        <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Klienti" formControlName="customer__icontains">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="date" placeholder="Data - nga" formControlName="date_created_gte">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="date" placeholder="Data - deri" formControlName="date_created_lte">
+            </mat-form-field>
+
+            <button mat-stroked-button color="primary" type="submit">Kërko</button>
+        </form>
     </div>
     <div style="height: 5px">
         <mat-progress-bar style="height: 5px" *ngIf="loading" mode="indeterminate"></mat-progress-bar>

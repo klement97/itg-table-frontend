@@ -7,12 +7,20 @@ export function buildQueryString(page: number = 0, ordering: string = '', page_s
 		queryString.push(`page=${page}`);
 	}
 	if (filter) {
-		queryString.push(`${filter.serialize(this.FILTER_PREFIX)}`);
+		queryString.push(`${buildFilterFromFormValues(filter)}`);
 	}
 	if (queryString.length > 0) {
 		return '?' + queryString.join('&');
 	}
 	return '';
+}
+
+function buildFilterFromFormValues(form) {
+	let filter = [];
+	Object.entries(form).forEach(([key, value]) => {
+		filter.push(`${key}=${value}`);
+	});
+	return filter.join('&');
 }
 
 export class ConfirmationDialogDataModel {
