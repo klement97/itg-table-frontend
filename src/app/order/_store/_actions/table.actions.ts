@@ -4,7 +4,7 @@ import {Update} from '@ngrx/entity';
 import {Table} from 'src/app/order/_store/_models/table.model';
 
 export const loadTables = createAction(
-  '[Table/API] Load Tables', 
+  '[Table/API] Load Tables',
   props<{ tables: Table[] }>()
 );
 

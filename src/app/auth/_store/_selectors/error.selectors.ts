@@ -4,11 +4,11 @@ import * as fromError from 'src/app/auth/_store/_reducers/error.reducer';
 export const selectErrorState = createFeatureSelector<fromError.State>(fromError.errorFeatureKey);
 
 export const selectHasError = createSelector(
-    selectErrorState,
-    state => state.hasError
+  selectErrorState,
+  state => state.hasError
 );
 
 export const selectError = createSelector(
-    selectErrorState,
-    state => state.error
+  selectErrorState,
+  state => state.error
 );

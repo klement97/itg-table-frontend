@@ -12,52 +12,52 @@ import {selectUpdateOrderId} from '../../order/_store/_selectors/order.selectors
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
 
 @Component({
-	selector: 'app-navigation',
-	templateUrl: './navigation.component.html',
-	styleUrls: ['./navigation.component.scss']
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-	cartCount: number;
-	updateOrderId: number;
-	@ViewChild('drawer', {static: true}) drawer: MatSidenav;
+  cartCount: number;
+  updateOrderId: number;
+  @ViewChild('drawer', {static: true}) drawer: MatSidenav;
 
-	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-		.pipe(
-			map(result => result.matches),
-			share()
-		);
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      share()
+    );
 
-	constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
-							private auth: AuthService, private router: Router) {
-		store.select(selectOrderCount).subscribe(count => this.cartCount = count);
-		store.select(selectUpdateOrderId).subscribe(id => this.updateOrderId = id);
-		// router.events.subscribe(_ => this.drawer.close());
-	}
+  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
+              private auth: AuthService, private router: Router) {
+    store.select(selectOrderCount).subscribe(count => this.cartCount = count);
+    store.select(selectUpdateOrderId).subscribe(id => this.updateOrderId = id);
+    // router.events.subscribe(_ => this.drawer.close());
+  }
 
-	goToOrderForm() {
-		let id: string = '';
-		if (this.updateOrderId) {
-			id += this.updateOrderId;
-		}
-		this.router.navigate([`/order/form/${id}`]).then();
-	}
+  goToOrderForm() {
+    let id: string = '';
+    if (this.updateOrderId) {
+      id += this.updateOrderId;
+    }
+    this.router.navigate([`/order/form/${id}`]).then();
+  }
 
 
-	logout() {
-		const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
-			width: '35%',
-			minWidth: '250px',
-			panelClass: 'padding-0',
-			data: {
-				title: '',
-				message: 'Jeni të sigurt që doni të dilni?'
-			}
-		});
+  logout() {
+    const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
+      width: '35%',
+      minWidth: '250px',
+      panelClass: 'padding-0',
+      data: {
+        title: '',
+        message: 'Jeni të sigurt që doni të dilni?'
+      }
+    });
 
-		dialogRef$.afterClosed().subscribe(result => {
-			if (result && result.confirmed) {
-				this.auth.logout().subscribe();
-			}
-		});
-	}
+    dialogRef$.afterClosed().subscribe(result => {
+      if (result && result.confirmed) {
+        this.auth.logout().subscribe();
+      }
+    });
+  }
 }

@@ -8,9 +8,9 @@ describe('SendOrderEmailDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SendOrderEmailDialogComponent ]
+      declarations: [SendOrderEmailDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

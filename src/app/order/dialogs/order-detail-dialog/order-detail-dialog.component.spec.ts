@@ -8,9 +8,9 @@ describe('OrderDetailDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderDetailDialogComponent ]
+      declarations: [OrderDetailDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

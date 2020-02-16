@@ -1,66 +1,66 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
-                 [opened]="(isHandset$ | async) === false"
-                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'">
-        <mat-toolbar class="inside-toolbar">ITALGOLD
-            <button mat-icon-button id="close_side_id"
-                    *ngIf="!(isHandset$ | async)"
-                    (click)="drawer.toggle()"
-                    style="flex: 1 1 auto">
-                <mat-icon>double_arrow</mat-icon>
-            </button>
-        </mat-toolbar>
-        <mat-nav-list>
-            <a class="mat-nav-list" mat-list-item routerLink="order/tables" routerLinkActive="active">
-                <button mat-icon-button>
-                    <mat-icon>amp_stories</mat-icon>
-                </button>
-                Tabakatë
-            </a>
-            <a class="mat-nav-list" mat-list-item (click)="goToOrderForm()" routerLinkActive="active">
-                <button mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button>
-                Përfundo porosinë
-            </a>
-            <a class="mat-nav-list" mat-list-item routerLink="/order/list" routerLinkActive="active">
-                <button mat-icon-button>
-                    <mat-icon>list</mat-icon>
-                </button>
-                Lista e porosive
-            </a>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <mat-toolbar class="outside-toolbar">
-            <button *ngIf="!drawer.opened"
-                    type="button"
-                    aria-label="Toggle sidenav"
-                    mat-icon-button
-                    (click)="drawer.toggle()">
-                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-            </button>
-            <div class="align-end">
+  <mat-sidenav #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false"
+               class="sidenav"
+               fixedInViewport>
+    <mat-toolbar class="inside-toolbar">ITALGOLD
+      <button (click)="drawer.toggle()" *ngIf="!(isHandset$ | async)"
+              id="close_side_id"
+              mat-icon-button
+              style="flex: 1 1 auto">
+        <mat-icon>double_arrow</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a class="mat-nav-list" mat-list-item routerLink="order/tables" routerLinkActive="active">
+        <button mat-icon-button>
+          <mat-icon>amp_stories</mat-icon>
+        </button>
+        Tabakatë
+      </a>
+      <a (click)="goToOrderForm()" class="mat-nav-list" mat-list-item routerLinkActive="active">
+        <button mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
+        Përfundo porosinë
+      </a>
+      <a class="mat-nav-list" mat-list-item routerLink="/order/list" routerLinkActive="active">
+        <button mat-icon-button>
+          <mat-icon>list</mat-icon>
+        </button>
+        Lista e porosive
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="outside-toolbar">
+      <button (click)="drawer.toggle()"
+              *ngIf="!drawer.opened"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              type="button">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div class="align-end">
 
-                <!-- CART -->
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon *ngIf="cartCount == 0">shopping_cart</mat-icon>
-                    <mat-icon *ngIf="cartCount > 0" matBadge="{{cartCount}}">shopping_cart</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" class="mat-cart-panel">
-                    <app-cart></app-cart>
-                </mat-menu>
-                <!-- END CART -->
+        <!-- CART -->
+        <button [matMenuTriggerFor]="menu" mat-icon-button>
+          <mat-icon *ngIf="cartCount == 0">shopping_cart</mat-icon>
+          <mat-icon *ngIf="cartCount > 0" matBadge="{{cartCount}}">shopping_cart</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="mat-cart-panel">
+          <app-cart></app-cart>
+        </mat-menu>
+        <!-- END CART -->
 
-                <!-- LOGIN -->
-                <button mat-stroked-button (click)="logout()">
-                    <mat-icon>exit_to_app</mat-icon>
-                    Logout
-                </button>
+        <!-- LOGIN -->
+        <button (click)="logout()" mat-stroked-button>
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </button>
 
-            </div>
-        </mat-toolbar>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
