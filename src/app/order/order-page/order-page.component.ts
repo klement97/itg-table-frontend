@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrderService} from 'src/app/order/_store/_services/order.service';
 import {Order, Table} from 'src/app/order/_store/_models/order.models';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {ImageDetailComponent} from 'src/app/order/dialogs/image-detail/image-detail.component';
 import {TableFormComponent} from 'src/app/order/dialogs/table-form/table-form.component';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
