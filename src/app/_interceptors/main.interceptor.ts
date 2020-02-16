@@ -8,33 +8,33 @@ import * as ErrorActions from 'src/app/auth/_store/_actions/error.actions';
 
 @Injectable()
 export class InterceptService implements HttpInterceptor {
-	constructor(private store: Store<fromError.State>) {
-	}
+  private userToken: string;
 
-	private userToken: string;
+  constructor(private store: Store<fromError.State>) {
+  }
 
-	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-		const currentUser = JSON.parse(localStorage.getItem('user'));
-		if (currentUser) {
-			this.userToken = currentUser.access;
-			this.store.dispatch(ErrorActions.clearError());
-			request = request.clone({
-				setHeaders: {
-					Authorization: `Token ${this.userToken}`
-				}
-			});
-		} else {
-		}
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    if (currentUser) {
+      this.userToken = currentUser.access;
+      this.store.dispatch(ErrorActions.clearError());
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Token ${this.userToken}`
+        }
+      });
+    } else {
+    }
 
 
-		return next.handle(request)
-			.pipe(
-				catchError(err => {
-					console.log(err);
-					this.store.dispatch(ErrorActions.loadError({error: err}));
-					return throwError(err);
-				})
-			);
-	}
+    return next.handle(request)
+      .pipe(
+        catchError(err => {
+          console.log(err);
+          this.store.dispatch(ErrorActions.loadError({error: err}));
+          return throwError(err);
+        })
+      );
+  }
 }

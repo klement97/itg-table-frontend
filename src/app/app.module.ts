@@ -8,22 +8,25 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from 'src/app/app-routing.module';
 import {httpInterceptorProviders} from 'src/app/_interceptors';
-import {OrderModule} from 'src/app/order/order.module';
-import {AuthModule} from 'src/app/auth/auth.module';
 import {LayoutModule} from 'src/app/layout/layout.module';
-import * as MAT from '@angular/material';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {AuthModule} from 'src/app/auth/auth.module';
+import {OrderModule} from "./order/order.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserAnimationsModule,
-    AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    LayoutModule,
     OrderModule,
     AuthModule,
-    LayoutModule,
+    AppRoutingModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -32,37 +35,7 @@ import * as MAT from '@angular/material';
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}) : [],
-    MAT.MatCheckboxModule,
-    MAT.MatCheckboxModule,
-    MAT.MatButtonModule,
-    MAT.MatInputModule,
-    MAT.MatAutocompleteModule,
-    MAT.MatDatepickerModule,
-    MAT.MatFormFieldModule,
-    MAT.MatRadioModule,
-    MAT.MatSelectModule,
-    MAT.MatSliderModule,
-    MAT.MatSlideToggleModule,
-    MAT.MatMenuModule,
-    MAT.MatSidenavModule,
-    MAT.MatToolbarModule,
-    MAT.MatListModule,
-    MAT.MatGridListModule,
-    MAT.MatCardModule,
-    MAT.MatStepperModule,
-    MAT.MatTabsModule,
-    MAT.MatExpansionModule,
-    MAT.MatButtonToggleModule,
-    MAT.MatChipsModule,
-    MAT.MatIconModule,
-    MAT.MatProgressSpinnerModule,
-    MAT.MatProgressBarModule,
-    MAT.MatDialogModule,
-    MAT.MatTooltipModule,
-    MAT.MatSnackBarModule,
-    MAT.MatTableModule,
-    MAT.MatSortModule,
-    MAT.MatPaginatorModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

@@ -13,46 +13,46 @@ const ORDER_FILTER_URL = `${ORDERS_URL}/filter`;
 const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root'
 })
 export class OrderService {
 
-	constructor(private http: HttpClient) {
-	}
+  constructor(private http: HttpClient) {
+  }
 
-	getTables() {
-		return this.http.get(`${TABLES_URL}/`);
-	}
+  getTables() {
+    return this.http.get(`${TABLES_URL}/`);
+  }
 
-	getColors() {
-		return this.http.get(`${COLORS_URL}/`);
-	}
+  getColors() {
+    return this.http.get(`${COLORS_URL}/`);
+  }
 
-	createOrder(order: Order) {
-		return this.http.post(`${ORDERS_URL}/`, order);
-	}
+  createOrder(order: Order) {
+    return this.http.post(`${ORDERS_URL}/`, order);
+  }
 
-	updateOrder(order: Order) {
-		return this.http.put(`${ORDERS_URL}/${order.id}/`, order);
-	}
+  updateOrder(order: Order) {
+    return this.http.put(`${ORDERS_URL}/${order.id}/`, order);
+  }
 
-	getOrderList(page: number, ordering?: string, filter?) {
-		return this.http.get(`${ORDERS_URL}${buildQueryString(page, ordering, null, filter)}`);
-	}
+  getOrderList(page: number, ordering?: string, filter?) {
+    return this.http.get(`${ORDERS_URL}/${buildQueryString(page, ordering, null, filter)}`);
+  }
 
-	getOrder(id: number): Observable<any> {
-		return this.http.get(`${ORDERS_URL}/${id}/`);
-	}
+  getOrder(id: number): Observable<any> {
+    return this.http.get(`${ORDERS_URL}/${id}/`);
+  }
 
-	deleteOrder(id: number) {
-		return this.http.delete(`${ORDERS_URL}/${id}/`);
-	}
+  deleteOrder(id: number) {
+    return this.http.delete(`${ORDERS_URL}/${id}/`);
+  }
 
-	filterOrderList(filter) {
-		return this.http.post(`${ORDER_FILTER_URL}/`, filter);
-	}
+  filterOrderList(filter) {
+    return this.http.post(`${ORDER_FILTER_URL}/`, filter);
+  }
 
-	sendOrderMail(to_emails: string[], order: Order) {
-		return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails, order});
-	}
+  sendOrderMail(to_emails: string[], order: Order) {
+    return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails, order});
+  }
 }

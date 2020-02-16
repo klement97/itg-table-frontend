@@ -3,53 +3,53 @@ import {MatDialogRef} from '@angular/material';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-	selector: 'app-send-order-email-dialog',
-	templateUrl: './send-order-email-dialog.component.html',
-	styleUrls: ['./send-order-email-dialog.component.css']
+  selector: 'app-send-order-email-dialog',
+  templateUrl: './send-order-email-dialog.component.html',
+  styleUrls: ['./send-order-email-dialog.component.css']
 })
 export class SendOrderEmailDialogComponent implements OnInit {
-	toEmailsForm: FormGroup;
+  toEmailsForm: FormGroup;
 
-	constructor(private dialogRef: MatDialogRef<SendOrderEmailDialogComponent>,
-							private fb: FormBuilder) {
-	}
+  constructor(private dialogRef: MatDialogRef<SendOrderEmailDialogComponent>,
+              private fb: FormBuilder) {
+  }
 
-	ngOnInit() {
-		this.initialToEmailsForm();
-	}
+  get emails() {
+    return this.toEmailsForm.get('to_emails') as FormArray;
+  }
 
-	initialToEmailsForm() {
-		this.toEmailsForm = this.fb.group({
-			to_emails: this.fb.array([this.createEmail()])
-		});
-	}
+  ngOnInit() {
+    this.initialToEmailsForm();
+  }
 
-	createEmail(): FormGroup {
-		return this.fb.group({
-			email: ['', [Validators.required, Validators.email]]
-		});
-	}
+  initialToEmailsForm() {
+    this.toEmailsForm = this.fb.group({
+      to_emails: this.fb.array([this.createEmail()])
+    });
+  }
 
-	get emails() {
-		return this.toEmailsForm.get('to_emails') as FormArray;
-	}
+  createEmail(): FormGroup {
+    return this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
 
-	addEmail() {
-		this.emails.push(this.createEmail());
-	}
+  addEmail() {
+    this.emails.push(this.createEmail());
+  }
 
-	removeEmail(index: number) {
-		this.emails.controls.splice(index, 1);
-	}
+  removeEmail(index: number) {
+    this.emails.controls.splice(index, 1);
+  }
 
-	onYesClick() {
-		if (this.toEmailsForm.valid) {
-			this.dialogRef.close({'to_emails': this.toEmailsForm.value.to_emails});
-		}
-	}
+  onYesClick() {
+    if (this.toEmailsForm.valid) {
+      this.dialogRef.close({'to_emails': this.toEmailsForm.value.to_emails});
+    }
+  }
 
-	onNoClick() {
-		this.dialogRef.close();
-	}
+  onNoClick() {
+    this.dialogRef.close();
+  }
 
 }

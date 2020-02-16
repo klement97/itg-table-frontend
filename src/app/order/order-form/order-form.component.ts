@@ -12,141 +12,152 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {clearOrderUnits, loadOrderUnits} from '../_store/_actions/order-unit.actions';
 import {addOrderForUpdate} from '../_store/_actions/order.actions';
+import {take} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-order-form',
-	templateUrl: './order-form.component.html',
-	styleUrls: ['./order-form.component.css']
+  selector: 'app-order-form',
+  templateUrl: './order-form.component.html',
+  styleUrls: ['./order-form.component.css']
 })
 export class OrderFormComponent implements OnInit, OnDestroy {
-	orderForm: FormGroup;
-	innerColors: InnerColor[];
-	outerColors: OuterColor[];
-	cart$: Observable<OrderUnit[]>;
-	orderCount: number;
-	orderCountSubs$ = new Subscription();
-	order = new Order();
-	update = false;
-	orderId: number;
+  orderForm: FormGroup;
+  innerColors: InnerColor[];
+  outerColors: OuterColor[];
+  cart$: Observable<OrderUnit[]>;
+  orderCount: number;
+  orderCountSubs$ = new Subscription();
+  order = new Order();
+  isUpdate = false;
+  orderId: number;
 
-	constructor(private fb: FormBuilder, private store: Store<OrderUnitState>, private orderService: OrderService,
-							public dialog: MatDialog, private router: Router, private snackbar: MatSnackBar, private route: ActivatedRoute) {
-		this.cart$ = store.select(selectOrderUnits);
-		this.orderCountSubs$ = store.select(selectOrderCount).subscribe(count => this.orderCount = count);
-	}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<OrderUnitState>,
+    private orderService: OrderService,
+    public dialog: MatDialog,
+    private router: Router,
+    private snackbar: MatSnackBar,
+    private route: ActivatedRoute
+  ) {
+    this.cart$ = store.select(selectOrderUnits);
+    this.orderCountSubs$ = store.select(selectOrderCount).subscribe(count => this.orderCount = count);
+    this.orderId = +route.snapshot.paramMap.get('order_id');
+    this.isUpdate = !!this.orderId;
+  }
 
-	ngOnInit() {
-		this.orderService.getColors().subscribe(res => {
-			this.innerColors = res['inner_colors'];
-			this.outerColors = res['outer_colors'];
-		});
-		this.initForm();
-		this.isUpdate();
-	}
+  ngOnInit() {
+    this.getColors();
+    this.initialForm();
+    this.loadOrder();
+  }
 
-	ngOnDestroy() {
-		this.orderCountSubs$.unsubscribe();
-	}
+  ngOnDestroy() {
+    this.orderCountSubs$.unsubscribe();
+  }
 
-	isUpdate() {
-		const id = +this.route.snapshot.paramMap.get('order_id');
-		if (id) {
-			this.update = true;
-			this.orderId = id;
-			this.store.select(selectOrderEntities).subscribe(orders => {
-				if (orders[id]) {
-					this.store.select(selectOrderUnits).subscribe(units => {
-						if (units.length == 0) {
-							this.store.dispatch(loadOrderUnits({orderUnits: orders[id].order_units}));
-						}
-					}).unsubscribe();
-					this.fillFormForUpdate(orders[id]);
-				} else {
-					this.orderService.getOrder(id).subscribe(response => {
-						if (response) {
-							this.store.dispatch(addOrderForUpdate({order: response}));
-							this.store.dispatch(loadOrderUnits({orderUnits: response['order_units']}));
-							this.fillFormForUpdate(response);
-						}
-					});
-				}
-			}).unsubscribe();
-			return true;
-		} else {
-			this.update = false;
-			this.orderId = null;
-			return false;
-		}
-	}
+  getColors() {
+    this.orderService.getColors().subscribe(res => {
+      this.innerColors = res['inner_colors'];
+      this.outerColors = res['outer_colors'];
+    });
+  }
 
-	fillFormForUpdate(order: Order) {
-		this.orderForm.patchValue(order);
-	}
+  loadOrder() {
+    if (this.isUpdate) {
+      this.store.select(selectOrderEntities).pipe(take(1)).subscribe(orders => {
+        const isOrderInStore: boolean = orders[this.orderId] !== null;
+        if (isOrderInStore) {
+          this.loadOrderFromStore(orders);
+        } else {
+          this.getOrderFromServer();
+        }
+      });
+    }
+  }
 
-	initForm() {
-		this.orderForm = this.fb.group({
-			customer: ['', Validators.required],
-			outer_color: [null, Validators.required],
-			inner_color: [null, Validators.required],
-		});
-	}
+  loadOrderFromStore(orders) {
+    this.store.select(selectOrderUnits).pipe(take(1)).subscribe(units => {
+      if (units.length == 0) {
+        this.store.dispatch(loadOrderUnits({orderUnits: orders[this.orderId].order_units}));
+        this.orderForm.patchValue(orders[this.orderId]);
+      }
+    });
+  }
 
-	onSubmit() {
-		if (this.orderCount === 0) {
-			this.cartEmptySnack();
+  getOrderFromServer() {
+    this.orderService.getOrder(this.orderId).subscribe(response => {
+      if (response) {
+        this.store.dispatch(addOrderForUpdate({order: response}));
+        this.store.dispatch(loadOrderUnits({orderUnits: response['order_units']}));
+        this.orderForm.patchValue(response);
+      }
+    });
+  }
 
-		} else if (this.orderForm.invalid) {
-			this.formInvalidSnack();
+  initialForm() {
+    this.orderForm = this.fb.group({
+      customer: ['', Validators.required],
+      outer_color: [null, Validators.required],
+      inner_color: [null, Validators.required],
+    });
+  }
 
-		} else {
-			this.prepareOrder();
-			if (this.update) {
-				this.orderService.updateOrder(this.order).subscribe(
-					(order: Order) => {
-						this.router.navigate(['/order/list']).then();
-						this.store.dispatch(clearOrderUnits());
-					}
-				);
-			} else {
-				this.orderService.createOrder(this.order).subscribe(
-					(order: Order) => {
-						this.router.navigate(['/order/list']).then();
-						this.store.dispatch(clearOrderUnits());
-					}
-				);
-			}
-		}
-	}
+  onSubmit() {
+    if (this.orderCount === 0) {
+      this.cartEmptySnack();
+      return;
+    }
+    if (this.orderForm.invalid) {
+      this.formInvalidSnack();
+      return;
+    }
+    this.prepareOrder();
+    if (this.isUpdate) {
+      this.orderService.updateOrder(this.order).subscribe(
+        () => {
+          this.router.navigate(['/order/list']).then();
+          this.store.dispatch(clearOrderUnits());
+        }
+      );
+    } else {
+      this.orderService.createOrder(this.order).subscribe(
+        () => {
+          this.router.navigate(['/order/list']).then();
+          this.store.dispatch(clearOrderUnits());
+        }
+      );
+    }
+  }
 
-	prepareOrder() {
-		this.order = {...this.orderForm.value};
-		this.order.order_units = new Array<OrderUnit>();
-		this.cart$.subscribe(units => {
-			for (let unit of units) {
-				let orderUnit = new OrderUnit();
-				orderUnit = {...unit};
-				// changing orderUnit table attribute from table object to table's id here
-				// to be able to send it to WriteSerializer
-				orderUnit.table = unit.table.id;
-				this.order.order_units.push(orderUnit);
-			}
-		});
-		if (this.update) {
-			this.order.id = this.orderId;
-		}
-	}
+  prepareOrder() {
+    this.order = {...this.orderForm.value};
+    this.order.order_units = new Array<OrderUnit>();
+    this.cart$.subscribe(units => {
+      for (let unit of units) {
+        let orderUnit = new OrderUnit();
+        orderUnit = {...unit};
+        // changing orderUnit table attribute from table object to table's id here
+        // to be able to send it to WriteSerializer
+        orderUnit.table = unit.table.id;
+        this.order.order_units.push(orderUnit);
+      }
+    });
+    if (this.isUpdate) {
+      this.order.id = this.orderId;
+    }
+  }
 
-	cartEmptySnack() {
-		this.snackbar.open('Asnje produkt në shport!', '', {
-			verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-warning', duration: 1300
-		});
-	}
+  cartEmptySnack() {
+    this.snackbar.open('Asnje produkt në shport!', '', {
+      verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-warning', duration: 1300
+    });
+  }
 
-	formInvalidSnack() {
-		this.snackbar.open('Forma nuk eshte valide!', '', {
-			verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-danger', duration: 1300
-		});
-	}
+  formInvalidSnack() {
+    this.snackbar.open('Forma nuk eshte valide!', '', {
+      verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-danger', duration: 1300
+    });
+  }
 
 
 }

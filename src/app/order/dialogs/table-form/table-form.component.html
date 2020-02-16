@@ -1,66 +1,66 @@
 <form [formGroup]="orderForm">
-    <mat-card class="shipping-card">
-        <mat-card-actions align="center">
-            <button mat-raised-button class="btn-success" type="submit" (click)="dialogRef.close({'order': orderForm.value})">
-                <mat-icon>add</mat-icon>
-                Shto
-            </button>
-            <button mat-raised-button type="button" (click)="dialogRef.close()">
-                <mat-icon>reply</mat-icon>
-                Mbyll
-            </button>
-        </mat-card-actions>
-        <mat-card-header>
-            <mat-card-title>Informacione shtesë për {{data['table'].code}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="row">
-                <div class="col">
-                    <img src="{{data['table'].image}}" width="100px" height="100px" alt="table">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Shënime</mat-label>
-                            <textarea matInput formControlName="description"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- Amount -->
-                <div class="col">
-                    <mat-form-field>
-                        <mat-label>Sasia</mat-label>
-                        <input matInput formControlName="amount" type="number">
-                    </mat-form-field>
-                </div>
+  <mat-card class="shipping-card">
+    <mat-card-actions align="center">
+      <button (click)="dialogRef.close({'order': orderForm.value})" class="btn-success" mat-raised-button type="submit">
+        <mat-icon>add</mat-icon>
+        Shto
+      </button>
+      <button (click)="dialogRef.close()" mat-raised-button type="button">
+        <mat-icon>reply</mat-icon>
+        Mbyll
+      </button>
+    </mat-card-actions>
+    <mat-card-header>
+      <mat-card-title>Informacione shtesë për {{data['table'].code}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <img alt="table" height="100px" src="{{data['table'].image}}" width="100px">
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Shënime</mat-label>
+              <textarea formControlName="description" matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Amount -->
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Sasia</mat-label>
+            <input formControlName="amount" matInput type="number">
+          </mat-form-field>
+        </div>
 
-                <!-- Height -->
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Lartësi</mat-label>
-                        <input type="number" matInput formControlName="height">
-                    </mat-form-field>
-                </div>
+        <!-- Height -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Lartësi</mat-label>
+            <input formControlName="height" matInput type="number">
+          </mat-form-field>
+        </div>
 
-                <!-- Width -->
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Gjerësi</mat-label>
-                        <input type="number" matInput formControlName="width">
-                    </mat-form-field>
-                </div>
+        <!-- Width -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Gjerësi</mat-label>
+            <input formControlName="width" matInput type="number">
+          </mat-form-field>
+        </div>
 
-                <!-- Depth -->
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Gjatësi</mat-label>
-                        <input type="number" matInput formControlName="depth">
-                    </mat-form-field>
-                </div>
+        <!-- Depth -->
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Gjatësi</mat-label>
+            <input formControlName="depth" matInput type="number">
+          </mat-form-field>
+        </div>
 
-            </div>
-        </mat-card-content>
-    </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </form>

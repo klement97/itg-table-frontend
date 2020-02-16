@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from 'src/app/auth/_store/_services/auth.service';
+import {AuthService, isLoggedIn} from 'src/app/auth/_store/_services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +16,18 @@ export class LoginComponent implements OnInit {
   hasError: boolean;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
   }
 
   ngOnInit() {
-    this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-    });
+    if (isLoggedIn) {
+      this.router.navigate(['order/tables']).then();
+    } else {
+      this.loginForm = this.fb.group({
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+      });
+    }
   }
 
   submit() {
@@ -30,12 +35,11 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
         .subscribe(
-          () => {
-            this.loading = false;
-          },
+          () => this.loading = false,
           error => {
             if (this.checkForCache()) {
-              this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).subscribe();
+              this.auth.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
+                .subscribe();
             }
             this.loading = false;
             this.hasError = true;
@@ -45,10 +49,6 @@ export class LoginComponent implements OnInit {
           }
         );
     }
-  }
-
-  hasTokenExpired() {
-
   }
 
   checkForCache() {

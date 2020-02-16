@@ -4,7 +4,7 @@ import {Update} from '@ngrx/entity';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 
 export const loadOrderUnits = createAction(
-  '[OrderUnit/API] Load OrderUnits', 
+  '[OrderUnit/API] Load OrderUnits',
   props<{ orderUnits: OrderUnit[] }>()
 );
 
