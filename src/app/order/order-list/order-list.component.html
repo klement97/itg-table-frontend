@@ -1,19 +1,19 @@
 <section>
   <div class="header">
     <h4>Lista e porosive</h4>
-    <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">
-      <mat-form-field>
-        <input formControlName="customer__icontains" matInput placeholder="Klienti" type="text">
-      </mat-form-field>
-      <mat-form-field>
-        <input formControlName="date_created_gte" matInput placeholder="Data - nga" type="date">
-      </mat-form-field>
-      <mat-form-field>
-        <input formControlName="date_created_lte" matInput placeholder="Data - deri" type="date">
-      </mat-form-field>
+<!--    <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">-->
+<!--      <mat-form-field>-->
+<!--        <input formControlName="customer__icontains" matInput placeholder="Klienti" type="text">-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field>-->
+<!--        <input formControlName="date_created_gte" matInput placeholder="Data - nga" type="date">-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field>-->
+<!--        <input formControlName="date_created_lte" matInput placeholder="Data - deri" type="date">-->
+<!--      </mat-form-field>-->
 
-      <button color="primary" mat-stroked-button type="submit">Kërko</button>
-    </form>
+<!--      <button color="primary" mat-stroked-button type="submit">Kërko</button>-->
+<!--    </form>-->
   </div>
   <div style="height: 5px">
     <mat-progress-bar *ngIf="loading" mode="indeterminate" style="height: 5px"></mat-progress-bar>
