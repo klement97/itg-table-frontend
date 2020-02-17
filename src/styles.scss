@@ -1,4 +1,5 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "column-system";
 
 body {
   margin: 0;
@@ -117,4 +118,14 @@ mat-dialog-container {
   .mat-sidenav-container {
     display: none !important;
   }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
 }

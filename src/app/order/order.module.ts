@@ -71,15 +71,6 @@ import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/s
     MatDialogModule,
     MatSnackBarModule
   ],
-  entryComponents: [
-    TableDetailComponent,
-    ImageDetailComponent,
-    TableFormComponent,
-    CartComponent,
-    InvoiceComponent,
-    OrderDetailDialogComponent,
-    SendOrderEmailDialogComponent,
-  ],
   exports: [
     OrderPageComponent,
     TableFormComponent,

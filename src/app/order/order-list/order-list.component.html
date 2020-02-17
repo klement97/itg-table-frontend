@@ -1,25 +1,24 @@
 <section style="padding: 15px">
     <mat-card>
-        <!-- Header -->
-        <mat-card-header>
-            <!--      <div class="header">-->
-            <h5>Lista e porosive</h5>
-            <!--    <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">-->
-            <!--      <mat-form-field>-->
-            <!--        <input formControlName="customer__icontains" matInput placeholder="Klienti" type="text">-->
-            <!--      </mat-form-field>-->
-            <!--      <mat-form-field>-->
-            <!--        <input formControlName="date_created_gte" matInput placeholder="Data - nga" type="date">-->
-            <!--      </mat-form-field>-->
-            <!--      <mat-form-field>-->
-            <!--        <input formControlName="date_created_lte" matInput placeholder="Data - deri" type="date">-->
-            <!--      </mat-form-field>-->
+        <mat-card-content>
+            <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">
+                <mat-form-field class="col-4" appearance="outline">
+                    <mat-label>Klienti</mat-label>
+                    <input formControlName="customer__icontains" matInput placeholder="Klienti" type="text">
+                </mat-form-field>
+                <mat-form-field class="col-4" appearance="outline">
+                    <input formControlName="date_created_gte" matInput placeholder="Data - nga" type="date">
+                </mat-form-field>
+                <mat-form-field class="col-4" appearance="outline">
+                    <input formControlName="date_created_lte" matInput placeholder="Data - deri" type="date">
+                </mat-form-field>
 
-            <!--      <button color="primary" mat-stroked-button type="submit">Kërko</button>-->
-            <!--    </form>-->
-            <!--      </div>-->
-        </mat-card-header>
-
+                <button class="col-12" color="primary" mat-stroked-button type="submit">
+                    <mat-icon>search</mat-icon>&nbsp;Kërko</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
         <!-- Content-->
         <mat-card-content style="overflow-x: auto">
             <div style="height: 5px">
@@ -65,12 +64,10 @@
                 <ng-container matColumnDef="actions">
                     <th *matHeaderCellDef mat-header-cell>Veprime</th>
                     <td *matCellDef="let order" mat-cell>
-                <span style="display: flex; flex-direction: row">
-                    <button (click)="showDetails(order)" mat-icon-button><mat-icon
-                            style="opacity: 0.7">visibility</mat-icon></button>
+                <span class="flex-row">
                     <a (click)="updateOrder(order.id, $event)" mat-icon-button><mat-icon
                             style="opacity: 0.7">build</mat-icon></a>
-                    <button (click)="deleteOrder(order.id, $event)" mat-icon-button><mat-icon
+                    <button (click)="deleteOrder(order.id)" mat-icon-button><mat-icon
                             style="opacity: 0.7">delete_sweep</mat-icon></button>
                   <button (click)="openEmailSendDialog(order)" mat-icon-button><mat-icon
                           style="opacity: 0.7;">email</mat-icon></button>
@@ -81,17 +78,13 @@
                 <!-- Header and Row Declarations -->
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
-                <tfoot>
-                <ng-container>
-                    <mat-paginator [ngStyle]="{'hidden': count > 10}" #paginator (page)="changePage()" [length]="count"
-                                   pageSize="10" showFirstLastButtons></mat-paginator>
-                </ng-container>
-                </tfoot>
             </table>
         </mat-card-content>
 
         <!-- Footer -->
         <mat-card-footer>
+            <mat-paginator [ngStyle]="{'display': count > 10 ? 'block' : 'none'}" #paginator (page)="changePage()"
+                           [length]="count" pageSize="10" showFirstLastButtons></mat-paginator>
         </mat-card-footer>
     </mat-card>
 </section>

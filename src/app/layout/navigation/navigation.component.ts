@@ -2,8 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, share} from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSidenav } from '@angular/material/sidenav';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSidenav} from '@angular/material/sidenav';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
@@ -23,10 +23,10 @@ export class NavigationComponent {
   @ViewChild('drawer', {static: true}) drawer: MatSidenav;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      share()
-    );
+      .pipe(
+          map(result => result.matches),
+          share()
+      );
 
   constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
               private auth: AuthService, private router: Router) {

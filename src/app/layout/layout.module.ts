@@ -31,7 +31,6 @@ import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/
     MatCardModule,
   ],
   exports: [FooterComponent, NavigationComponent, ConfirmationDialogComponent],
-  entryComponents: [ConfirmationDialogComponent]
 })
 export class LayoutModule {
 }

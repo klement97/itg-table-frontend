@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {OrderService} from 'src/app/order/_store/_services/order.service';
 import {Store} from '@ngrx/store';
 import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import * as OrderActions from 'src/app/order/_store/_actions/order.actions';
 import {markUpdateAsTrue} from 'src/app/order/_store/_actions/order.actions';
 import {Observable} from 'rxjs';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Sort} from '@angular/material/sort';
@@ -17,29 +17,30 @@ import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {LayoutService} from '../../layout/layout.service';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.css']
+  styleUrls: ['./order-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderListComponent implements OnInit {
   @ViewChild('paginator', {static: true}) paginator: MatPaginator;
   count: number = 0;
   displayedColumns: string[] = ['id', 'customer', 'date_created', 'total_price', 'total_table_count', 'actions'];
   loading: boolean = true;
-
   orders$: Observable<Order[]>;
-
   filterForm: FormGroup;
 
   constructor(
-    private orderService: OrderService,
-    private store: Store<fromOrder.State>,
-    private dialog: MatDialog,
-    private router: Router,
-    private snackbar: MatSnackBar,
-    private fb: FormBuilder
+      private layoutService: LayoutService,
+      private orderService: OrderService,
+      private store: Store<fromOrder.State>,
+      private dialog: MatDialog,
+      private router: Router,
+      private snackbar: MatSnackBar,
+      private fb: FormBuilder
   ) {
     this.orders$ = store.select(selectOrderList);
   }
@@ -51,11 +52,11 @@ export class OrderListComponent implements OnInit {
 
   getOrders(ordering) {
     this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, null)
-      .subscribe(response => {
-        this.loading = false;
-        this.count = response['count'];
-        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-      });
+        .subscribe(response => {
+          this.loading = false;
+          this.count = response['count'];
+          this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+        });
   }
 
   initiateFilterForm() {
@@ -66,8 +67,7 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  deleteOrder(id: number, event: MouseEvent) {
-    event.preventDefault();
+  deleteOrder(id: number) {
     const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
       minWidth: '300px',
       width: '30%',
@@ -76,17 +76,21 @@ export class OrderListComponent implements OnInit {
     });
 
     dialogRef$.afterClosed()
-      .subscribe((result: { confirmed: boolean }) => {
-        if (result?.confirmed) {
-          this.orderService.deleteOrder(id).subscribe(() => {
-            this.store.dispatch(OrderActions.deleteOrder({id}));
-          });
-        }
-      });
+        .subscribe((result: { confirmed: boolean }) => {
+          if (result?.confirmed) {
+            this.orderService.deleteOrder(id).subscribe(() => {
+              this.store.dispatch(OrderActions.deleteOrder({id}));
+            });
+          }
+        });
   }
 
   showDetails(order) {
-    this.dialog.open(OrderDetailDialogComponent, {width: '45%', minWidth: '300px', data: {'order': order}});
+    let config: MatDialogConfig = {width: '45%', minWidth: '350px', data: {'order': order}};
+    if (this.layoutService.isHandset()) {
+      config = {width: '90%', minWidth: '300px', data: {'order': order}};
+    }
+    this.dialog.open(OrderDetailDialogComponent, config);
   }
 
   updateOrder(id, event) {
@@ -97,16 +101,16 @@ export class OrderListComponent implements OnInit {
 
   changeSort(event: Sort) {
     const field = event.active;
-    const direction = '' ? event.direction === 'asc' : '-';
+    const direction = '' ? event.direction==='asc':'-';
     const ordering = `${direction}${field}`;
     this.getOrders(ordering);
   }
 
   changePage() {
     this.orderService.getOrderList(this.paginator.pageIndex + 1).subscribe(
-      response => {
-        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-      }
+        response => {
+          this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+        }
     );
   }
 
@@ -127,16 +131,22 @@ export class OrderListComponent implements OnInit {
             to_emails.push(item['email']);
           }
           this.orderService.sendOrderMail(to_emails, order).subscribe(
-            () => {
-              this.snackbar.open('Email u dërgua me sukses!', 'OK', {
-                duration: 2500, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-success'
+              () => {
+                this.snackbar.open('Email u dërgua me sukses!', 'OK', {
+                  duration: 2500,
+                  verticalPosition: 'top',
+                  horizontalPosition: 'end',
+                  panelClass: 'snack-success'
+                });
+              },
+              () => {
+                this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
+                  duration: 3000,
+                  verticalPosition: 'top',
+                  horizontalPosition: 'end',
+                  panelClass: 'snack-danger'
+                });
               });
-            },
-            () => {
-              this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
-                duration: 3000, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-danger'
-              });
-            });
         }
       }
     });
@@ -145,12 +155,12 @@ export class OrderListComponent implements OnInit {
   filterOrders() {
     this.paginator.pageIndex = 0;
     this.orderService.getOrderList(this.paginator.pageIndex, '', this.filterForm.value).subscribe(
-      response => {
-        this.store.dispatch(OrderActions.loadOrders(response['results']));
-      },
-      error => {
-        console.log(error);
-      }
+        response => {
+          this.store.dispatch(OrderActions.loadOrders(response['results']));
+        },
+        error => {
+          console.log(error);
+        }
     );
   }
 
