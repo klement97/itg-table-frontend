@@ -5,33 +5,30 @@ import {catchError} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import * as fromError from 'src/app/auth/_store/_reducers/error.reducer';
 import * as ErrorActions from 'src/app/auth/_store/_actions/error.actions';
+import {CookieService} from 'ngx-cookie-service';
+import {_TOKEN} from '../auth/_store/_services/auth.service';
 
 @Injectable()
 export class InterceptService implements HttpInterceptor {
-  private userToken: string;
 
-  constructor(private store: Store<fromError.State>) {
+  constructor(
+    private store: Store<fromError.State>,
+    private cookieService: CookieService
+  ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    if (currentUser) {
-      this.userToken = currentUser.access;
+    const token: string = this.cookieService.get(_TOKEN);
+    if (token) {
       this.store.dispatch(ErrorActions.clearError());
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Token ${this.userToken}`
-        }
-      });
-    } else {
+      request = request.clone({setHeaders: {Authorization: `Token ${token}`}});
     }
 
 
     return next.handle(request)
       .pipe(
         catchError(err => {
-          console.log(err);
           this.store.dispatch(ErrorActions.loadError({error: err}));
           return throwError(err);
         })
