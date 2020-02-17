@@ -18,21 +18,30 @@ import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-  cartCount: number;
+  cartCount: number = null;
   updateOrderId: number;
   @ViewChild('drawer', {static: true}) drawer: MatSidenav;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-      .pipe(
-          map(result => result.matches),
-          share()
-      );
+    .pipe(
+      map(result => result.matches),
+      share()
+    );
 
-  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog, private store: Store<OrderUnitState>,
-              private auth: AuthService, private router: Router) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public dialog: MatDialog,
+    private store: Store<OrderUnitState>,
+    private auth: AuthService,
+    private router: Router
+  ) {
     store.select(selectOrderCount).subscribe(count => this.cartCount = count);
     store.select(selectUpdateOrderId).subscribe(id => this.updateOrderId = id);
-    // router.events.subscribe(_ => this.drawer.close());
+    router.events.subscribe(_ => {
+      if (breakpointObserver.isMatched(Breakpoints.Handset)) {
+        return this.drawer.close();
+      }
+    });
   }
 
   goToOrderForm() {
