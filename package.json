@@ -28,6 +28,7 @@
     "@ngrx/store-devtools": "^8.4.0",
     "@sentry/browser": "^5.7.1",
     "express": "^4.17.1",
+    "ngx-cookie-service": "^2.3.0",
     "path": "^0.12.7",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

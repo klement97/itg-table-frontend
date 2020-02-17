@@ -12,6 +12,7 @@ import {LayoutModule} from 'src/app/layout/layout.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AuthModule} from 'src/app/auth/auth.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     !environment.production ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}):[],
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
-  providers: [httpInterceptorProviders],
+  providers: [
+    httpInterceptorProviders,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

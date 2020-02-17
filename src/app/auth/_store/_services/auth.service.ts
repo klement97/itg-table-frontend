@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
-import {User} from 'src/app/auth/_store/user.model';
 import {finalize, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 
 const API = `${environment.apiHost}`;
 const AUTH = `${API}/auth`;
@@ -15,48 +15,49 @@ const LOGIN = `${TOKEN}/login`;
 const LOGOUT = `${TOKEN}/logout`;
 
 export let isLoggedIn: boolean = false;
+export const _TOKEN: string = 'token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentTokenSubject: BehaviorSubject<User>;
+  private currentTokenSubject: BehaviorSubject<string>;
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.currentTokenSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService
+  ) {
+    this.currentTokenSubject = new BehaviorSubject<string>(this.cookieService.get(_TOKEN));
   }
 
   login(username, password) {
     return this.http.post(`${LOGIN}/`,
       {username, password}).pipe(
-      map(user => {
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentTokenSubject.next(user['auth_token']);
+      map((token: { auth_token: string }) => {
+        if (token) {
+          this.cookieService.set(_TOKEN, token.auth_token, null, '', '', false, 'Lax');
+          this.currentTokenSubject.next(token.auth_token);
           this.router.navigate(['order/tables']).then();
           isLoggedIn = true;
-          return user;
+          return token;
         }
       })
     );
   }
 
   logout() {
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    return this.http.post(`${LOGOUT}/`, currentUser.auth_token).pipe(
+    const token: string = this.cookieService.get(_TOKEN);
+    return this.http.post(`${LOGOUT}/`, token).pipe(
       finalize(() => {
         this.router.navigate(['/auth/login']).then(
           () => {
-            localStorage.clear();
+            this.cookieService.delete(_TOKEN);
             isLoggedIn = false;
           }
         );
       })
     );
 
-  }
-
-  userInfo() {
-    return this.http.get(`${CURRENT_USER}/`);
   }
 }
