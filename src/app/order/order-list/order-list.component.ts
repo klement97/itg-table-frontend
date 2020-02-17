@@ -34,13 +34,13 @@ export class OrderListComponent implements OnInit {
   filterForm: FormGroup;
 
   constructor(
-      private layoutService: LayoutService,
-      private orderService: OrderService,
-      private store: Store<fromOrder.State>,
-      private dialog: MatDialog,
-      private router: Router,
-      private snackbar: MatSnackBar,
-      private fb: FormBuilder
+    private layoutService: LayoutService,
+    private orderService: OrderService,
+    private store: Store<fromOrder.State>,
+    private dialog: MatDialog,
+    private router: Router,
+    private snackbar: MatSnackBar,
+    private fb: FormBuilder
   ) {
     this.orders$ = store.select(selectOrderList);
   }
@@ -52,11 +52,11 @@ export class OrderListComponent implements OnInit {
 
   getOrders(ordering) {
     this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, null)
-        .subscribe(response => {
-          this.loading = false;
-          this.count = response['count'];
-          this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-        });
+      .subscribe(response => {
+        this.loading = false;
+        this.count = response['count'];
+        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+      });
   }
 
   initiateFilterForm() {
@@ -75,14 +75,16 @@ export class OrderListComponent implements OnInit {
       panelClass: 'padding-0'
     });
 
-    dialogRef$.afterClosed()
-        .subscribe((result: { confirmed: boolean }) => {
-          if (result?.confirmed) {
-            this.orderService.deleteOrder(id).subscribe(() => {
-              this.store.dispatch(OrderActions.deleteOrder({id}));
-            });
-          }
-        });
+    dialogRef$
+      .afterClosed()
+      .subscribe((result: { confirmed: boolean }) => {
+        if (result?.confirmed) {
+          this.orderService.deleteOrder(id).subscribe(_ => {
+            this.store.dispatch(OrderActions.deleteOrder({id}));
+            this.count--;
+          });
+        }
+      });
   }
 
   showDetails(order) {
@@ -93,7 +95,7 @@ export class OrderListComponent implements OnInit {
     this.dialog.open(OrderDetailDialogComponent, config);
   }
 
-  updateOrder(id, event) {
+  updateOrder(id) {
     this.store.dispatch(clearOrderUnits());
     this.store.dispatch(markUpdateAsTrue({orderId: id}));
     this.router.navigate(['/order/form/', id]).then();
@@ -108,9 +110,9 @@ export class OrderListComponent implements OnInit {
 
   changePage() {
     this.orderService.getOrderList(this.paginator.pageIndex + 1).subscribe(
-        response => {
-          this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-        }
+      response => {
+        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+      }
     );
   }
 
@@ -131,22 +133,22 @@ export class OrderListComponent implements OnInit {
             to_emails.push(item['email']);
           }
           this.orderService.sendOrderMail(to_emails, order).subscribe(
-              () => {
-                this.snackbar.open('Email u dërgua me sukses!', 'OK', {
-                  duration: 2500,
-                  verticalPosition: 'top',
-                  horizontalPosition: 'end',
-                  panelClass: 'snack-success'
-                });
-              },
-              () => {
-                this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
-                  duration: 3000,
-                  verticalPosition: 'top',
-                  horizontalPosition: 'end',
-                  panelClass: 'snack-danger'
-                });
+            () => {
+              this.snackbar.open('Email u dërgua me sukses!', 'OK', {
+                duration: 2500,
+                verticalPosition: 'top',
+                horizontalPosition: 'end',
+                panelClass: 'snack-success'
               });
+            },
+            () => {
+              this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
+                duration: 3000,
+                verticalPosition: 'top',
+                horizontalPosition: 'end',
+                panelClass: 'snack-danger'
+              });
+            });
         }
       }
     });
@@ -155,12 +157,12 @@ export class OrderListComponent implements OnInit {
   filterOrders() {
     this.paginator.pageIndex = 0;
     this.orderService.getOrderList(this.paginator.pageIndex, '', this.filterForm.value).subscribe(
-        response => {
-          this.store.dispatch(OrderActions.loadOrders(response['results']));
-        },
-        error => {
-          console.log(error);
-        }
+      response => {
+        this.store.dispatch(OrderActions.loadOrders(response['results']));
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 

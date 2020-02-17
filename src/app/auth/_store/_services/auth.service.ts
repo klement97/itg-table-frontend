@@ -3,7 +3,7 @@ import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {User} from 'src/app/auth/_store/user.model';
-import {map} from 'rxjs/operators';
+import {finalize, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 const API = `${environment.apiHost}`;
@@ -20,12 +20,10 @@ export let isLoggedIn: boolean = false;
   providedIn: 'root'
 })
 export class AuthService {
-
-  private readonly CURRENT_TOKEN = 'user';
   private currentTokenSubject: BehaviorSubject<User>;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.currentTokenSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(this.CURRENT_TOKEN)));
+    this.currentTokenSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
   }
 
   login(username, password) {
@@ -46,7 +44,7 @@ export class AuthService {
   logout() {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     return this.http.post(`${LOGOUT}/`, currentUser.auth_token).pipe(
-      map(() => {
+      finalize(() => {
         this.router.navigate(['/auth/login']).then(
           () => {
             localStorage.clear();

@@ -11,7 +11,6 @@ import {httpInterceptorProviders} from 'src/app/_interceptors';
 import {LayoutModule} from 'src/app/layout/layout.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AuthModule} from 'src/app/auth/auth.module';
-import {OrderModule} from "./order/order.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
@@ -24,7 +23,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule,
     FormsModule,
     LayoutModule,
-    OrderModule,
+    // OrderModule,
     AuthModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {
@@ -34,7 +33,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         strictActionImmutability: true
       }
     }),
-    !environment.production ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}) : [],
+    !environment.production ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}):[],
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [httpInterceptorProviders],

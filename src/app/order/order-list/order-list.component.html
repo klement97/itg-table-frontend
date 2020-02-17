@@ -14,7 +14,8 @@
                 </mat-form-field>
 
                 <button class="col-12" color="primary" mat-stroked-button type="submit">
-                    <mat-icon>search</mat-icon>&nbsp;Kërko</button>
+                    <mat-icon>search</mat-icon>&nbsp;Kërko
+                </button>
             </form>
         </mat-card-content>
     </mat-card>
@@ -65,7 +66,7 @@
                     <th *matHeaderCellDef mat-header-cell>Veprime</th>
                     <td *matCellDef="let order" mat-cell>
                 <span class="flex-row">
-                    <a (click)="updateOrder(order.id, $event)" mat-icon-button><mat-icon
+                    <a (click)="updateOrder(order.id)" mat-icon-button><mat-icon
                             style="opacity: 0.7">build</mat-icon></a>
                     <button (click)="deleteOrder(order.id)" mat-icon-button><mat-icon
                             style="opacity: 0.7">delete_sweep</mat-icon></button>
@@ -83,8 +84,8 @@
 
         <!-- Footer -->
         <mat-card-footer>
-            <mat-paginator [ngStyle]="{display: count > 10 ? 'block' : 'none'}" #paginator (page)="changePage()"
-                           [length]="count" pageSize="10" showFirstLastButtons></mat-paginator>
+            <mat-paginator #paginator (page)="changePage()" [length]="count" pageSize="10"
+                           showFirstLastButtons></mat-paginator>
         </mat-card-footer>
     </mat-card>
 </section>
