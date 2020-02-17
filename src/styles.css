@@ -1,8 +1,4 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-.col {
-  width: auto;
-}
-
 .col-1 {
   width: 8.333333333%;
 }

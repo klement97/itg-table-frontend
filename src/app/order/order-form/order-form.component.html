@@ -1,75 +1,77 @@
 <div class="content" id="content">
-  <form (ngSubmit)="onSubmit()" [formGroup]="orderForm" novalidate>
-    <mat-card class="shipping-card">
-      <div class="row full-width header-row">
-        <mat-card-header>
-          <mat-card-title>Përfundo porosinë</mat-card-title>
-        </mat-card-header>
-        <div class="col align-end">
-          <mat-card-actions class="align-end">
-            <!--                        <a>-->
-            <button mat-stroked-button routerLink="/order/tables">
-              <mat-icon>undo</mat-icon>
-              Kthehu
-            </button>
-            <!--                        </a>-->
-            <button color="primary" mat-stroked-button type="submit">
-              <mat-icon>save</mat-icon>
-              Ruaje
-            </button>
-          </mat-card-actions>
+    <form (ngSubmit)="onSubmit()" [formGroup]="orderForm" novalidate>
+        <mat-card class="shipping-card">
+            <div class="row full-width header-row">
+                <mat-card-header>
+                    <mat-card-title>Përfundo porosinë</mat-card-title>
+                </mat-card-header>
+                <div class="col align-end">
+                    <mat-card-actions class="align-end">
+                        <!--                        <a>-->
+                        <button mat-stroked-button routerLink="/order/tables">
+                            <mat-icon>undo</mat-icon>
+                            Kthehu
+                        </button>
+                        <!--                        </a>-->
+                        <button color="primary" mat-stroked-button type="submit">
+                            <mat-icon>save</mat-icon>
+                            Ruaje
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </div>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Klienti</mat-label>
+                            <input formControlName="customer" matInput type="text">
+                            <mat-hint>Emri i plotë i klientit</mat-hint>
+                            <mat-error>Klienti duhet plotësuar</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Ngjyra brëndshme</mat-label>
+                            <mat-select formControlName="inner_color" id="inner_color">
+                                <mat-option *ngFor="let color of innerColors"
+                                            [value]="color.id">{{color.code}}</mat-option>
+                            </mat-select>
+                            <mat-error>Ngjyra duhet plotësuar</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Ngjyra jashtme</mat-label>
+                            <mat-select formControlName="outer_color" id="outer_color">
+                                <mat-option *ngFor="let color of outerColors"
+                                            [value]="color.id">{{color.code}}</mat-option>
+                            </mat-select>
+                            <mat-error>Ngjyra duhet plotësuar</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </form>
+    <div class="container">
+        <div *ngFor="let unit of cart$ | async" class="card">
+            <div class="card-image">
+                <img alt="image" src="{{unit.table.image}}">
+                <div class="card-info">Përmasat e zgjedhura: {{unit.width | number: '2.0'}} x {{unit.height}}
+                    x {{unit.depth | number: '2.0'}}</div>
+            </div>
+            <div class="card-footer">
+                <mat-chip-list>
+                    <mat-chip color="primary" selected>Kodi: {{unit.table.code}}</mat-chip>
+                    <mat-chip selected style="background-color: #ff4646">Sasia: {{unit.amount}} copë</mat-chip>
+                    <mat-chip selected style="background-color: #32870f">Çmimi total:
+                        ${{ (unit.amount * unit.table.price) | number: '': 'en'}}</mat-chip>
+                </mat-chip-list>
+                <div class="description-text">
+                    <p>{{unit.description}}</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <mat-card-content>
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Klienti</mat-label>
-              <input formControlName="customer" matInput type="text">
-              <mat-hint>Emri i plotë i klientit</mat-hint>
-              <mat-error>Klienti duhet plotësuar</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Ngjyra brëndshme</mat-label>
-              <mat-select formControlName="inner_color" id="inner_color">
-                <mat-option *ngFor="let color of innerColors" [value]="color.id">{{color.code}}</mat-option>
-              </mat-select>
-              <mat-error>Ngjyra duhet plotësuar</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Ngjyra jashtme</mat-label>
-              <mat-select formControlName="outer_color" id="outer_color">
-                <mat-option *ngFor="let color of outerColors" [value]="color.id">{{color.code}}</mat-option>
-              </mat-select>
-              <mat-error>Ngjyra duhet plotësuar</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </form>
-  <div class="container">
-    <div *ngFor="let unit of cart$ | async" class="card">
-      <div class="card-image">
-        <img alt="image" src="{{unit.table.image}}">
-        <div class="card-info">Përmasat e zgjedhura: {{unit.width | number: '2.0'}} x {{unit.height}}
-          x {{unit.depth | number: '2.0'}}</div>
-      </div>
-      <div class="card-footer">
-        <mat-chip-list>
-          <mat-chip color="primary" selected>Kodi: {{unit.table.code}}</mat-chip>
-          <mat-chip selected style="background-color: #ff4646">Sasia: {{unit.amount}} copë</mat-chip>
-          <mat-chip selected style="background-color: #32870f">Çmimi total:
-            ${{ (unit.amount * unit.table.price) | number: '': 'en'}}</mat-chip>
-        </mat-chip-list>
-        <div class="description-text">
-          <p>{{unit.description}}</p>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

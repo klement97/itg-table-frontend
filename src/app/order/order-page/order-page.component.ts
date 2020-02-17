@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrderService} from 'src/app/order/_store/_services/order.service';
 import {Order, Table} from 'src/app/order/_store/_models/order.models';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ImageDetailComponent} from 'src/app/order/dialogs/image-detail/image-detail.component';
 import {TableFormComponent} from 'src/app/order/dialogs/table-form/table-form.component';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
@@ -17,6 +17,7 @@ import {ActivatedRoute} from '@angular/router';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {takeUntil} from 'rxjs/operators';
 import {addOrderForUpdate} from '../_store/_actions/order.actions';
+import {LayoutService} from '../../layout/layout.service';
 
 @Component({
   selector: 'app-order-page',
@@ -31,8 +32,14 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   order = new Order();
   isUpdate: boolean = false;
 
-  constructor(private orderService: OrderService, public dialog: MatDialog, private store: Store<OrderUnitState>,
-              private route: ActivatedRoute, private snackbar: MatSnackBar) {
+  constructor(
+    private orderService: OrderService,
+    public dialog: MatDialog,
+    private store: Store<OrderUnitState>,
+    private route: ActivatedRoute,
+    private snackbar: MatSnackBar,
+    private layoutService: LayoutService
+  ) {
     this.tables$ = store.select(selectTables);
     store.select(selectFakeId).subscribe(fakeId => this.fakeId = fakeId);
   }
@@ -43,13 +50,15 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   }
 
   selectTables() {
-    this.store.select(selectTables).pipe(takeUntil(this.subs$)).subscribe(
-      tables => {
-        if (!tables.length) {
-          this.getAllTables();
+    this.store.select(selectTables)
+      .pipe(takeUntil(this.subs$))
+      .subscribe(
+        tables => {
+          if (!tables.length) {
+            this.getAllTables();
+          }
         }
-      }
-    );
+      );
   }
 
   update() {
@@ -70,29 +79,32 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   }
 
   getOrder() {
-    this.store.select(selectOrderEntities).pipe(takeUntil(this.subs$)).subscribe(orderEntities => {
-      const order = orderEntities[this.order.id];
-      if (order) {
-        this.order = order;
-        this.pushOrderToStore(order);
-        this.pushOrderUnitsToCart(this.order.order_units);
-      } else {
-        // store is empty, hitting the server
-        this.orderService.getOrder(this.order.id).subscribe(
-          response => {
-            if (response) {
-              this.order = response;
-              this.pushOrderToStore(response);
-              this.pushOrderUnitsToCart(this.order.order_units);
-            }
-          },
-          () => {
-            this.snackbar.open('Problem ne lidhje me serverin. Porosia nuk mund te merret.', 'OK', {
-              duration: 3000, verticalPosition: 'top', panelClass: 'snack-danger'
-            });
-          });
-      }
-    });
+    this.store.select(selectOrderEntities)
+      .pipe(takeUntil(this.subs$))
+      .subscribe(orderEntities => {
+        const order = orderEntities[this.order.id];
+        if (order) {
+          this.order = order;
+          this.pushOrderToStore(order);
+          this.pushOrderUnitsToCart(this.order.order_units);
+        } else {
+          // store is empty, hitting the server
+          this.orderService.getOrder(this.order.id)
+            .subscribe(
+              response => {
+                if (response) {
+                  this.order = response;
+                  this.pushOrderToStore(response);
+                  this.pushOrderUnitsToCart(this.order.order_units);
+                }
+              },
+              () => {
+                this.snackbar.open('Problem ne lidhje me serverin. Porosia nuk mund te merret.', 'OK', {
+                  duration: 3000, verticalPosition: 'top', panelClass: 'snack-danger'
+                });
+              });
+        }
+      });
   }
 
   pushOrderUnitsToCart(orderUnits) {
@@ -109,37 +121,32 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   }
 
   getAllTables() {
-    return this.orderService.getTables().subscribe(
-      response => {
-        this.store.dispatch(fromTables.addTables({tables: response['results']}));
-      });
+    return this.orderService.getTables()
+      .subscribe(
+        response => {
+          this.store.dispatch(fromTables.addTables({tables: response['results']}));
+        });
   }
 
   openPhoto(path: string) {
-    this.dialog.open(ImageDetailComponent, {
-      maxHeight: '95vh',
-      panelClass: 'padding-0',
-      data: {
-        'path': path
-      }
-    });
+    this.dialog.open(ImageDetailComponent, {maxHeight: '95vh', panelClass: 'padding-0', data: {'path': path}});
   }
 
   openForm(table: Table) {
-    this.dialog.open(TableFormComponent, {
-      maxHeight: '450px',
-      panelClass: 'padding-0',
-      data: {
-        'table': table
-      }
-    }).afterClosed().subscribe(result => {
-      if (result) {
-        const orderUnit: OrderUnit = {...result['order']};
-        orderUnit.id = this.fakeId;
-        orderUnit.table = table;
-        this.store.dispatch(addOrderUnit({orderUnit}));
-      }
-    });
+    let config: MatDialogConfig = {panelClass: 'padding-0', data: {'table': table}};
+    if (this.layoutService.isHandset()) {
+      config = {position: {top: '10px'}, maxHeight: '400px', ...config};
+    }
+    this.dialog.open(TableFormComponent, config)
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          const orderUnit: OrderUnit = {...result['order']};
+          orderUnit.id = this.fakeId;
+          orderUnit.table = table;
+          this.store.dispatch(addOrderUnit({orderUnit}));
+        }
+      });
   }
 
 }

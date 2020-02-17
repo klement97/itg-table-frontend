@@ -1,66 +1,66 @@
 <form [formGroup]="orderForm">
-  <mat-card class="shipping-card">
-    <mat-card-actions align="center">
-      <button (click)="dialogRef.close({'order': orderForm.value})" class="btn-success" mat-raised-button type="submit">
-        <mat-icon>add</mat-icon>
-        Shto
-      </button>
-      <button (click)="dialogRef.close()" mat-raised-button type="button">
-        <mat-icon>reply</mat-icon>
-        Mbyll
-      </button>
-    </mat-card-actions>
-    <mat-card-header>
-      <mat-card-title>Informacione shtesë për {{data['table'].code}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <img alt="table" height="100px" src="{{data['table'].image}}" width="100px">
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Shënime</mat-label>
-              <textarea formControlName="description" matInput></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <!-- Amount -->
-        <div class="col">
-          <mat-form-field>
-            <mat-label>Sasia</mat-label>
-            <input formControlName="amount" matInput type="number">
-          </mat-form-field>
-        </div>
+    <mat-card class="shipping-card">
 
-        <!-- Height -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Lartësi</mat-label>
-            <input formControlName="height" matInput type="number">
-          </mat-form-field>
-        </div>
+        <mat-card-header>
+            <mat-card-title>Informacione shtesë<br>{{data['table'].code}}</mat-card-title>
+        </mat-card-header>
 
-        <!-- Width -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Gjerësi</mat-label>
-            <input formControlName="width" matInput type="number">
-          </mat-form-field>
-        </div>
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <img alt="table" height="100px" src="{{data['table'].image}}" width="100px">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Shënime</mat-label>
+                            <textarea formControlName="description" matInput></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Amount -->
+                <mat-form-field class="col-3" appearance="outline">
+                    <mat-label>Sasia</mat-label>
+                    <input formControlName="amount" matInput type="number">
+                    <span matSuffix>copë</span>
+                </mat-form-field>
 
-        <!-- Depth -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Gjatësi</mat-label>
-            <input formControlName="depth" matInput type="number">
-          </mat-form-field>
-        </div>
+                <!-- Height -->
+                <mat-form-field class="col-3" appearance="outline">
+                    <mat-label>Lartësi</mat-label>
+                    <input formControlName="height" matInput type="number">
+                    <span matSuffix>cm</span>
+                </mat-form-field>
 
-      </div>
-    </mat-card-content>
-  </mat-card>
+                <!-- Width -->
+                <mat-form-field class="col-3" appearance="outline">
+                    <mat-label>Gjerësi</mat-label>
+                    <input formControlName="width" matInput type="number">
+                    <span matSuffix>cm</span>
+                </mat-form-field>
+
+                <!-- Depth -->
+                <mat-form-field class="col-3" appearance="outline">
+                    <mat-label>Gjatësi</mat-label>
+                    <input formControlName="depth" matInput type="number">
+                    <span matSuffix>cm</span>
+                </mat-form-field>
+
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions align="center">
+            <button (click)="dialogRef.close()" mat-raised-button type="button">
+                <mat-icon>reply</mat-icon>
+                Mbyll
+            </button>
+            <button (click)="dialogRef.close({'order': orderForm.value})" class="btn-success"
+                    mat-raised-button type="submit">
+                <mat-icon>add</mat-icon>
+                Shto
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </form>
