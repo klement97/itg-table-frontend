@@ -1,4 +1,5 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~animate.css/animate.css";
 .col-1 {
   width: 8.333333333%;
 }

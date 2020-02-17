@@ -1,23 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {IosInstallComponent} from './layout/ios-install/ios-install.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {NgwWowService} from 'ngx-wow';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Italgold';
   showHeader = false;
   showSidebar = false;
   showFooter = false;
 
+  private wowSubs$: Subscription;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private wowService: NgwWowService
   ) {
   }
 
@@ -30,8 +35,14 @@ export class AppComponent implements OnInit {
           this.showSidebar = firstChild.snapshot.data.showSidebar !== false;
           this.showFooter = firstChild.snapshot.data.showFooter !== false;
         }
+        this.wowService.init();
       }
     });
+    this.wowSubs$ = this.wowService.itemRevealed$.subscribe(
+      (item: HTMLElement) => {
+        console.log(item);
+      }
+    );
 
     // Detects if device is on iOS
     const isIos = () => {
@@ -49,5 +60,9 @@ export class AppComponent implements OnInit {
         panelClass: ['mat-elevation-z3']
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.wowSubs$.unsubscribe();
   }
 }

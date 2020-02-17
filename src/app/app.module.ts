@@ -11,20 +11,21 @@ import {httpInterceptorProviders} from 'src/app/_interceptors';
 import {LayoutModule} from 'src/app/layout/layout.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AuthModule} from 'src/app/auth/auth.module';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CookieService} from 'ngx-cookie-service';
+import {NgwWowModule} from 'ngx-wow';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    NgwWowModule,
     ReactiveFormsModule,
     FormsModule,
     LayoutModule,
-    // OrderModule,
     AuthModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {
@@ -34,7 +35,8 @@ import {CookieService} from 'ngx-cookie-service';
         strictActionImmutability: true
       }
     }),
-    !environment.production ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}):[],
+    !environment.production
+      ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}) : [],
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [
