@@ -13,10 +13,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {OrderModule} from 'src/app/order/order.module';
 import {RouterModule} from '@angular/router';
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
+import { IosInstallComponent } from './ios-install/ios-install.component';
 
 
 @NgModule({
-  declarations: [FooterComponent, NavigationComponent, ConfirmationDialogComponent],
+  declarations: [FooterComponent, NavigationComponent, ConfirmationDialogComponent, IosInstallComponent],
   imports: [
     CommonModule,
     MatSidenavModule,

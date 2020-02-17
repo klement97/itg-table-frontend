@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {IosInstallComponent} from './layout/ios-install/ios-install.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +9,16 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'italgold-table';
+  title = 'Italgold';
   showHeader = false;
   showSidebar = false;
   showFooter = false;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private snackbar: MatSnackBar
+  ) {
   }
 
   ngOnInit() {
@@ -26,5 +32,22 @@ export class AppComponent implements OnInit {
         }
       }
     });
+
+    // Detects if device is on iOS
+    const isIos = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+    // Detects if device is in standalone mode
+    const isInStandaloneMode = () => ('standalone' in (window as any).navigator) && ((window as any).navigator.standalone);
+
+    // Checks if should display install popup notification:
+    if (isIos() && !isInStandaloneMode()) {
+      this.snackbar.openFromComponent(IosInstallComponent, {
+        duration: 8000,
+        horizontalPosition: 'start',
+        panelClass: ['mat-elevation-z3']
+      });
+    }
   }
 }
