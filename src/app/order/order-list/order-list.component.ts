@@ -5,10 +5,10 @@ import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import * as OrderActions from 'src/app/order/_store/_actions/order.actions';
 import {markUpdateAsTrue} from 'src/app/order/_store/_actions/order.actions';
 import {Observable} from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Sort } from '@angular/material/sort';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Sort} from '@angular/material/sort';
 import {Order} from 'src/app/order/_store/_models/order.models';
 import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';
 import {OrderDetailDialogComponent} from 'src/app/order/dialogs/order-detail-dialog/order-detail-dialog.component';
@@ -33,12 +33,14 @@ export class OrderListComponent implements OnInit {
 
   filterForm: FormGroup;
 
-  constructor(private orderService: OrderService,
-              private store: Store<fromOrder.State>,
-              private dialog: MatDialog,
-              private router: Router,
-              private snackbar: MatSnackBar,
-              private fb: FormBuilder) {
+  constructor(
+    private orderService: OrderService,
+    private store: Store<fromOrder.State>,
+    private dialog: MatDialog,
+    private router: Router,
+    private snackbar: MatSnackBar,
+    private fb: FormBuilder
+  ) {
     this.orders$ = store.select(selectOrderList);
   }
 
@@ -48,11 +50,12 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrders(ordering) {
-    this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, null).subscribe(response => {
-      this.loading = false;
-      this.count = response['count'];
-      this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
-    });
+    this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, null)
+      .subscribe(response => {
+        this.loading = false;
+        this.count = response['count'];
+        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+      });
   }
 
   initiateFilterForm() {
@@ -63,7 +66,8 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  deleteOrder(id: number) {
+  deleteOrder(id: number, event: MouseEvent) {
+    event.preventDefault();
     const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
       minWidth: '300px',
       width: '30%',
@@ -71,23 +75,24 @@ export class OrderListComponent implements OnInit {
       panelClass: 'padding-0'
     });
 
-    dialogRef$.afterClosed().subscribe(result => {
-      if (result.confirmed) {
-        this.orderService.deleteOrder(id).subscribe(() => {
-          this.store.dispatch(OrderActions.deleteOrder({id}));
-        });
-      }
-    });
+    dialogRef$.afterClosed()
+      .subscribe((result: { confirmed: boolean }) => {
+        if (result?.confirmed) {
+          this.orderService.deleteOrder(id).subscribe(() => {
+            this.store.dispatch(OrderActions.deleteOrder({id}));
+          });
+        }
+      });
   }
 
   showDetails(order) {
     this.dialog.open(OrderDetailDialogComponent, {width: '45%', minWidth: '300px', data: {'order': order}});
   }
 
-  updateOrder(id) {
+  updateOrder(id, event) {
     this.store.dispatch(clearOrderUnits());
     this.store.dispatch(markUpdateAsTrue({orderId: id}));
-    this.router.navigate([`/order/form/${id}`]).then();
+    this.router.navigate(['/order/form/', id]).then();
   }
 
   changeSort(event: Sort) {

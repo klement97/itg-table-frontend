@@ -1,76 +1,97 @@
-<section>
-  <div class="header">
-    <h4>Lista e porosive</h4>
-<!--    <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">-->
-<!--      <mat-form-field>-->
-<!--        <input formControlName="customer__icontains" matInput placeholder="Klienti" type="text">-->
-<!--      </mat-form-field>-->
-<!--      <mat-form-field>-->
-<!--        <input formControlName="date_created_gte" matInput placeholder="Data - nga" type="date">-->
-<!--      </mat-form-field>-->
-<!--      <mat-form-field>-->
-<!--        <input formControlName="date_created_lte" matInput placeholder="Data - deri" type="date">-->
-<!--      </mat-form-field>-->
+<section style="padding: 15px">
+    <mat-card>
+        <!-- Header -->
+        <mat-card-header>
+            <!--      <div class="header">-->
+            <h5>Lista e porosive</h5>
+            <!--    <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">-->
+            <!--      <mat-form-field>-->
+            <!--        <input formControlName="customer__icontains" matInput placeholder="Klienti" type="text">-->
+            <!--      </mat-form-field>-->
+            <!--      <mat-form-field>-->
+            <!--        <input formControlName="date_created_gte" matInput placeholder="Data - nga" type="date">-->
+            <!--      </mat-form-field>-->
+            <!--      <mat-form-field>-->
+            <!--        <input formControlName="date_created_lte" matInput placeholder="Data - deri" type="date">-->
+            <!--      </mat-form-field>-->
 
-<!--      <button color="primary" mat-stroked-button type="submit">Kërko</button>-->
-<!--    </form>-->
-  </div>
-  <div style="height: 5px">
-    <mat-progress-bar *ngIf="loading" mode="indeterminate" style="height: 5px"></mat-progress-bar>
-  </div>
-  <table (matSortChange)="changeSort($event)" [dataSource]="orders$ | async" class="mat-elevation-z4 data-table" mat-table
-         matSort style="overflow-x: auto">
+            <!--      <button color="primary" mat-stroked-button type="submit">Kërko</button>-->
+            <!--    </form>-->
+            <!--      </div>-->
+        </mat-card-header>
 
-    <!-- ID -->
-    <ng-container matColumnDef="id">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
-      <td *matCellDef="let order" mat-cell> {{order.id}} </td>
-    </ng-container>
+        <!-- Content-->
+        <mat-card-content style="overflow-x: auto">
+            <div style="height: 5px">
+                <mat-progress-bar *ngIf="loading" mode="indeterminate" style="height: 5px"></mat-progress-bar>
+            </div>
+            <table (matSortChange)="changeSort($event)" [dataSource]="orders$ | async"
+                   class="mat-elevation-z4 data-table"
+                   mat-table matSort>
 
-    <!-- Customer -->
-    <ng-container matColumnDef="customer">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Klienti</th>
-      <td *matCellDef="let order" mat-cell> {{order.customer}} </td>
-    </ng-container>
+                <!-- ID -->
+                <ng-container matColumnDef="id">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+                    <td *matCellDef="let order" mat-cell>
+                        <button mat-stroked-button (click)="showDetails(order)">{{order.id}}</button>
+                    </td>
+                </ng-container>
 
-    <!-- Date Created -->
-    <ng-container matColumnDef="date_created">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Data</th>
-      <td *matCellDef="let order" mat-cell> {{order.date_created | date: 'dd/M/y HH:MM'}} </td>
-    </ng-container>
+                <!-- Customer -->
+                <ng-container matColumnDef="customer">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Klienti</th>
+                    <td *matCellDef="let order" mat-cell> {{order.customer}} </td>
+                </ng-container>
 
-    <!-- Total Price -->
-    <ng-container matColumnDef="total_price">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Çmimi total</th>
-      <td *matCellDef="let order" mat-cell> ${{order.total_price}}</td>
-    </ng-container>
+                <!-- Date Created -->
+                <ng-container matColumnDef="date_created">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Data</th>
+                    <td *matCellDef="let order" mat-cell> {{order.date_created}} </td>
+                </ng-container>
 
-    <!-- Total Table Count -->
-    <ng-container matColumnDef="total_table_count">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Numri total i tabakave</th>
-      <td *matCellDef="let order" mat-cell> {{order.total_table_count}} copë</td>
-    </ng-container>
+                <!-- Total Price -->
+                <ng-container matColumnDef="total_price">
+                    <th *matHeaderCellDef mat-header-cell> Çmimi total</th>
+                    <td *matCellDef="let order" mat-cell> ${{order.total_price}}</td>
+                </ng-container>
 
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
-      <th *matHeaderCellDef mat-header-cell> Veprime</th>
-      <td *matCellDef="let order" mat-cell>
+                <!-- Total Table Count -->
+                <ng-container matColumnDef="total_table_count">
+                    <th *matHeaderCellDef mat-header-cell> Numri total i tabakave</th>
+                    <td *matCellDef="let order" mat-cell> {{order.total_table_count}} copë</td>
+                </ng-container>
+
+                <!-- Actions -->
+                <ng-container matColumnDef="actions">
+                    <th *matHeaderCellDef mat-header-cell>Veprime</th>
+                    <td *matCellDef="let order" mat-cell>
                 <span style="display: flex; flex-direction: row">
                     <button (click)="showDetails(order)" mat-icon-button><mat-icon
-                      style="opacity: 0.7">visibility</mat-icon></button>
-                    <a (click)="updateOrder(order.id)" mat-icon-button><mat-icon
-                      style="opacity: 0.7">build</mat-icon></a>
-                    <button (click)="deleteOrder(order.id)" mat-icon-button><mat-icon
-                      style="opacity: 0.7">delete_sweep</mat-icon></button>
+                            style="opacity: 0.7">visibility</mat-icon></button>
+                    <a (click)="updateOrder(order.id, $event)" mat-icon-button><mat-icon
+                            style="opacity: 0.7">build</mat-icon></a>
+                    <button (click)="deleteOrder(order.id, $event)" mat-icon-button><mat-icon
+                            style="opacity: 0.7">delete_sweep</mat-icon></button>
                   <button (click)="openEmailSendDialog(order)" mat-icon-button><mat-icon
-                    style="opacity: 0.7;">email</mat-icon></button>
+                          style="opacity: 0.7;">email</mat-icon></button>
                 </span>
-      </td>
-    </ng-container>
+                    </td>
+                </ng-container>
 
-    <!-- Header and Row Declarations -->
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
-  </table>
-  <mat-paginator #paginator (page)="changePage()" [length]="count" pageSize="10" showFirstLastButtons></mat-paginator>
+                <!-- Header and Row Declarations -->
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+                <tfoot>
+                <ng-container>
+                    <mat-paginator [ngStyle]="{'hidden': count > 10}" #paginator (page)="changePage()" [length]="count"
+                                   pageSize="10" showFirstLastButtons></mat-paginator>
+                </ng-container>
+                </tfoot>
+            </table>
+        </mat-card-content>
+
+        <!-- Footer -->
+        <mat-card-footer>
+        </mat-card-footer>
+    </mat-card>
 </section>

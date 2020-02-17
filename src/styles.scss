@@ -45,16 +45,16 @@ body {
   width: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 14px;
+
+  & td, th {
+    padding: 10px 15px !important;
+  }
 }
 
 .data-table th {
   font-size: smaller;
   color: rgba(0, 0, 0, .54);
   text-align: start;
-}
-
-.data-table tr td th {
-  padding: 16px 20px;
 }
 
 .data-table td:last-child {
