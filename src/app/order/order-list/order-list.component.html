@@ -83,7 +83,7 @@
 
         <!-- Footer -->
         <mat-card-footer>
-            <mat-paginator [ngStyle]="{'display': count > 10 ? 'block' : 'none'}" #paginator (page)="changePage()"
+            <mat-paginator [ngStyle]="{display: count > 10 ? 'block' : 'none'}" #paginator (page)="changePage()"
                            [length]="count" pageSize="10" showFirstLastButtons></mat-paginator>
         </mat-card-footer>
     </mat-card>

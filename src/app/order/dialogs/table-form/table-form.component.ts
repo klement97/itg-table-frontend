@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Table} from 'src/app/order/_store/_models/order.models';
 
 @Component({
@@ -17,8 +17,10 @@ export class TableFormComponent {
     description: [''],
   });
 
-  constructor(private fb: FormBuilder,
-              public dialogRef: MatDialogRef<TableFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Table) {
+  constructor(
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<TableFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Table
+  ) {
   }
 }

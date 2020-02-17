@@ -86,9 +86,9 @@ export class OrderListComponent implements OnInit {
   }
 
   showDetails(order) {
-    let config: MatDialogConfig = {width: '45%', minWidth: '350px', data: {'order': order}};
+    let config: MatDialogConfig = {width: '45%', minWidth: '350px', data: {order}};
     if (this.layoutService.isHandset()) {
-      config = {width: '90%', minWidth: '300px', data: {'order': order}};
+      config = {width: '95%', maxWidth: '95vh', data: {order}};
     }
     this.dialog.open(OrderDetailDialogComponent, config);
   }
