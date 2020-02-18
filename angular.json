@@ -29,7 +29,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "../node_modules/wowjs/dist/wow.js"
+              "./node_modules/wowjs/dist/wow.js"
             ]
           },
           "configurations": {
@@ -101,7 +101,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "../node_modules/wowjs/dist/wow.js"
+              "./node_modules/wowjs/dist/wow.js"
             ]
           }
         },

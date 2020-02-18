@@ -18,6 +18,7 @@ import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LayoutService} from '../../layout/layout.service';
+import {APIResponse} from '../const';
 
 @Component({
   selector: 'app-order-list',
@@ -27,9 +28,9 @@ import {LayoutService} from '../../layout/layout.service';
 })
 export class OrderListComponent implements OnInit {
   @ViewChild('paginator', {static: true}) paginator: MatPaginator;
-  count: number = 0;
+  count = 0;
   displayedColumns: string[] = ['id', 'customer', 'date_created', 'total_price', 'total_table_count', 'actions'];
-  loading: boolean = true;
+  loading = true;
   orders$: Observable<Order[]>;
   filterForm: FormGroup;
 
@@ -52,18 +53,17 @@ export class OrderListComponent implements OnInit {
 
   getOrders(ordering) {
     this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, null)
-      .subscribe(response => {
+      .subscribe((response: APIResponse) => {
         this.loading = false;
-        this.count = response['count'];
-        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+        this.count = response.pagination.count;
+        this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
       });
   }
 
   initiateFilterForm() {
     this.filterForm = this.fb.group({
-      customer__icontains: [''],
-      date_created_gte: [''],
-      date_created_lte: ['']
+      customer: [''],
+      date_created: ['']
     });
   }
 
@@ -103,33 +103,33 @@ export class OrderListComponent implements OnInit {
 
   changeSort(event: Sort) {
     const field = event.active;
-    const direction = '' ? event.direction==='asc':'-';
+    const direction = '' ? event.direction === 'asc':'-';
     const ordering = `${direction}${field}`;
     this.getOrders(ordering);
   }
 
   changePage() {
     this.orderService.getOrderList(this.paginator.pageIndex + 1).subscribe(
-      response => {
-        this.store.dispatch(OrderActions.loadOrders({orders: response['results']}));
+      (response: APIResponse) => {
+        this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
       }
     );
   }
 
   openEmailSendDialog(order: Order) {
-    let to_emails: string[] = [];
+    const to_emails: string[] = [];
 
     const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
       width: '30%',
       minWidth: '300px',
       maxHeight: '450px',
-      data: {'order': order}
+      data: {order}
     });
 
     dialogRef$.afterClosed().subscribe(result => {
       if (result) {
         if (result['to_emails']) {
-          for (let item of result['to_emails']) {
+          for (const item of result['to_emails']) {
             to_emails.push(item['email']);
           }
           this.orderService.sendOrderMail(to_emails, order).subscribe(
@@ -156,14 +156,12 @@ export class OrderListComponent implements OnInit {
 
   filterOrders() {
     this.paginator.pageIndex = 0;
-    this.orderService.getOrderList(this.paginator.pageIndex, '', this.filterForm.value).subscribe(
-      response => {
-        this.store.dispatch(OrderActions.loadOrders(response['results']));
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.orderService.getOrderList(this.paginator.pageIndex, '', this.filterForm.value)
+      .subscribe((response: APIResponse) => {
+          this.store.dispatch(OrderActions.clearOrders());
+          this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
+        }
+      );
   }
 
 }

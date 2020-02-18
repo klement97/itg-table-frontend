@@ -4,13 +4,10 @@
             <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">
                 <mat-form-field class="col-4" appearance="outline">
                     <mat-label>Klienti</mat-label>
-                    <input formControlName="customer__icontains" matInput placeholder="Klienti" type="text">
+                    <input formControlName="customer" matInput placeholder="Klienti" type="text">
                 </mat-form-field>
                 <mat-form-field class="col-4" appearance="outline">
-                    <input formControlName="date_created_gte" matInput placeholder="Data - nga" type="date">
-                </mat-form-field>
-                <mat-form-field class="col-4" appearance="outline">
-                    <input formControlName="date_created_lte" matInput placeholder="Data - deri" type="date">
+                    <input formControlName="date_created" matInput placeholder="Data - deri" type="date">
                 </mat-form-field>
 
                 <button class="col-12" color="primary" mat-stroked-button type="submit">

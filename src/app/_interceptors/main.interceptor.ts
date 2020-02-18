@@ -7,6 +7,7 @@ import * as fromError from 'src/app/auth/_store/_reducers/error.reducer';
 import * as ErrorActions from 'src/app/auth/_store/_actions/error.actions';
 import {CookieService} from 'ngx-cookie-service';
 import {_TOKEN} from '../auth/_store/_services/auth.service';
+import {NO_TOKEN_ENDPOINTS} from './endpoints';
 
 @Injectable()
 export class InterceptService implements HttpInterceptor {
@@ -18,6 +19,9 @@ export class InterceptService implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (NO_TOKEN_ENDPOINTS.includes(request.url)) {
+      return next.handle(request);
+    }
 
     const token: string = this.cookieService.get(_TOKEN);
     if (token) {

@@ -24,10 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private snackbar: MatSnackBar,
     private wowService: NgwWowService
   ) {
-  }
-
-  ngOnInit() {
-    this.router.events.subscribe(event => {
+    router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const firstChild = this.activatedRoute.firstChild;
         if (firstChild) {
@@ -38,6 +35,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.wowService.init();
       }
     });
+  }
+
+  ngOnInit() {
     this.wowSubs$ = this.wowService.itemRevealed$.subscribe(
       (item: HTMLElement) => {
         console.log(item);

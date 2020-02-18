@@ -7,7 +7,7 @@ export function buildQueryString(page: number = 0, ordering: string = '', page_s
     queryString.push(`page=${page}`);
   }
   if (filter) {
-    queryString.push(`${buildFilterFromFormValues(filter)}`);
+    queryString.push(`filter=${JSON.stringify(filter)}`);
   }
   if (queryString.length > 0) {
     return '?' + queryString.join('&');
@@ -15,13 +15,6 @@ export function buildQueryString(page: number = 0, ordering: string = '', page_s
   return '';
 }
 
-function buildFilterFromFormValues(form) {
-  let filter = [];
-  Object.entries(form).forEach(([key, value]) => {
-    filter.push(`${key}=${value}`);
-  });
-  return filter.join('&');
-}
 
 export class ConfirmationDialogDataModel {
   title: string;
@@ -29,4 +22,13 @@ export class ConfirmationDialogDataModel {
   cancelButton?: boolean;
   cancelButtonText?: string;
   confirmButtonText?: string;
+}
+
+export class APIResponse {
+  data: any;
+  pagination: {
+    count: number,
+    next: string,
+    previous: string
+  };
 }

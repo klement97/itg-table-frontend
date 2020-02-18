@@ -18,6 +18,7 @@ import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {takeUntil} from 'rxjs/operators';
 import {addOrderForUpdate} from '../_store/_actions/order.actions';
 import {LayoutService} from '../../layout/layout.service';
+import {APIResponse} from '../const';
 
 @Component({
   selector: 'app-order-page',
@@ -30,7 +31,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   subs$ = new Subject();
 
   order = new Order();
-  isUpdate: boolean = false;
+  isUpdate = false;
 
   constructor(
     private orderService: OrderService,
@@ -68,7 +69,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   }
 
   isOrderUpdate() {
-    let id = +this.route.snapshot.paramMap.get('order_id');
+    const id = +this.route.snapshot.paramMap.get('order_id');
     if (id) {
       this.order.id = id;
       this.isUpdate = true;
@@ -123,25 +124,25 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   getAllTables() {
     return this.orderService.getTables()
       .subscribe(
-        response => {
-          this.store.dispatch(fromTables.addTables({tables: response['results']}));
+        (response: APIResponse) => {
+          this.store.dispatch(fromTables.addTables({tables: response.data}));
         });
   }
 
   openPhoto(path: string) {
-    this.dialog.open(ImageDetailComponent, {maxHeight: '95vh', panelClass: 'padding-0', data: {'path': path}});
+    this.dialog.open(ImageDetailComponent, {maxHeight: '95vh', panelClass: 'padding-0', data: {path}});
   }
 
   openForm(table: Table) {
-    let config: MatDialogConfig = {panelClass: 'padding-0', data: {'table': table}};
+    let config: MatDialogConfig = {panelClass: 'padding-0', data: {table}};
     if (this.layoutService.isHandset()) {
       config = {position: {top: '10px'}, maxHeight: '400px', ...config};
     }
     this.dialog.open(TableFormComponent, config)
       .afterClosed()
-      .subscribe(result => {
+      .subscribe((result: { order: OrderUnit }) => {
         if (result) {
-          const orderUnit: OrderUnit = {...result['order']};
+          const orderUnit: OrderUnit = {...result.order};
           orderUnit.id = this.fakeId;
           orderUnit.table = table;
           this.store.dispatch(addOrderUnit({orderUnit}));
