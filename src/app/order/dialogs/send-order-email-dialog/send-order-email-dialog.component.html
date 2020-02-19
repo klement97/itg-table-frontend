@@ -1,31 +1,32 @@
 <form [formGroup]="toEmailsForm">
-  <button (click)="addEmail()" class="" mat-stroked-button style="transform: translateY(-10px)">
-    <mat-icon>add</mat-icon>
-  </button>
-  <div *ngFor="let email of emails.controls; let i = index;" formArrayName="to_emails">
-    <div [formGroupName]="i">
-      <div class="row">
-        <mat-form-field style="width: 80%">
-          <mat-label>e-mail</mat-label>
-          <input formControlName="email" matInput type="email">
-          <mat-error *ngIf="toEmailsForm.controls.to_emails['controls'][i].controls.email.invalid">Vendosni nje e-mail
-            të saktë
-          </mat-error>
-        </mat-form-field>
-        <button (click)="removeEmail(i)" [disabled]="emails.length == 1" class="form-array-remove-button" color="warn"
-                mat-icon-button>
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </div>
+    <button (click)="addEmail()" class="" mat-stroked-button style="transform: translateY(-10px)">
+        <mat-icon>add</mat-icon>
+    </button>
+    <div *ngFor="let email of emails.controls; let i = index;" formArrayName="to_emails">
+        <div [formGroupName]="i">
+            <div class="row">
+                <mat-form-field style="width: 80%">
+                    <mat-label>e-mail</mat-label>
+                    <input formControlName="email" matInput type="email">
+                    <mat-error *ngIf="toEmailsForm.controls.to_emails['controls'][i].controls.email.invalid">
+                        Vendosni nje e-mail të saktë
+                    </mat-error>
+                </mat-form-field>
+                <button (click)="removeEmail(i)" [disabled]="emails.length == 1" class="form-array-remove-button"
+                        color="warn"
+                        mat-icon-button>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </form>
 
 <button (click)="onYesClick()" color="primary" mat-raised-button>
-  <mat-icon>send</mat-icon>
-  Dergoje
+    <mat-icon>send</mat-icon>
+    Dergoje
 </button>&nbsp;
 <button (click)="onNoClick()" mat-stroked-button>
-  <mat-icon>cancel</mat-icon>
-  Anulloje
+    <mat-icon>cancel</mat-icon>
+    Anulloje
 </button>

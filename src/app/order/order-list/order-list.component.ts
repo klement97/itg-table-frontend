@@ -14,7 +14,7 @@ import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';
 import {OrderDetailDialogComponent} from 'src/app/order/dialogs/order-detail-dialog/order-detail-dialog.component';
 import {Router} from '@angular/router';
 import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
-import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
+import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LayoutService} from '../../layout/layout.service';
@@ -103,7 +103,7 @@ export class OrderListComponent implements OnInit {
 
   changeSort(event: Sort) {
     const field = event.active;
-    const direction = '' ? event.direction === 'asc':'-';
+    const direction = '' ? event.direction === 'asc' : '-';
     const ordering = `${direction}${field}`;
     this.getOrders(ordering);
   }
@@ -117,7 +117,7 @@ export class OrderListComponent implements OnInit {
   }
 
   openEmailSendDialog(order: Order) {
-    const to_emails: string[] = [];
+    const toEmails: string[] = [];
 
     const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
       width: '30%',
@@ -126,32 +126,34 @@ export class OrderListComponent implements OnInit {
       data: {order}
     });
 
-    dialogRef$.afterClosed().subscribe(result => {
-      if (result) {
-        if (result['to_emails']) {
-          for (const item of result['to_emails']) {
-            to_emails.push(item['email']);
+    dialogRef$
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          if (result.to_emails) {
+            for (const item of result.to_emails) {
+              toEmails.push(item.email);
+            }
+            this.orderService.sendOrderMail(toEmails, order).subscribe(
+              () => {
+                this.snackbar.open('Email u dërgua me sukses!', 'OK', {
+                  duration: 2500,
+                  verticalPosition: 'top',
+                  horizontalPosition: 'end',
+                  panelClass: 'snack-success'
+                });
+              },
+              () => {
+                this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
+                  duration: 3000,
+                  verticalPosition: 'top',
+                  horizontalPosition: 'end',
+                  panelClass: 'snack-danger'
+                });
+              });
           }
-          this.orderService.sendOrderMail(to_emails, order).subscribe(
-            () => {
-              this.snackbar.open('Email u dërgua me sukses!', 'OK', {
-                duration: 2500,
-                verticalPosition: 'top',
-                horizontalPosition: 'end',
-                panelClass: 'snack-success'
-              });
-            },
-            () => {
-              this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
-                duration: 3000,
-                verticalPosition: 'top',
-                horizontalPosition: 'end',
-                panelClass: 'snack-danger'
-              });
-            });
         }
-      }
-    });
+      });
   }
 
   filterOrders() {

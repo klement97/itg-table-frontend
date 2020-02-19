@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import {MatDialogRef} from '@angular/material/dialog';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -10,8 +10,10 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class SendOrderEmailDialogComponent implements OnInit {
   toEmailsForm: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<SendOrderEmailDialogComponent>,
-              private fb: FormBuilder) {
+  constructor(
+    private dialogRef: MatDialogRef<SendOrderEmailDialogComponent>,
+    private fb: FormBuilder
+  ) {
   }
 
   get emails() {
@@ -44,7 +46,7 @@ export class SendOrderEmailDialogComponent implements OnInit {
 
   onYesClick() {
     if (this.toEmailsForm.valid) {
-      this.dialogRef.close({'to_emails': this.toEmailsForm.value.to_emails});
+      this.dialogRef.close({to_emails: this.toEmailsForm.value.to_emails});
     }
   }
 

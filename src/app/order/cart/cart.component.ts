@@ -18,7 +18,7 @@ import {delay} from 'rxjs/operators';
 export class CartComponent implements OnInit, OnDestroy {
   orderUnits$: Observable<OrderUnit[]>;
   orderCount$: Observable<number>;
-  totalPrice: number = 0;
+  totalPrice = 0;
   cartSubscription$ = new Subscription();
 
   constructor(private store: Store<OrderUnitState>, private router: Router) {
@@ -65,9 +65,9 @@ export class CartComponent implements OnInit, OnDestroy {
   checkout() {
     this.store.select(selectUpdateOrderId).subscribe(id => {
       if (id) {
-        this.router.navigate([`/order/form/${id}`]);
+        this.router.navigate([`/order/form/${id}`]).then();
       } else {
-        this.router.navigate(['/order/form']);
+        this.router.navigate(['/order/form']).then();
       }
     });
   }
@@ -76,7 +76,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartSubscription$ = this.store.select(selectOrderUnits).subscribe(orders => {
       if (orders) {
         this.totalPrice = 0;
-        for (let order of orders) {
+        for (const order of orders) {
           this.totalPrice += order.amount * order.table.price;
         }
       }

@@ -7,10 +7,10 @@ import {MatSidenav} from '@angular/material/sidenav';
 import {Store} from '@ngrx/store';
 import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer';
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
-import {AuthService} from 'src/app/auth/_store/_services/auth.service';
+import {AuthService} from 'src/app/auth/auth.service';
 import {Router} from '@angular/router';
 import {selectUpdateOrderId} from '../../order/_store/_selectors/order.selectors';
-import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/delete-dialog/confirmation-dialog.component';
+import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-navigation',

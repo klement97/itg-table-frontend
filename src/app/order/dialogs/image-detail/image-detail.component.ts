@@ -1,18 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-image-detail',
   templateUrl: './image-detail.component.html',
   styleUrls: ['./image-detail.component.css']
 })
-export class ImageDetailComponent implements OnInit {
+export class ImageDetailComponent {
 
-  constructor(public dialogRef: MatDialogRef<ImageDetailComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
-  }
-
-  ngOnInit() {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data) {
   }
 
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
-import {_TOKEN} from './_store/_services/auth.service';
+import {_TOKEN} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     if (this.cookieService.check(_TOKEN)) {
       return true;
     } else {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/login']).then();
       return false;
     }
   }
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     if (this.cookieService.check(_TOKEN)) {
       return true;
     } else {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/login']).then();
       return false;
     }
   }

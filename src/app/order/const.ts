@@ -1,4 +1,4 @@
-export function buildQueryString(page: number = 0, ordering: string = '', page_size: number = 10, filter: any): string {
+export function buildQueryString(page: number = 0, ordering: string = '', pageSize: number = 10, filter: any): string {
   const queryString = [];
   if (ordering) {
     queryString.push(`ordering=${ordering}`);

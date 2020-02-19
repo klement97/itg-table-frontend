@@ -7,8 +7,8 @@ import {InnerColor, Order, OuterColor} from 'src/app/order/_store/_models/order.
 import {Observable, Subscription} from 'rxjs';
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 import {selectOrderCount, selectOrderUnits} from 'src/app/order/_store/_selectors/order-unit.selectors';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {selectOrderEntities} from '../_store/_selectors/order.selectors';
 import {clearOrderUnits, loadOrderUnits} from '../_store/_actions/order-unit.actions';
@@ -57,10 +57,11 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   }
 
   getColors() {
-    this.orderService.getColors().subscribe(res => {
-      this.innerColors = res['inner_colors'];
-      this.outerColors = res['outer_colors'];
-    });
+    this.orderService.getColors()
+      .subscribe((res: { inner_colors: InnerColor[], outer_colors: OuterColor[] }) => {
+        this.innerColors = res.inner_colors;
+        this.outerColors = res.outer_colors;
+      });
   }
 
   loadOrder() {
@@ -78,7 +79,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 
   loadOrderFromStore(orders) {
     this.store.select(selectOrderUnits).pipe(take(1)).subscribe(units => {
-      if (units.length == 0) {
+      if (units.length === 0) {
         this.store.dispatch(loadOrderUnits({orderUnits: orders[this.orderId].order_units}));
         this.orderForm.patchValue(orders[this.orderId]);
       }
@@ -86,13 +87,14 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   }
 
   getOrderFromServer() {
-    this.orderService.getOrder(this.orderId).subscribe(response => {
-      if (response) {
-        this.store.dispatch(addOrderForUpdate({order: response}));
-        this.store.dispatch(loadOrderUnits({orderUnits: response['order_units']}));
-        this.orderForm.patchValue(response);
-      }
-    });
+    this.orderService.getOrder(this.orderId)
+      .subscribe(response => {
+        if (response) {
+          this.store.dispatch(addOrderForUpdate({order: response}));
+          this.store.dispatch(loadOrderUnits({orderUnits: response.order_units}));
+          this.orderForm.patchValue(response);
+        }
+      });
   }
 
   initialForm() {
@@ -134,7 +136,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     this.order = {...this.orderForm.value};
     this.order.order_units = new Array<OrderUnit>();
     this.cart$.subscribe(units => {
-      for (let unit of units) {
+      for (const unit of units) {
         let orderUnit = new OrderUnit();
         orderUnit = {...unit};
         // changing orderUnit table attribute from table object to table's id here

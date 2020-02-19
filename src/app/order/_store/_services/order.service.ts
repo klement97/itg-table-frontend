@@ -9,7 +9,6 @@ const API = `${environment.apiHost}`;
 const TABLES_URL = `${API}/tables`;
 const COLORS_URL = `${API}/colors`;
 const ORDERS_URL = `${API}/orders`;
-const ORDER_FILTER_URL = `${ORDERS_URL}/filter`;
 const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
 
 @Injectable({
@@ -48,11 +47,7 @@ export class OrderService {
     return this.http.delete(`${ORDERS_URL}/${id}/`);
   }
 
-  filterOrderList(filter) {
-    return this.http.post(`${ORDER_FILTER_URL}/`, filter);
-  }
-
-  sendOrderMail(to_emails: string[], order: Order) {
-    return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails, order});
+  sendOrderMail(toEmails: string[], order: Order) {
+    return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails: toEmails, order});
   }
 }

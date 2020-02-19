@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmationDialogDataModel} from 'src/app/order/const';
 
 @Component({
@@ -14,7 +14,9 @@ export class ConfirmationDialogComponent implements OnInit {
   _cancelButtonText: string = 'Jo';
   _confirmButtonText: string = 'Po';
 
-  constructor(private dialogRef: MatDialogRef<ConfirmationDialogComponent>, @Inject(MAT_DIALOG_DATA) private data: ConfirmationDialogDataModel) {
+  constructor(
+    private dialogRef: MatDialogRef<ConfirmationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ConfirmationDialogDataModel) {
   }
 
   ngOnInit() {

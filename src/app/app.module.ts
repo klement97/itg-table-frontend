@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
-import {metaReducers, reducers} from './reducers';
+import {metaReducers} from './reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from 'src/app/app-routing.module';
@@ -13,7 +13,6 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {AuthModule} from 'src/app/auth/auth.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CookieService} from 'ngx-cookie-service';
-import {NgwWowModule} from 'ngx-wow';
 
 @NgModule({
   declarations: [
@@ -22,13 +21,12 @@ import {NgwWowModule} from 'ngx-wow';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    NgwWowModule,
     ReactiveFormsModule,
     FormsModule,
     LayoutModule,
     AuthModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {
+    StoreModule.forRoot({}, {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
@@ -36,7 +34,7 @@ import {NgwWowModule} from 'ngx-wow';
       }
     }),
     !environment.production
-      ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}) : [],
+      ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}):[],
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [

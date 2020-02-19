@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {OrderPageComponent} from 'src/app/order/order-page/order-page.component';
 import {TableFormComponent} from 'src/app/order/dialogs/table-form/table-form.component';
-import {TableDetailComponent} from 'src/app/order/dialogs/table-detail/table-detail.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ImageDetailComponent} from './dialogs/image-detail/image-detail.component';
@@ -37,7 +36,6 @@ import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/s
   declarations: [
     OrderPageComponent,
     TableFormComponent,
-    TableDetailComponent,
     ImageDetailComponent,
     CartComponent,
     OrderFormComponent,
@@ -74,7 +72,6 @@ import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/s
   exports: [
     OrderPageComponent,
     TableFormComponent,
-    TableDetailComponent,
     ImageDetailComponent,
     CartComponent,
     OrderFormComponent,

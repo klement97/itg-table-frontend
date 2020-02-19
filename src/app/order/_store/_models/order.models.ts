@@ -1,16 +1,5 @@
 import {OrderUnit} from 'src/app/order/_store/_models/order-unit.model';
 
-export class Table {
-  id: number;
-  code: string;
-  image: string;
-  width: number;  // gjeresi
-  height: number;  // lartesi
-  depth: number;  // gjatesi
-  price: number;
-  inner_color: InnerColor;
-  outer_color: OuterColor;
-}
 
 export class InnerColor {
   id: number;

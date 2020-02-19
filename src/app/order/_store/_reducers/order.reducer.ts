@@ -22,32 +22,11 @@ const orderReducer = createReducer(
   on(OrderActions.markUpdateAsTrue,
     (state, action) => ({...state, update: true, updateOrderId: action.orderId})
   ),
-  on(OrderActions.addOrder,
-    (state, action) => adapter.addOne(action.order, {...state, update: false, updateOrderId: null})
-  ),
   on(OrderActions.addOrderForUpdate,
     (state, action) => adapter.addOne(action.order, {...state, update: true, updateOrderId: action.order.id})
   ),
-  on(OrderActions.upsertOrder,
-    (state, action) => adapter.upsertOne(action.order, state)
-  ),
-  on(OrderActions.addOrders,
-    (state, action) => adapter.addMany(action.orders, state)
-  ),
-  on(OrderActions.upsertOrders,
-    (state, action) => adapter.upsertMany(action.orders, state)
-  ),
-  on(OrderActions.updateOrder,
-    (state, action) => adapter.updateOne(action.order, state)
-  ),
-  on(OrderActions.updateOrders,
-    (state, action) => adapter.updateMany(action.orders, state)
-  ),
   on(OrderActions.deleteOrder,
     (state, action) => adapter.removeOne(action.id, state)
-  ),
-  on(OrderActions.deleteOrders,
-    (state, action) => adapter.removeMany(action.ids, state)
   ),
   on(OrderActions.loadOrders,
     (state, action) => adapter.addAll(action.orders, state)
@@ -62,10 +41,8 @@ export function reducer(state: State | undefined, action: Action) {
 }
 
 export const {
-  selectIds,
   selectEntities,
-  selectAll,
-  selectTotal,
+  selectAll
 } = adapter.getSelectors();
 
 export const selectAllOrders = selectAll;
