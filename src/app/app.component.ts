@@ -40,7 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.wowSubs$ = this.wowService.itemRevealed$.subscribe(
       (item: HTMLElement) => {
-        console.log(item);
       }
     );
 
@@ -63,6 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.wowSubs$.unsubscribe();
+    // this.wowSubs$.unsubscribe();
   }
 }

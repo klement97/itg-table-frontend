@@ -4,8 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 const routes: Routes = [
   {path: '', redirectTo: 'auth/login', pathMatch: 'full'},
   {path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule), pathMatch: 'full'},
-
-  {path: '**', redirectTo: 'auth/login'},
+  {path: '**', redirectTo: 'order/tables'},
 ];
 
 @NgModule({

@@ -8,13 +8,15 @@ import * as ErrorActions from 'src/app/auth/_store/_actions/error.actions';
 import {CookieService} from 'ngx-cookie-service';
 import {_TOKEN} from '../auth/_store/_services/auth.service';
 import {NO_TOKEN_ENDPOINTS} from './endpoints';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class InterceptService implements HttpInterceptor {
 
   constructor(
     private store: Store<fromError.State>,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) {
   }
 
@@ -34,6 +36,11 @@ export class InterceptService implements HttpInterceptor {
       .pipe(
         catchError(err => {
           this.store.dispatch(ErrorActions.loadError({error: err}));
+          if (err.error?.detail === 'Invalid token.') {
+            this.router.navigate(['/auth/login']).then(
+              () => this.cookieService.delete(_TOKEN)
+            );
+          }
           return throwError(err);
         })
       );

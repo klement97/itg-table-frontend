@@ -13,7 +13,6 @@ const TOKEN = `${AUTH}/token`;
 export const LOGIN = `${TOKEN}/login`;
 export const LOGOUT = `${TOKEN}/logout`;
 
-export let isLoggedIn = false;
 export const _TOKEN = 'token';
 
 @Injectable({
@@ -28,32 +27,29 @@ export class AuthService {
   ) {
   }
 
+
   login(username, password) {
-    return this.http.post(`${LOGIN}/`,
-      {username, password}).pipe(
-      map((token: { auth_token: string }) => {
-        if (token) {
-          this.cookieService.set(_TOKEN, token.auth_token, null, '', '', false, 'Lax');
-          this.router.navigate(['order/tables']).then();
-          isLoggedIn = true;
-          return token;
-        }
-      })
-    );
+    return this.http.post(`${LOGIN}/`, {username, password})
+      .pipe(
+        map((token: { auth_token: string }) => {
+          if (token) {
+            this.cookieService.set(_TOKEN, token.auth_token, 365, '', '', false, 'Lax');
+            this.router.navigate(['order/tables']).then();
+            return token;
+          }
+        })
+      );
   }
 
   logout() {
     const token: string = this.cookieService.get(_TOKEN);
     return this.http.post(`${LOGOUT}/`, token).pipe(
-      finalize(() => {
-        this.router.navigate(['/auth/login']).then(
-          () => {
-            this.cookieService.delete(_TOKEN);
-            isLoggedIn = false;
-          }
-        );
-      })
-    );
+      finalize(() => this.router.navigate(['/auth/login'])
+        .then(() => this.cookieService.delete(_TOKEN))
+      ));
+  }
 
+  getUserDetails() {
+    return this.http.get(`${CURRENT_USER}/`);
   }
 }
