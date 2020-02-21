@@ -131,7 +131,7 @@
   },
   "defaultProject": "table-frontend",
   "cli": {
-    "defaultCollection": "@ngrx/schematics",
-    "analytics": "2ce44f6b-ca85-4d82-a8f9-4b42ab78ced8"
+    "defaultCollection": "@nativescript/schematics",
+    "analytics": "29c0cd6b-68ff-45e5-a6d9-7557803c0151"
   }
 }
