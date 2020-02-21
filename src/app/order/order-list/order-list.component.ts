@@ -13,12 +13,12 @@ import {Order} from 'src/app/order/_store/_models/order.models';
 import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';
 import {OrderDetailDialogComponent} from 'src/app/order/dialogs/order-detail-dialog/order-detail-dialog.component';
 import {Router} from '@angular/router';
-import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
+import {clearOrderUnits} from '@src/app/order/_store/_actions/order-unit.actions';
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LayoutService} from '../../layout/layout.service';
-import {APIResponse} from '../const';
+import {LayoutService} from '@src/app/layout/layout.service';
+import {APIResponse} from '@src/app/order/const';
 
 @Component({
   selector: 'app-order-list',

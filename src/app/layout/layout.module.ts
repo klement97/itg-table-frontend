@@ -13,7 +13,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {OrderModule} from 'src/app/order/order.module';
 import {RouterModule} from '@angular/router';
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-dialog/confirmation-dialog.component';
-import {IosInstallComponent} from './ios-install/ios-install.component';
+import {IosInstallComponent} from '@src/app/layout/ios-install/ios-install.component';
 
 
 @NgModule({

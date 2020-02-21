@@ -9,7 +9,7 @@ import {OrderUnitState} from 'src/app/order/_store/_reducers/order-unit.reducer'
 import {selectOrderCount} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {AuthService} from 'src/app/auth/auth.service';
 import {Router} from '@angular/router';
-import {selectUpdateOrderId} from '../../order/_store/_selectors/order.selectors';
+import {selectUpdateOrderId} from '@src/app/order/_store/_selectors/order.selectors';
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -45,7 +45,7 @@ export class NavigationComponent {
   }
 
   goToOrderForm() {
-    let id: string = '';
+    let id = '';
     if (this.updateOrderId) {
       id += this.updateOrderId;
     }

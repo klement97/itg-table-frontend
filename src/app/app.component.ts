@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {IosInstallComponent} from './layout/ios-install/ios-install.component';
+import {IosInstallComponent} from '@src/app/layout/ios-install/ios-install.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({

@@ -1,0 +1,54 @@
+<StackLayout>
+  <Label text="OrderDetailDialogComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<table class="data-table mat-elevation-z1" style="width: 100%">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Data</th>
+    <th>Çmimi total</th>
+    <th>Numri tabakave</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngIf="order">
+    <td>{{order.id}}</td>
+    <td>{{order.date_created}}</td>
+    <td>${{order['total_price']}}</td>
+    <td>{{order['total_table_count']}} copë</td>
+  </tr>
+  </tbody>
+</table>
+<br/>
+<table class="data-table mat-elevation-z1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Tabaka</th>
+    <th>Çmimi</th>
+    <th>Sasia</th>
+    <th>Total</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let unit of order.order_units">
+    <td>{{unit.id}}</td>
+    <td>{{unit.table.code}}</td>
+    <td>{{unit.amount}} copë</td>
+    <td>${{unit.price | number: '' : 'en'}}</td>
+    <td>${{(unit.amount * unit.price) | number: '' : 'en'}}</td>
+  </tr>
+  </tbody>
+</table>
+<br/>
+<button (click)="close()" color="primary" disableRipple mat-stroked-button style="float: right">Mbyllë</button>
+
+-->

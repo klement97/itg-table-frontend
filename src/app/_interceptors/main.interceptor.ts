@@ -3,8 +3,8 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
-import {_TOKEN} from '../auth/auth.service';
-import {NO_TOKEN_ENDPOINTS} from './endpoints';
+import {_TOKEN} from '@src/app/auth/auth.service';
+import {NO_TOKEN_ENDPOINTS} from '@src/app/_interceptors/endpoints';
 import {Router} from '@angular/router';
 
 @Injectable()

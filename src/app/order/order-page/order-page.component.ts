@@ -15,11 +15,11 @@ import {Observable, Subject} from 'rxjs';
 import {selectTables} from 'src/app/order/_store/_selectors/table.selectors';
 import {selectFakeId} from 'src/app/order/_store/_selectors/order-unit.selectors';
 import {ActivatedRoute} from '@angular/router';
-import {selectOrderEntities} from '../_store/_selectors/order.selectors';
+import {selectOrderEntities} from '@src/app/order/_store/_selectors/order.selectors';
 import {takeUntil} from 'rxjs/operators';
-import {addOrderForUpdate} from '../_store/_actions/order.actions';
-import {LayoutService} from '../../layout/layout.service';
-import {APIResponse} from '../const';
+import {addOrderForUpdate} from '@src/app/order/_store/_actions/order.actions';
+import {LayoutService} from '@src/app/layout/layout.service';
+import {APIResponse} from '@src/app/order/const';
 
 @Component({
   selector: 'app-order-page',

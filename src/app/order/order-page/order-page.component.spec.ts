@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {OrderPageComponent} from './order-page.component';
+import {OrderPageComponent} from '@src/app/order/order-page/order-page.component';
 
 describe('OrderPageComponent', () => {
   let component: OrderPageComponent;

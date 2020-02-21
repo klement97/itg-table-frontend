@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {OrderPageComponent} from 'src/app/order/order-page/order-page.component';
 import {OrderFormComponent} from 'src/app/order/order-form/order-form.component';
 import {OrderListComponent} from 'src/app/order/order-list/order-list.component';
-import {AuthGuard} from '../auth/auth.guard';
+import {AuthGuard} from '@src/app/auth/auth.guard';
 
 const routes: Routes = [
   {

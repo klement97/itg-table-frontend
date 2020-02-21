@@ -10,9 +10,9 @@ import {selectOrderCount, selectOrderUnits} from 'src/app/order/_store/_selector
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
-import {selectOrderEntities} from '../_store/_selectors/order.selectors';
-import {clearOrderUnits, loadOrderUnits} from '../_store/_actions/order-unit.actions';
-import {addOrderForUpdate} from '../_store/_actions/order.actions';
+import {selectOrderEntities} from '@src/app/order/_store/_selectors/order.selectors';
+import {clearOrderUnits, loadOrderUnits} from '@src/app/order/_store/_actions/order-unit.actions';
+import {addOrderForUpdate} from '@src/app/order/_store/_actions/order.actions';
 import {take} from 'rxjs/operators';
 
 @Component({

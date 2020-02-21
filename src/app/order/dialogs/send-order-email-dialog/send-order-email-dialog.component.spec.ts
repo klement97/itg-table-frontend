@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {SendOrderEmailDialogComponent} from './send-order-email-dialog.component';
+import {SendOrderEmailDialogComponent} from '@src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 
 describe('SendOrderEmailDialogComponent', () => {
   let component: SendOrderEmailDialogComponent;

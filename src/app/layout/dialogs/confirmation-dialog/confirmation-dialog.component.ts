@@ -8,11 +8,11 @@ import {ConfirmationDialogDataModel} from 'src/app/order/const';
   styleUrls: ['./confirmation-dialog.component.css']
 })
 export class ConfirmationDialogComponent implements OnInit {
-  _title: string = '';
-  _message: string = 'Jeni të sigurt që doni ta fshini?';
-  _cancelButton: boolean = true;
-  _cancelButtonText: string = 'Jo';
-  _confirmButtonText: string = 'Po';
+  _title = '';
+  _message = 'Jeni të sigurt që doni ta fshini?';
+  _cancelButton = true;
+  _cancelButtonText = 'Jo';
+  _confirmButtonText = 'Po';
 
   constructor(
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>,
