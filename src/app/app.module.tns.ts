@@ -11,6 +11,12 @@ import {NativeScriptFormsModule} from 'nativescript-angular/forms';
 
 // Uncomment and add to NgModule imports  if you need to use the HTTP wrapper
 import {NativeScriptHttpClientModule} from 'nativescript-angular/http-client';
+import {LayoutModule} from '@src/app/layout/layout.module';
+import {AuthModule} from '@src/app/auth/auth.module';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers} from 'src/app/reducers';
+import {httpInterceptorProviders} from 'src/app/_interceptors';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -21,9 +27,21 @@ import {NativeScriptHttpClientModule} from 'nativescript-angular/http-client';
     NativeScriptModule,
     AppRoutingModule,
     NativeScriptHttpClientModule,
-    NativeScriptFormsModule
+    NativeScriptFormsModule,
+    LayoutModule,
+    AuthModule,
+    StoreModule.forRoot({}, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders,
+    CookieService
+  ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

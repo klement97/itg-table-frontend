@@ -16,7 +16,7 @@ const routes: Routes = [
       {path: 'list', component: OrderListComponent, pathMatch: 'full'},
     ]
   },
-  {path: '', redirectTo: 'order/tables', pathMatch: 'full', data: {animation: 'Home'}},
+  {path: '', redirectTo: 'order/tables', pathMatch: 'full'},
 ];
 
 @NgModule({
