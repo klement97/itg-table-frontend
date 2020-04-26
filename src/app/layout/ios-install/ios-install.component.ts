@@ -4,7 +4,7 @@ import {MatSnackBarRef} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-ios-install',
   templateUrl: './ios-install.component.html',
-  styleUrls: ['./ios-install.component.css']
+  styleUrls: ['./ios-install.component.scss']
 })
 export class IosInstallComponent implements OnInit {
 

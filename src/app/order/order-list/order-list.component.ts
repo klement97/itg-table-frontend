@@ -23,7 +23,7 @@ import {APIResponse} from '../const';
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.css'],
+  styleUrls: ['./order-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderListComponent implements OnInit {

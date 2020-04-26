@@ -1,0 +1,115 @@
+.content {
+  padding: 10px;
+  height: auto;
+  min-height: calc(100vh - 50px);
+  box-sizing: border-box;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.shipping-card {
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.align-end {
+  flex: 1 1 auto;
+  text-align: end;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.container {
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  margin-top: 20px;
+  width: 31.5%;
+  min-width: 320px;
+  min-height: 400px;
+  height: auto;
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.card-image {
+  width: 100%;
+  min-height: 320px;
+  position: relative;
+}
+
+.card-info {
+  width: 100%;
+  height: 20%;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.card-image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.card-footer {
+  padding: 10px;
+  width: 95%;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-footer button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  font-size: 1.5em;
+  margin-left: 10px;
+  box-shadow: gray 0 8px 10px;
+}
+
+.description-text {
+  word-break: break-word;
+}
+
+@media print {
+  .header-row {
+    display: none;
+  }
+
+  .card {
+    height: 300px;
+  }
+}
+

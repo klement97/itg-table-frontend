@@ -5,7 +5,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-send-order-email-dialog',
   templateUrl: './send-order-email-dialog.component.html',
-  styleUrls: ['./send-order-email-dialog.component.css']
+  styleUrls: ['./send-order-email-dialog.component.scss']
 })
 export class SendOrderEmailDialogComponent implements OnInit {
   toEmailsForm: FormGroup;

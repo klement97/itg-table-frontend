@@ -5,7 +5,7 @@ import {ConfirmationDialogDataModel} from 'src/app/order/const';
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css']
+  styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent implements OnInit {
   _title: string = '';

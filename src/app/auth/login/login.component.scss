@@ -1,0 +1,249 @@
+section {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.side-picture {
+    width: 65%;
+    height: 100%;
+    position: relative;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+}
+
+/*.content {*/
+/*    padding: 10px;*/
+/*    height: auto;*/
+/*    min-height: calc(100vh - 50px);*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+.login-form {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #596187 3px 0 10px;
+}
+
+.login-error {
+    display: flex;
+    flex-direction: column;
+    background-color: #d64640;
+    color: white;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: gray 3px 0 10px;
+    border-radius: 3px;
+    transform: translateY(-15px);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#login_button {
+    position: relative;
+}
+
+#login_button {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto 10px auto auto;
+    transform: rotate(0deg);
+    border-radius: 50%;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    animation: rotation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.shipping-card {
+    min-width: 120px;
+    margin: 20px auto;
+}
+
+.mat-radio-button {
+    display: block;
+    margin: 5px 0;
+}
+
+/*.row {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+
+.col {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.align-end {
+    flex: 1 1 auto;
+    text-align: end;
+}
+
+.col:last-child {
+    margin-right: 0;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    position: relative;
+    margin-top: 20px;
+    width: 31.5%;
+    min-width: 320px;
+    height: 400px;
+    background-color: white;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.card-image {
+    width: 100%;
+    height: 80%;
+    position: relative;
+}
+
+.card-info {
+    width: 100%;
+    height: 20%;
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.card-image img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.card-footer {
+    width: 100%;
+    height: 20%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-footer button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    font-size: 1.5em;
+    margin-left: 10px;
+    box-shadow: gray 0 8px 10px;
+}
+
+mat-chip-list {
+    margin-right: 20px;
+}
+
+input {
+    padding-left: 10px;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 480px) {
+    section {
+        flex-direction: column;
+    }
+
+    .side-picture {
+        display: none;
+    }
+
+    .login-form::before {
+        content: 'ITALGOLD';
+        position: absolute;
+        top: 0;
+        font-size: 8vw;
+        transform: translateY(20px);
+        margin-bottom: 20px;
+    }
+
+    .login-form {
+        width: 100%;
+        height: 100vh;
+    }
+
+    form {
+        position: relative;
+        transform: scale(1.4);
+    }
+
+}
+
+@media only screen and (min-width: 481px) and (max-width: 1250px) {
+    section {
+        flex-direction: column;
+    }
+
+    .side-picture {
+        width: 100%;
+        height: 45%;
+    }
+
+    .login-form {
+        width: 100%;
+        height: 55%;
+    }
+
+    form {
+        transform: scale(1.7);
+    }
+}

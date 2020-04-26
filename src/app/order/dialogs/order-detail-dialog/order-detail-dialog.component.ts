@@ -5,7 +5,7 @@ import {Order} from 'src/app/order/_store/_models/order.models';
 @Component({
   selector: 'app-order-detail-dialog',
   templateUrl: './order-detail-dialog.component.html',
-  styleUrls: ['./order-detail-dialog.component.css']
+  styleUrls: ['./order-detail-dialog.component.scss']
 })
 export class OrderDetailDialogComponent {
   order: Order;
