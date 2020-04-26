@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Table} from 'src/app/order/_store/_models/table.model';
+
 
 @Component({
   selector: 'app-table-form',

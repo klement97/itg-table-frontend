@@ -6,4 +6,4 @@ export interface State {
 }
 
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? []:[];
+export const metaReducers: MetaReducer<State>[] = [];
