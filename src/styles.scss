@@ -1,0 +1,131 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "column-system";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+.active {
+  background-color: rgba(0, 4, 40, 0.7);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.btn-success {
+  background-color: #13a84a;
+  color: white;
+}
+
+.btn-success-outline {
+  border: 1px solid #13a84a;
+  color: #13a84a;
+}
+
+.btn-danger {
+  background-color: #ce2600;
+  color: white;
+}
+
+.btn-danger-outline {
+  border: 1px solid #ce2600;
+  color: #ce2600;
+}
+
+.btn-warning {
+  background-color: #b2802a;
+  color: white;
+}
+
+.data-table {
+  width: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+
+  & td, th {
+    padding: 10px 15px !important;
+  }
+}
+
+.data-table th {
+  font-size: smaller;
+  color: rgba(0, 0, 0, .54);
+  text-align: start;
+}
+
+.data-table td:last-child {
+  padding: 0;
+}
+
+mat-dialog-container {
+  border-radius: 2px !important;
+}
+
+.snack-success {
+  background-color: #13a84a;
+  color: white;
+}
+
+.snack-danger {
+  background-color: #971f00;
+  color: white;
+}
+
+.snack-info {
+  background-color: #004e92;
+  color: white;
+}
+
+.snack-warning {
+  background-color: #b2802a;
+  color: white;
+}
+
+.snack-success .mat-simple-snackbar-action {
+  color: white !important;
+}
+
+.snack-danger .mat-simple-snackbar-action {
+  color: white !important;
+}
+
+.snack-warning .mat-simple-snackbar-action {
+  color: white !important;
+}
+
+.snack-info .mat-simple-snackbar-action {
+  color: white !important;
+}
+
+.padding-0 {
+  padding: 0 !important;
+}
+
+.padding-0 .mat-dialog-container {
+  padding: 0 !important;
+}
+
+@media print {
+  body {
+    margin: 0 !important;
+  }
+
+  .mat-sidenav-container {
+    display: none !important;
+  }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
