@@ -7,12 +7,24 @@ export function buildQueryString(page: number = 0, ordering: string = '', pageSi
     queryString.push(`page=${page}`);
   }
   if (filter) {
-    queryString.push(`filter=${JSON.stringify(filter)}`);
+    queryString.push(buildFilterString(filter));
   }
   if (queryString.length > 0) {
     return '?' + queryString.join('&');
   }
   return '';
+}
+
+function buildFilterString(filter: { [key: string]: any }) {
+  let filterString = '';
+  Object.keys(filter).forEach((key) => {
+    filterString += `${key}=${filter[key]}&`;
+  });
+  return filterString;
+}
+
+export function formatDateToString(d: Date): string {
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 }
 
 
@@ -23,6 +35,7 @@ export class ConfirmationDialogDataModel {
   cancelButtonText?: string;
   confirmButtonText?: string;
 }
+
 
 export class APIResponse {
   data: any;

@@ -20,6 +20,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {LayoutService} from '../../layout/layout.service';
 import {APIResponse} from '../const';
 
+
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -47,23 +48,25 @@ export class OrderListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getOrders('');
     this.initiateFilterForm();
+    this.getOrders('');
   }
 
   getOrders(ordering) {
-    this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, null)
-      .subscribe((response: APIResponse) => {
-        this.loading = false;
-        this.count = response.pagination.count;
-        this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
-      });
+    this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, this.filterForm.value)
+        .subscribe((response: APIResponse) => {
+          this.loading = false;
+          this.count = response.pagination.count;
+          this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
+        });
   }
 
   initiateFilterForm() {
     this.filterForm = this.fb.group({
+      id: [''],
       customer: [''],
-      date_created: ['']
+      date_created_before: [''],
+      date_created_after: ['']
     });
   }
 
@@ -76,15 +79,15 @@ export class OrderListComponent implements OnInit {
     });
 
     dialogRef$
-      .afterClosed()
-      .subscribe((result: { confirmed: boolean }) => {
-        if (result?.confirmed) {
-          this.orderService.deleteOrder(id).subscribe(_ => {
-            this.store.dispatch(OrderActions.deleteOrder({id}));
-            this.count--;
-          });
-        }
-      });
+    .afterClosed()
+    .subscribe((result: { confirmed: boolean }) => {
+      if (result?.confirmed) {
+        this.orderService.deleteOrder(id).subscribe(_ => {
+          this.store.dispatch(OrderActions.deleteOrder({id}));
+          this.count--;
+        });
+      }
+    });
   }
 
   showDetails(order) {
@@ -109,7 +112,7 @@ export class OrderListComponent implements OnInit {
   }
 
   changePage() {
-    this.orderService.getOrderList(this.paginator.pageIndex + 1).subscribe(
+    this.orderService.getOrderList(this.paginator.pageIndex + 1, '', this.filterForm.value).subscribe(
       (response: APIResponse) => {
         this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
       }
@@ -127,43 +130,43 @@ export class OrderListComponent implements OnInit {
     });
 
     dialogRef$
-      .afterClosed()
-      .subscribe(result => {
-        if (result) {
-          if (result.to_emails) {
-            for (const item of result.to_emails) {
-              toEmails.push(item.email);
-            }
-            this.orderService.sendOrderMail(toEmails, order).subscribe(
-              () => {
-                this.snackbar.open('Email u dërgua me sukses!', 'OK', {
-                  duration: 2500,
-                  verticalPosition: 'top',
-                  horizontalPosition: 'end',
-                  panelClass: 'snack-success'
-                });
-              },
-              () => {
-                this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
-                  duration: 3000,
-                  verticalPosition: 'top',
-                  horizontalPosition: 'end',
-                  panelClass: 'snack-danger'
-                });
-              });
+    .afterClosed()
+    .subscribe(result => {
+      if (result) {
+        if (result.to_emails) {
+          for (const item of result.to_emails) {
+            toEmails.push(item.email);
           }
+          this.orderService.sendOrderMail(toEmails, order).subscribe(
+            () => {
+              this.snackbar.open('Email u dërgua me sukses!', 'OK', {
+                duration: 2500,
+                verticalPosition: 'top',
+                horizontalPosition: 'end',
+                panelClass: 'snack-success'
+              });
+            },
+            () => {
+              this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
+                duration: 3000,
+                verticalPosition: 'top',
+                horizontalPosition: 'end',
+                panelClass: 'snack-danger'
+              });
+            });
         }
-      });
+      }
+    });
   }
 
   filterOrders() {
     this.paginator.pageIndex = 0;
     this.orderService.getOrderList(this.paginator.pageIndex, '', this.filterForm.value)
-      .subscribe((response: APIResponse) => {
-          this.store.dispatch(OrderActions.clearOrders());
-          this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
-        }
-      );
+        .subscribe((response: APIResponse) => {
+            this.store.dispatch(OrderActions.clearOrders());
+            this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
+          }
+        );
   }
 
 }

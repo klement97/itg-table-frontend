@@ -31,6 +31,8 @@ import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import {CdkTableModule} from '@angular/cdk/table';
 import {OrderDetailDialogComponent} from './dialogs/order-detail-dialog/order-detail-dialog.component';
 import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/send-order-email-dialog.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/s
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     OrderPageComponent,
