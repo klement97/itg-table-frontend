@@ -44,14 +44,6 @@ export class NavigationComponent {
     });
   }
 
-  goToOrderForm() {
-    let id: string = '';
-    if (this.updateOrderId) {
-      id += this.updateOrderId;
-    }
-    this.router.navigate([`/order/form/${id}`]).then();
-  }
-
 
   logout() {
     const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
