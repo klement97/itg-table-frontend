@@ -13,13 +13,17 @@
             </button>
         </mat-toolbar>
         <mat-nav-list>
-            <a class="mat-nav-list" mat-list-item routerLink="order/tables" routerLinkActive="active">
+            <a class="mat-nav-list-item" mat-list-item routerLink="order/tables"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}">
                 <button mat-icon-button>
                     <mat-icon>amp_stories</mat-icon>
                 </button>
                 Tabakatë
             </a>
-            <a class="mat-nav-list" mat-list-item routerLink="/order/list" routerLinkActive="active">
+            <a class="mat-nav-list-item" mat-list-item routerLink="/order/list"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}">
                 <button mat-icon-button>
                     <mat-icon>list</mat-icon>
                 </button>
@@ -40,7 +44,7 @@
 
                 <!-- CART -->
                 <button [matMenuTriggerFor]="menu" mat-icon-button>
-                    <mat-icon matBadge="{{cartCount? cartCount : 0}}">shopping_cart</mat-icon>
+                    <mat-icon matBadge="{{cartCount ? cartCount : 0}}">shopping_cart</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" class="mat-cart-panel">
                     <app-cart></app-cart>

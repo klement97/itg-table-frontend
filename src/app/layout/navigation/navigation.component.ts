@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 import {selectUpdateOrderId} from '../../order/_store/_selectors/order.selectors';
 import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-dialog/confirmation-dialog.component';
 
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -23,10 +24,10 @@ export class NavigationComponent {
   @ViewChild('drawer', {static: true}) drawer: MatSidenav;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      share()
-    );
+                                        .pipe(
+                                          map(result => result.matches),
+                                          share()
+                                        );
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -49,7 +50,9 @@ export class NavigationComponent {
     const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
       width: '35%',
       minWidth: '250px',
-      panelClass: 'padding-0',
+      panelClass: ['padding-0'],
+      backdropClass: 'no-shadow',
+      position: {top: '60px', right: '12px'},
       data: {
         title: '',
         message: 'Jeni të sigurt që doni të dilni?'

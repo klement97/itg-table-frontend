@@ -47,6 +47,10 @@ mat-nav-list {
   color: white;
 }
 
+.mat-nav-list-item {
+  color: white;
+}
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
@@ -80,4 +84,8 @@ mat-nav-list {
   min-height: 64px;
   box-shadow: 0 5px 10px gray !important;
   margin-top: -8px !important;
+}
+
+.no-shadow {
+  box-shadow: unset;
 }

@@ -49,7 +49,3 @@ testem.log
 Thumbs.db
 
 /dist
-src/app/layout/navigation/navigation.component.css
-src/app/layout/navigation/navigation.component.css.map
-src/app/layout/navigation/navigation.component.css
-src/app/layout/navigation/navigation.component.css.map
