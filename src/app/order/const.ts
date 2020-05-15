@@ -1,3 +1,7 @@
+export const MIN_TIME = '00:00:00.000000';
+export const MAX_TIME = '23:59:59.999999';
+
+
 export function buildQueryString(page: number = 0, ordering: string = '', pageSize: number = 10, filter: any): string {
   const queryString = [];
   if (ordering) {
@@ -18,13 +22,20 @@ export function buildQueryString(page: number = 0, ordering: string = '', pageSi
 function buildFilterString(filter: { [key: string]: any }) {
   let filterString = '';
   Object.keys(filter).forEach((key) => {
-    filterString += `${key}=${filter[key]}&`;
+    filterString += filter[key] ? `${key}=${filter[key]}&` : '';
   });
   return filterString;
 }
 
-export function formatDateToString(d: Date): string {
-  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+export function formatDateToString(d: Date | string, time: string = ''): string {
+  if (typeof d === 'object') {
+    let formattedDate: string = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    if (time) {
+      formattedDate += `+${time}`;
+    }
+    return formattedDate;
+  }
+  return d;
 }
 
 

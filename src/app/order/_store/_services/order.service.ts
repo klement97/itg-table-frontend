@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {Order} from 'src/app/order/_store/_models/order.models';
 import {Observable} from 'rxjs';
-import {buildQueryString, formatDateToString} from 'src/app/order/const';
+import {buildQueryString, formatDateToString, MAX_TIME, MIN_TIME, APIResponse} from 'src/app/order/const';
 
 
 const API = `${environment.apiHost}`;
@@ -37,18 +37,11 @@ export class OrderService {
     return this.http.put(`${ORDERS_URL}/${order.id}/`, order);
   }
 
-  getOrderList(page: number, ordering: string = '', filter) {
-    if (filter.date_created_before) {
-      filter.date_created_before = formatDateToString(filter.date_created_before) + '+23:59:59';
-    } else {
-      filter.date_created_before = '';
-    }
-    if (filter.date_created_after) {
-      filter.date_created_after = formatDateToString(filter.date_created_after) + '+00:00:00';
-    } else {
-      filter.date_created_after = '';
-    }
-    return this.http.get(`${ORDERS_URL}/${buildQueryString(page, ordering, null, filter)}`);
+  getOrderList(page: number, ordering: string = '', filter: OrderFilter): Observable<any> {
+    const f: OrderFilter = {...filter};
+    f.date_created_before = f.date_created_before ? formatDateToString(f.date_created_before, MAX_TIME) : '';
+    f.date_created_after = f.date_created_after ?  formatDateToString(f.date_created_after, MIN_TIME) : '';
+    return this.http.get(`${ORDERS_URL}/${buildQueryString(page, ordering, null, f)}`);
   }
 
   getOrder(id: number): Observable<any> {
@@ -62,4 +55,11 @@ export class OrderService {
   sendOrderMail(toEmails: string[], order: Order) {
     return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails: toEmails, order});
   }
+}
+
+export class OrderFilter {
+  id: number;
+  customer: string;
+  date_created_after: Date | string;
+  date_created_before: Date | string;
 }

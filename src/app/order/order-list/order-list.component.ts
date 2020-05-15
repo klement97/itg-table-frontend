@@ -52,7 +52,7 @@ export class OrderListComponent implements OnInit {
     this.getOrders('');
   }
 
-  getOrders(ordering) {
+  getOrders(ordering: string) {
     this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, this.filterForm.value)
         .subscribe((response: APIResponse) => {
           this.loading = false;
