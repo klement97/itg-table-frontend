@@ -13,6 +13,8 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {AuthModule} from 'src/app/auth/auth.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CookieService} from 'ngx-cookie-service';
+import {EffectsModule} from '@ngrx/effects';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import {CookieService} from 'ngx-cookie-service';
       }
     }),
     !environment.production
-      ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}):[],
+      ? StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}) : [],
+    EffectsModule.forRoot([]),
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [

@@ -33,6 +33,8 @@ import {OrderDetailDialogComponent} from './dialogs/order-detail-dialog/order-de
 import {SendOrderEmailDialogComponent} from './dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {EffectsModule} from '@ngrx/effects'
+import {OrderEffects} from './_store/_effects/order.effects';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     StoreModule.forFeature(fromUnits.orderUnitsFeatureKey, fromUnits.reducer),
     StoreModule.forFeature(fromTables.tablesFeatureKey, fromTables.reducer),
     StoreModule.forFeature(fromOrder.ordersFeatureKey, fromOrder.reducer),
+    EffectsModule.forFeature([OrderEffects]),
     CommonModule,
     OrderRoutingModule,
     HttpClientModule,

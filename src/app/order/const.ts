@@ -1,3 +1,6 @@
+import {formatDate} from '@angular/common';
+
+
 export const MIN_TIME = '00:00:00.000000';
 export const MAX_TIME = '23:59:59.999999';
 
@@ -27,15 +30,15 @@ function buildFilterString(filter: { [key: string]: any }) {
   return filterString;
 }
 
-export function formatDateToString(d: Date | string, time: string = ''): string {
-  if (typeof d === 'object') {
-    let formattedDate: string = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+export function formatDateToString(date: Date | string, time: string = ''): string {
+  if (typeof date === 'object') {
+    let formattedDate: string = formatDate(date, 'yyyy-MM-dd', 'en-us');
     if (time) {
       formattedDate += `+${time}`;
     }
     return formattedDate;
   }
-  return d;
+  return date;
 }
 
 

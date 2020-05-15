@@ -3,14 +3,14 @@ import {OrderService} from 'src/app/order/_store/_services/order.service';
 import {Store} from '@ngrx/store';
 import * as fromOrder from 'src/app/order/_store/_reducers/order.reducer';
 import * as OrderActions from 'src/app/order/_store/_actions/order.actions';
-import {markUpdateAsTrue} from 'src/app/order/_store/_actions/order.actions';
+import {getOrders, markUpdateAsTrue} from 'src/app/order/_store/_actions/order.actions';
 import {Observable} from 'rxjs';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Sort} from '@angular/material/sort';
 import {Order} from 'src/app/order/_store/_models/order.models';
-import {selectOrderList} from 'src/app/order/_store/_selectors/order.selectors';
+import {selectOrderList, selectOrderListCount, selectOrdersLoading} from 'src/app/order/_store/_selectors/order.selectors';
 import {OrderDetailDialogComponent} from 'src/app/order/dialogs/order-detail-dialog/order-detail-dialog.component';
 import {Router} from '@angular/router';
 import {clearOrderUnits} from '../_store/_actions/order-unit.actions';
@@ -18,7 +18,6 @@ import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-d
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LayoutService} from '../../layout/layout.service';
-import {APIResponse} from '../const';
 
 
 @Component({
@@ -29,9 +28,9 @@ import {APIResponse} from '../const';
 })
 export class OrderListComponent implements OnInit {
   @ViewChild('paginator', {static: true}) paginator: MatPaginator;
-  count = 0;
+  count$: Observable<number>;
   displayedColumns: string[] = ['id', 'customer', 'date_created', 'total_price', 'total_table_count', 'actions'];
-  loading = true;
+  loading$: Observable<boolean>;
   orders$: Observable<Order[]>;
   filterForm: FormGroup;
 
@@ -45,37 +44,33 @@ export class OrderListComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.orders$ = store.select(selectOrderList);
+    this.count$ = store.select(selectOrderListCount);
+    this.loading$ = store.select(selectOrdersLoading);
   }
 
   ngOnInit() {
     this.initiateFilterForm();
-    this.getOrders('');
+    this.getOrders();
   }
 
-  getOrders(ordering: string) {
-    this.orderService.getOrderList(this.paginator.pageIndex + 1, ordering, this.filterForm.value)
-        .subscribe((response: APIResponse) => {
-          this.loading = false;
-          this.count = response.pagination.count;
-          this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
-        });
+  getOrders() {
+    this.store.dispatch(getOrders({page: this.paginator.pageIndex + 1, filter: this.filterForm.value}));
+  }
+
+  filterOrders() {
+    this.paginator.pageIndex = 0;
+    this.getOrders();
   }
 
   initiateFilterForm() {
     this.filterForm = this.fb.group({
-      id: [''],
-      customer: [''],
-      date_created_before: [''],
-      date_created_after: ['']
+      id: '', customer: '', date_created_before: '', date_created_after: ''
     });
   }
 
   deleteOrder(id: number) {
     const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
-      minWidth: '300px',
-      width: '30%',
-      data: {title: `Porosia me ID: ${id}`},
-      panelClass: 'padding-0'
+      minWidth: '300px', width: '30%', data: {title: `Porosia me ID: ${id}`}, panelClass: 'padding-0'
     });
 
     dialogRef$
@@ -84,7 +79,6 @@ export class OrderListComponent implements OnInit {
       if (result?.confirmed) {
         this.orderService.deleteOrder(id).subscribe(_ => {
           this.store.dispatch(OrderActions.deleteOrder({id}));
-          this.count--;
         });
       }
     });
@@ -108,65 +102,35 @@ export class OrderListComponent implements OnInit {
     const field = event.active;
     const direction = '' ? event.direction === 'asc' : '-';
     const ordering = `${direction}${field}`;
-    this.getOrders(ordering);
-  }
-
-  changePage() {
-    this.orderService.getOrderList(this.paginator.pageIndex + 1, '', this.filterForm.value).subscribe(
-      (response: APIResponse) => {
-        this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
-      }
-    );
+    this.getOrders();
   }
 
   openEmailSendDialog(order: Order) {
     const toEmails: string[] = [];
-
     const dialogRef$ = this.dialog.open(SendOrderEmailDialogComponent, {
-      width: '30%',
-      minWidth: '300px',
-      maxHeight: '450px',
-      data: {order}
+      width: '30%', minWidth: '300px', maxHeight: '450px', data: {order}
     });
 
     dialogRef$
     .afterClosed()
     .subscribe(result => {
-      if (result) {
-        if (result.to_emails) {
-          for (const item of result.to_emails) {
-            toEmails.push(item.email);
-          }
-          this.orderService.sendOrderMail(toEmails, order).subscribe(
-            () => {
-              this.snackbar.open('Email u dërgua me sukses!', 'OK', {
-                duration: 2500,
-                verticalPosition: 'top',
-                horizontalPosition: 'end',
-                panelClass: 'snack-success'
-              });
-            },
-            () => {
-              this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
-                duration: 3000,
-                verticalPosition: 'top',
-                horizontalPosition: 'end',
-                panelClass: 'snack-danger'
-              });
-            });
+      if (result?.to_emails) {
+        for (const item of result.to_emails) {
+          toEmails.push(item.email);
         }
+        this.orderService.sendOrderMail(toEmails, order).subscribe(
+          () => {
+            this.snackbar.open('Email u dërgua me sukses!', 'OK', {
+              duration: 2500, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-success'
+            });
+          },
+          () => {
+            this.snackbar.open('Problem në dërgim, ju lutem provojeni përsëri!', 'OK', {
+              duration: 3000, verticalPosition: 'top', horizontalPosition: 'end', panelClass: 'snack-danger'
+            });
+          });
       }
     });
-  }
-
-  filterOrders() {
-    this.paginator.pageIndex = 0;
-    this.orderService.getOrderList(this.paginator.pageIndex, '', this.filterForm.value)
-        .subscribe((response: APIResponse) => {
-            this.store.dispatch(OrderActions.clearOrders());
-            this.store.dispatch(OrderActions.loadOrders({orders: response.data}));
-          }
-        );
   }
 
 }

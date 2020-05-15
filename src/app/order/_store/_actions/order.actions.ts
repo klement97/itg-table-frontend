@@ -1,6 +1,18 @@
 import {createAction, props} from '@ngrx/store';
 
 import {Order} from 'src/app/order/_store/_models/order.models';
+import {OrderFilter} from '../_services/order.service';
+
+
+export const getOrders = createAction(
+  '[Order List] Get Orders',
+  props<{ page: number, filter: OrderFilter }>()
+);
+
+export const getOrdersSuccess = createAction(
+  '[Order/API] Get Orders Success',
+  props<{ orders: Order[], count: number }>()
+);
 
 export const loadOrders = createAction(
   '[Order/API] Load Orders',

@@ -3,12 +3,12 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {Order} from 'src/app/order/_store/_models/order.models';
 import {Observable} from 'rxjs';
-import {buildQueryString, formatDateToString, MAX_TIME, MIN_TIME, APIResponse} from 'src/app/order/const';
+import {buildQueryString, formatDateToString, MAX_TIME, MIN_TIME} from 'src/app/order/const';
 
 
 const API = `${environment.apiHost}`;
 const TABLES_URL = `${API}/tables`;
-const COLORS_URL = `${API}/colors`;
+const COLORS_URL = `${TABLES_URL}/colors`;
 const ORDERS_URL = `${API}/orders`;
 const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
 
@@ -40,7 +40,7 @@ export class OrderService {
   getOrderList(page: number, ordering: string = '', filter: OrderFilter): Observable<any> {
     const f: OrderFilter = {...filter};
     f.date_created_before = f.date_created_before ? formatDateToString(f.date_created_before, MAX_TIME) : '';
-    f.date_created_after = f.date_created_after ?  formatDateToString(f.date_created_after, MIN_TIME) : '';
+    f.date_created_after = f.date_created_after ? formatDateToString(f.date_created_after, MIN_TIME) : '';
     return this.http.get(`${ORDERS_URL}/${buildQueryString(page, ordering, null, f)}`);
   }
 
@@ -56,6 +56,7 @@ export class OrderService {
     return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails: toEmails, order});
   }
 }
+
 
 export class OrderFilter {
   id: number;
