@@ -31,16 +31,15 @@ export class AuthService {
 
 
   login(username, password) {
-    return this.http.post(`${LOGIN}/`, {username, password})
-               .pipe(
-                 map((token: { auth_token: string }) => {
-                   if (token) {
-                     this.cookieService.set(_TOKEN, token.auth_token, 365, '/', '', false, 'Strict');
-                     this.router.navigate(['order/tables']).then();
-                     return token;
-                   }
-                 })
-               );
+    return this.http.post(`${LOGIN}/`, {username, password}).pipe(
+      map((token: { auth_token: string }) => {
+        if (token) {
+          this.cookieService.set(_TOKEN, token.auth_token, 365, '/', '', false, 'Strict');
+          this.router.navigate(['order/tables']).then();
+          return token;
+        }
+      })
+    );
   }
 
   logout() {
@@ -52,6 +51,20 @@ export class AuthService {
         }
       ));
   }
+
+  hasToken(): boolean {
+    return this.cookieService.check(_TOKEN);
+  }
+
+  checkGuards(): boolean {
+    if (this.hasToken()) {
+      return true;
+    } else {
+      this.router.navigate(['/auth/login']).then();
+      return false;
+    }
+  }
+
 
   getUserDetails() {
     return this.http.get(`${CURRENT_USER}/`);
