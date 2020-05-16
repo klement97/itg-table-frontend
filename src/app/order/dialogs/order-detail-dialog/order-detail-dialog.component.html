@@ -11,7 +11,7 @@
   <tbody>
   <tr *ngIf="order">
     <td>{{order.id}}</td>
-    <td>{{order.date_created}}</td>
+    <td>{{order.date_created | date: 'dd/MM/yyyy HH:mm' : ''}}</td>
     <td>${{order['total_price']}}</td>
     <td>{{order['total_table_count']}} copë</td>
   </tr>

@@ -18,6 +18,7 @@ import {ConfirmationDialogComponent} from 'src/app/layout/dialogs/confirmation-d
 import {SendOrderEmailDialogComponent} from 'src/app/order/dialogs/send-order-email-dialog/send-order-email-dialog.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LayoutService} from '../../layout/layout.service';
+import {getSort} from '../const';
 
 
 @Component({
@@ -28,11 +29,14 @@ import {LayoutService} from '../../layout/layout.service';
 })
 export class OrderListComponent implements OnInit {
   @ViewChild('paginator', {static: true}) paginator: MatPaginator;
+
   displayedColumns: string[] = ['id', 'customer', 'date_created', 'total_price', 'total_table_count', 'actions'];
   count$: Observable<number>;
   loading$: Observable<boolean>;
   orders$: Observable<Order[]>;
+
   filterForm: FormGroup;
+  ordering: string = '-date_created';
 
   constructor(
     private layoutService: LayoutService,
@@ -54,11 +58,18 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrders() {
-    this.store.dispatch(getOrders({page: this.paginator.pageIndex + 1, filter: this.filterForm.value}));
+    this.store.dispatch(
+      getOrders({page: this.paginator.pageIndex, filter: this.filterForm.value, ordering: this.ordering})
+    );
   }
 
   filterOrders() {
     this.paginator.pageIndex = 0;
+    this.getOrders();
+  }
+
+  sortOrders({active, direction}: Sort) {
+    this.ordering = getSort(active, direction);
     this.getOrders();
   }
 
@@ -96,13 +107,6 @@ export class OrderListComponent implements OnInit {
     this.store.dispatch(clearOrderUnits());
     this.store.dispatch(markUpdateAsTrue({orderId: id}));
     this.router.navigate(['/order/form/', id]).then();
-  }
-
-  changeSort(event: Sort) {
-    const field = event.active;
-    const direction = '' ? event.direction === 'asc' : '-';
-    const ordering = `${direction}${field}`;
-    this.getOrders();
   }
 
   openEmailSendDialog(order: Order) {

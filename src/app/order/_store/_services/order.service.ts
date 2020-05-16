@@ -17,6 +17,7 @@ const ORDER_SEND_EMAIL_URL = `${ORDERS_URL}/send/mail`;
   providedIn: 'root'
 })
 export class OrderService {
+  helper = new Helper();
 
   constructor(private http: HttpClient) {
   }
@@ -37,10 +38,8 @@ export class OrderService {
     return this.http.put(`${ORDERS_URL}/${order.id}/`, order);
   }
 
-  getOrderList(page: number, ordering: string = '', filter: OrderFilter): Observable<any> {
-    const f: OrderFilter = {...filter};
-    f.date_created_before = f.date_created_before ? formatDateToString(f.date_created_before, MAX_TIME) : '';
-    f.date_created_after = f.date_created_after ? formatDateToString(f.date_created_after, MIN_TIME) : '';
+  getOrderList(page: number, filter: OrderFilter, ordering: string = ''): Observable<any> {
+    const f = this.helper.formatOrderFilterDates(filter);
     return this.http.get(`${ORDERS_URL}/${buildQueryString(page, ordering, null, f)}`);
   }
 
@@ -54,6 +53,16 @@ export class OrderService {
 
   sendOrderMail(toEmails: string[], order: Order) {
     return this.http.post(`${ORDER_SEND_EMAIL_URL}/`, {to_emails: toEmails, order});
+  }
+}
+
+
+class Helper {
+  formatOrderFilterDates(filter: OrderFilter): OrderFilter {
+    const f: OrderFilter = {...filter};
+    f.date_created_before = f.date_created_before ? formatDateToString(f.date_created_before, MAX_TIME) : '';
+    f.date_created_after = f.date_created_after ? formatDateToString(f.date_created_after, MIN_TIME) : '';
+    return f;
   }
 }
 

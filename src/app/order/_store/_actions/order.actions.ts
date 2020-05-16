@@ -6,7 +6,7 @@ import {OrderFilter} from '../_services/order.service';
 
 export const getOrders = createAction(
   '[Order List] Get Orders',
-  props<{ page: number, filter: OrderFilter }>()
+  props<{ page: number, filter: OrderFilter, ordering: string }>()
 );
 
 export const getOrdersSuccess = createAction(
