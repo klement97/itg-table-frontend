@@ -1,4 +1,4 @@
-import {Action, createReducer, on} from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {Order} from 'src/app/order/_store/_models/order.models';
 import * as OrderActions from 'src/app/order/_store/_actions/order.actions';
@@ -24,31 +24,27 @@ export const initialState: State = adapter.getInitialState({
   loading: false,
 });
 
-const orderReducer = createReducer(
+export const orderReducer = createReducer(
   initialState,
   on(OrderActions.getOrders,
-    (state) => ({...state, loading: true})
+    state => ({...state, loading: true})
   ),
   on(OrderActions.getOrdersSuccess,
-    (state, action) => adapter.addAll(action.orders, {...state, count: action.count, loading: false})
+    (state, {orders, count}) => adapter.addAll(orders, {...state, count, loading: false})
   ),
   on(OrderActions.markUpdateAsTrue,
-    (state, action) => ({...state, update: true, updateOrderId: action.orderId})
+    (state, {orderId}) => ({...state, update: true, updateOrderId: orderId})
   ),
   on(OrderActions.addOrderForUpdate,
-    (state, action) => adapter.addOne(action.order, {...state, update: true, updateOrderId: action.order.id})
+    (state, {order}) => adapter.addOne(order, {...state, update: true, updateOrderId: order.id})
   ),
   on(OrderActions.deleteOrder,
-    (state, action) => adapter.removeOne(action.id, state)
+    (state, {id}) => adapter.removeOne(id, {...state, count: state.count - 1})
   ),
   on(OrderActions.clearOrders,
-    state => adapter.removeAll(state)
+    state => adapter.removeAll({...state, count: 0})
   ),
 );
-
-export function reducer(state: State | undefined, action: Action) {
-  return orderReducer(state, action);
-}
 
 export const {
   selectEntities,

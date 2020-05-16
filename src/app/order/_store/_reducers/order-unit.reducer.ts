@@ -15,7 +15,7 @@ export const initialState: OrderUnitState = adapter.getInitialState({
   fakeId: 1,
 });
 
-const orderUnitReducer = createReducer(
+export const orderUnitReducer = createReducer(
   initialState,
   on(OrderUnitActions.addOrderUnit,
     (state, action) => adapter.addOne(action.orderUnit, {...state, fakeId: state.fakeId + 1})
@@ -33,10 +33,6 @@ const orderUnitReducer = createReducer(
     state => adapter.removeAll(state)
   ),
 );
-
-export function reducer(state: OrderUnitState | undefined, action: Action) {
-  return orderUnitReducer(state, action);
-}
 
 export const {
   selectAll,

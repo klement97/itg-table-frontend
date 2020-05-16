@@ -14,11 +14,6 @@ export const getOrdersSuccess = createAction(
   props<{ orders: Order[], count: number }>()
 );
 
-export const loadOrders = createAction(
-  '[Order/API] Load Orders',
-  props<{ orders: Order[] }>()
-);
-
 export const addOrderForUpdate = createAction(
   '[Order/Page] Add Order For Update',
   props<{ order: Order }>()

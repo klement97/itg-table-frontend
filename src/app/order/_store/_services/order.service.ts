@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {Order} from 'src/app/order/_store/_models/order.models';
 import {Observable} from 'rxjs';
-import {buildQueryString, formatDateToString, MAX_TIME, MIN_TIME} from 'src/app/order/const';
+import {APIResponse, buildQueryString, formatDateToString, MAX_TIME, MIN_TIME} from 'src/app/order/const';
 
 
 const API = `${environment.apiHost}`;
@@ -21,8 +21,8 @@ export class OrderService {
   constructor(private http: HttpClient) {
   }
 
-  getTables() {
-    return this.http.get(`${TABLES_URL}/`);
+  getTables(): Observable<APIResponse> {
+    return this.http.get<APIResponse>(`${TABLES_URL}/`);
   }
 
   getColors() {

@@ -28,8 +28,8 @@ import {LayoutService} from '../../layout/layout.service';
 })
 export class OrderListComponent implements OnInit {
   @ViewChild('paginator', {static: true}) paginator: MatPaginator;
-  count$: Observable<number>;
   displayedColumns: string[] = ['id', 'customer', 'date_created', 'total_price', 'total_table_count', 'actions'];
+  count$: Observable<number>;
   loading$: Observable<boolean>;
   orders$: Observable<Order[]>;
   filterForm: FormGroup;
