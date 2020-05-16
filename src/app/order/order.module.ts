@@ -35,6 +35,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {EffectsModule} from '@ngrx/effects';
 import {OrderEffects} from './_store/_effects/order.effects';
+import {FlexLayoutModule} from '@angular/flex-layout'
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {OrderEffects} from './_store/_effects/order.effects';
     MatDialogModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    FlexLayoutModule
   ],
   exports: [
     OrderPageComponent,

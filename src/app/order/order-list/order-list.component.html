@@ -1,46 +1,55 @@
 <section style="padding: 15px">
     <mat-card>
         <mat-card-content>
-            <form (ngSubmit)="filterOrders()" [formGroup]="filterForm">
+            <form (ngSubmit)="filterOrders()" [formGroup]="filterForm" fxLayout="column" fxShow [fxShow.lt-md]="true">
 
-                <!-- ID -->
-                <mat-form-field class="col-3" appearance="outline">
-                    <mat-label>ID</mat-label>
-                    <input type="number" formControlName="id" placeholder="ID" matInput>
-                </mat-form-field>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1rem">
 
-                <!-- Customer -->
-                <mat-form-field class="col-3" appearance="outline">
-                    <mat-label>Klienti</mat-label>
-                    <input formControlName="customer" matInput placeholder="Klienti" type="text">
-                </mat-form-field>
+                    <div fxLayout="row" fxLayoutGap="10px" fxFlex="50%">
+                        <!-- ID -->
+                        <mat-form-field appearance="outline" fxFlex="50%">
+                            <mat-label>ID</mat-label>
+                            <input type="number" formControlName="id" placeholder="ID" matInput>
+                        </mat-form-field>
 
-                <!-- Date Created After -->
-                <mat-form-field class="col-3" appearance="outline">
-                    <mat-label>Na kjo datë</mat-label>
-                    <input type="text" formControlName="date_created_after" matInput
-                           [matDatepicker]="date_after">
-                    <mat-datepicker-toggle matSuffix [for]="date_after"></mat-datepicker-toggle>
-                    <mat-datepicker #date_after></mat-datepicker>
-                </mat-form-field>
+                        <!-- Customer -->
+                        <mat-form-field appearance="outline" fxFlex="50%">
+                            <mat-label>Klienti</mat-label>
+                            <input formControlName="customer" matInput placeholder="Klienti" type="text">
+                        </mat-form-field>
+                    </div>
 
-                <!-- Date Created Before -->
-                <mat-form-field class="col-3" appearance="outline">
-                    <mat-label>Deri në këtë datë</mat-label>
-                    <input type="text" formControlName="date_created_before" matInput
-                           [matDatepicker]="date_before">
-                    <mat-datepicker-toggle matSuffix [for]="date_before"></mat-datepicker-toggle>
-                    <mat-datepicker #date_before></mat-datepicker>
-                </mat-form-field>
+                    <div fxLayout="row" fxLayoutGap="10px" fxFlex="50%">
+                        <!-- Date Created After -->
+                        <mat-form-field appearance="outline" fxFlex="50%">
+                            <mat-label>Na kjo datë</mat-label>
+                            <input type="text" formControlName="date_created_after" matInput
+                                   [matDatepicker]="date_after">
+                            <mat-datepicker-toggle matSuffix [for]="date_after"></mat-datepicker-toggle>
+                            <mat-datepicker #date_after></mat-datepicker>
+                        </mat-form-field>
 
-                <button class="col-6" color="primary" mat-stroked-button type="submit">
-                    <mat-icon>search</mat-icon>&nbsp;Kërko
-                </button>
+                        <!-- Date Created Before -->
+                        <mat-form-field appearance="outline" fxFlex="50%">
+                            <mat-label>Deri në këtë datë</mat-label>
+                            <input type="text" formControlName="date_created_before" matInput
+                                   [matDatepicker]="date_before">
+                            <mat-datepicker-toggle matSuffix [for]="date_before"></mat-datepicker-toggle>
+                            <mat-datepicker #date_before></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
 
-                <button class="col-6" mat-stroked-button color="primary" type="button"
-                        (click)="initiateFilterForm()">
-                    <mat-icon>clear</mat-icon>&nbsp;Pastro
-                </button>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <button color="primary" mat-stroked-button type="submit" fxFlex="50%">
+                        <mat-icon>search</mat-icon>&nbsp;Kërko
+                    </button>
+
+                    <button mat-stroked-button color="primary" type="button" fxFlex="50%"
+                            (click)="initiateFilterForm()">
+                        <mat-icon>clear</mat-icon>&nbsp;Pastro
+                    </button>
+                </div>
             </form>
         </mat-card-content>
     </mat-card>
