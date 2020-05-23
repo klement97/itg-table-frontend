@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {OrderPageComponent} from 'src/app/order/order-page/order-page.component';
-import {OrderFormComponent} from 'src/app/order/order-form/order-form.component';
-import {OrderListComponent} from 'src/app/order/order-list/order-list.component';
+import {OrderPageComponent} from 'src/app/order/_components/order-page/order-page.component';
+import {OrderFormComponent} from 'src/app/order/_components/order-form/order-form.component';
+import {OrderListComponent} from 'src/app/order/_components/order-list/order-list.component';
 import {AuthGuard} from '../auth/auth.guard';
+
 
 const routes: Routes = [
   {

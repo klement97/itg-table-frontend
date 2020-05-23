@@ -2,17 +2,18 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmationDialogDataModel} from 'src/app/order/const';
 
+
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent implements OnInit {
-  _title: string = '';
-  _message: string = 'Jeni të sigurt që doni ta fshini?';
-  _cancelButton: boolean = true;
-  _cancelButtonText: string = 'Jo';
-  _confirmButtonText: string = 'Po';
+  _title = '';
+  _message = 'Jeni të sigurt që doni ta fshini?';
+  _cancelButton = true;
+  _cancelButtonText = 'Jo';
+  _confirmButtonText = 'Po';
 
   constructor(
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>,

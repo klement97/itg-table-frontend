@@ -71,6 +71,13 @@
       true,
       "single"
     ],
+    "variable-name": {
+      "options": [
+        "allow-leading-underscore",
+        "allow-snake-case",
+        "ban-keywords"
+      ]
+    },
     "trailing-comma": false,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,

@@ -1,0 +1,16 @@
+<div class="container">
+  <div *ngFor="let table of tables$ | async" class="card">
+    <div class="card-image">
+      <img (click)="openPhoto(table.image)" alt="image" src="{{table.image}}">
+    </div>
+    <div class="card-footer">
+      <button (click)="openForm(table)" mat-icon-button>
+        <mat-icon style="color: #32870f">add_shopping_cart</mat-icon>
+      </button>
+      <mat-chip-list>
+        <mat-chip color="primary" selected>Kodi: {{table.code}}</mat-chip>
+        <mat-chip selected style="background-color: #32870f">Çmimi: ${{ table.price | number: '1.0-1': 'en'}}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>

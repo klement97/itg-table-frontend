@@ -5,7 +5,7 @@
                  class="sidenav"
                  fixedInViewport>
         <mat-toolbar class="inside-toolbar">ITALGOLD
-            <button (click)="drawer.toggle()" *ngIf="!(isHandset$ | async)"
+            <button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) === false"
                     id="close_side_id"
                     mat-icon-button
                     style="flex: 1 1 auto">

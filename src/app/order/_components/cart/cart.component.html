@@ -1,0 +1,41 @@
+<div class="cart-header">
+  <button (click)="$event.stopPropagation()" mat-icon-button style="opacity: 0.6; margin: 0 10px">
+    <mat-icon>add_shopping_cart</mat-icon>
+  </button>
+  <p style="opacity: 0.5; font-size: 17px">Shporta</p>
+  <button (click)="checkout()" id="checkout_button_id" mat-icon-button>
+    <mat-icon>credit_card</mat-icon>
+  </button>
+</div>
+<div *ngFor="let unit of orderUnits$ | async" class="unit">
+  <div class="row">
+    <div class="unit-info">
+      <span style="margin-bottom: 10px">Kodi: <span
+        style="padding: 3px ;border-radius: 3px; background-color: #004e92; color: white">{{unit.table.code}}</span></span>
+      <span style="margin-bottom: 10px">Çmimi: <span
+        style="padding: 3px ;border-radius: 3px; background-color: #004e92; color: white">${{unit.table.price | number: '2.1'}}</span></span>
+      <div class="buttons">
+        <button (click)="remove($event, unit)" [disabled]="unit.amount == 1" mat-icon-button>
+          <mat-icon style="border-radius: 3px; border: 0.5px solid #949d95">remove</mat-icon>
+        </button>
+        <mat-chip selected
+                  style="border-radius: 7px; background-color: #429d42; color: white; ">{{unit.amount}}</mat-chip>
+        <button (click)="add($event, unit)" mat-icon-button>
+          <mat-icon style="border-radius: 3px; border: 0.5px solid #949d95">add</mat-icon>
+        </button>
+        <button (click)="removeUnit($event, unit.id)" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="unit-photo">
+      <img alt="foto" src="{{unit.table.image}}">
+    </div>
+  </div>
+</div>
+
+<div *ngIf="orderCount$ | async as count">
+  <div *ngIf="count > 0" class="total_section">
+    Çmimi total: ${{totalPrice | number: '': 'en'}}
+  </div>
+</div>
