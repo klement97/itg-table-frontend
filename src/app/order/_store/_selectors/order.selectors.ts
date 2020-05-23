@@ -29,3 +29,8 @@ export const selectUpdateOrderId = createSelector(
   selectOrderState,
   state => state.updateOrderId
 );
+
+export const selectOrder = createSelector(
+  selectOrderState,
+  state => state.order
+);

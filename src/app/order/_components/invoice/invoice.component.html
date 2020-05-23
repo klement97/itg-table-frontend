@@ -1,0 +1,48 @@
+<div class="container" *ngIf="order$ | async as order">
+    <div class="invoice mat-elevation-z8">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">
+                <p>Logo will come here</p>
+            </div>
+            <div class="header-info">
+                <p>Tarih: {{order.date_created | date: 'dd/MM/yyyy'}}</p>
+                <p>Musteri: {{order.customer}}</p>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Body -->
+        <div class="body">
+            <div class="product" *ngFor="let unit of order.order_units">
+
+                <!-- Image -->
+                <div style="border: 1px solid; width: 100%">
+                    <img [src]="unit.table.image" alt="table image" width="100%">
+                </div>
+
+                <!-- First Detail Column -->
+                <div style="border: 1px solid; width: 100%">
+                    <p>{{unit.table.code}}</p>
+                    <p>Genislik: {{unit.table.width}}</p>
+                    <p>Derinlik: {{unit.table.depth}}</p>
+                    <p>Yukseklik: {{unit.table.height}}</p>
+                </div>
+
+                <!-- Second Detail Column -->
+                <div style="border: 1px solid; width: 100%">
+                    <p>Fiyat: {{unit.price}}$</p>
+                    <p>Miktar: {{unit.amount}} adet</p>
+                    <p>Ara Toplam: {{unit.price * unit.amount}}$</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Footer -->
+        <div class="footer">
+
+        </div>
+    </div>
+</div>

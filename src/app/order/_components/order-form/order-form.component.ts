@@ -59,10 +59,10 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 
   getColors() {
     this.orderService.getColors()
-      .subscribe((res: { inner_colors: InnerColor[], outer_colors: OuterColor[] }) => {
-        this.innerColors = res.inner_colors;
-        this.outerColors = res.outer_colors;
-      });
+        .subscribe((res: { inner_colors: InnerColor[], outer_colors: OuterColor[] }) => {
+          this.innerColors = res.inner_colors;
+          this.outerColors = res.outer_colors;
+        });
   }
 
   loadOrder() {
@@ -89,13 +89,13 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 
   getOrderFromServer() {
     this.orderService.getOrder(this.orderId)
-      .subscribe(response => {
-        if (response) {
-          this.store.dispatch(addOrderForUpdate({order: response}));
-          this.store.dispatch(loadOrderUnits({orderUnits: response.order_units}));
-          this.orderForm.patchValue(response);
-        }
-      });
+        .subscribe(response => {
+          if (response) {
+            this.store.dispatch(addOrderForUpdate({order: response}));
+            this.store.dispatch(loadOrderUnits({orderUnits: response.order_units}));
+            this.orderForm.patchValue(response);
+          }
+        });
   }
 
   initialForm() {

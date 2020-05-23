@@ -1,0 +1,47 @@
+* {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+    width: 100%;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.invoice {
+    width: 80%;
+    padding: 10px 20px;
+}
+
+.header {
+    height: 20vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-logo {
+    width: 30%;
+    border: 1px solid;
+}
+
+.header-info {
+    width: 30%;
+    border: 1px solid;
+    padding: 10px;
+}
+
+.body {
+    height: 60vh;
+}
+
+.product {
+    border: 1px solid;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer {
+    height: 20vh;
+}

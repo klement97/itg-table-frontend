@@ -1,6 +1,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "column-system";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -115,7 +119,7 @@ mat-dialog-container {
     margin: 0 !important;
   }
 
-  .mat-sidenav-container {
+  mat-sidenav, mat-toolbar {
     display: none !important;
   }
 }

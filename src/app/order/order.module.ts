@@ -35,6 +35,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {EffectsModule} from '@ngrx/effects';
 import {OrderEffects} from './_store/_effects/order.effects';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {InvoiceComponent} from './_components/invoice/invoice.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     OrderListComponent,
     OrderDetailDialogComponent,
     SendOrderEmailDialogComponent,
+    InvoiceComponent,
   ],
   imports: [
     StoreModule.forFeature(orderUnitsFeatureKey, orderUnitReducer),
@@ -75,7 +78,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTooltipModule
   ],
   exports: [
     OrderPageComponent,

@@ -43,8 +43,8 @@ export class OrderService {
     return this.http.get(`${ORDERS_URL}/${buildQueryString(page, ordering, null, f)}`);
   }
 
-  getOrder(id: number): Observable<any> {
-    return this.http.get(`${ORDERS_URL}/${id}/`);
+  getOrder(id: number): Observable<Order> {
+    return this.http.get<Order>(`${ORDERS_URL}/${id}/`);
   }
 
   deleteOrder(id: number) {

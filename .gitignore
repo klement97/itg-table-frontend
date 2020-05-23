@@ -40,10 +40,6 @@ yarn-error.log
 testem.log
 /typings
 
-# style
-*.css
-*.css.map
-
 # System Files
 .DS_Store
 Thumbs.db

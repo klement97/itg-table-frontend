@@ -12,6 +12,8 @@ export interface State extends EntityState<Order> {
   updateOrderId: number;
   count: number;
   loading: boolean;
+  order: Order;
+  error: any;
 }
 
 
@@ -22,10 +24,21 @@ export const initialState: State = adapter.getInitialState({
   updateOrderId: null,
   count: 0,
   loading: false,
+  order: null,
+  error: null,
 });
 
 export const orderReducer = createReducer(
   initialState,
+  on(OrderActions.getOrder,
+    state => ({...state, loading: true})
+  ),
+  on(OrderActions.getOrderSuccess,
+    (state, {order}) => ({...state, order, loading: false})
+  ),
+  on(OrderActions.getOrderFailure,
+    (state, {error}) => ({...state, error, loading: false})
+  ),
   on(OrderActions.getOrders,
     state => ({...state, loading: true})
   ),
