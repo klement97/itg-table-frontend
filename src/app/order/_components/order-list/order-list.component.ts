@@ -79,17 +79,17 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  deleteOrder(id: number) {
+  deleteOrder(order: Order) {
     const dialogRef$ = this.dialog.open(ConfirmationDialogComponent, {
-      minWidth: '300px', width: '30%', data: {title: `Porosia me ID: ${id}`}, panelClass: 'padding-0'
+      minWidth: '300px', width: '30%', data: {title: `Porosia me ID: ${order.id}, klienti: ${order.customer}`}, panelClass: 'padding-0'
     });
 
     dialogRef$
     .afterClosed()
     .subscribe((result: { confirmed: boolean }) => {
       if (result?.confirmed) {
-        this.orderService.deleteOrder(id).subscribe(_ => {
-          this.store.dispatch(OrderActions.deleteOrder({id}));
+        this.orderService.deleteOrder(order.id).subscribe(_ => {
+          this.store.dispatch(OrderActions.deleteOrder({id: order.id}));
         });
       }
     });

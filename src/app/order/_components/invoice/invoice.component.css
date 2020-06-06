@@ -12,11 +12,12 @@
 
 .invoice {
     width: 80%;
+    height: 3508px;
     padding: 10px 20px;
 }
 
 .header {
-    height: 20vh;
+    height: 150px;
     display: flex;
     justify-content: space-between;
 }
@@ -33,7 +34,7 @@
 }
 
 .body {
-    height: 60vh;
+    height: 60%;
 }
 
 .product {
@@ -43,5 +44,6 @@
 }
 
 .footer {
-    height: 20vh;
+    height: 5%;
+    border: 1px solid;
 }
