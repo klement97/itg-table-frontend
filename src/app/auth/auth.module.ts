@@ -10,6 +10,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule} from '@angular/router';
 import {AuthRoutingModule} from 'src/app/auth/auth-routing.module';
+import {StoreModule} from '@ngrx/store';
+import * as fromAuth from './_store/reducers/auth.reducer';
+
 
 @NgModule({
   declarations: [LoginComponent],
@@ -25,6 +28,7 @@ import {AuthRoutingModule} from 'src/app/auth/auth-routing.module';
     MatSelectModule,
     MatProgressSpinnerModule,
     AuthRoutingModule,
+    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducer)
   ],
   exports: [LoginComponent]
 })

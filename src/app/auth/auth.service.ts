@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
+import {Store} from '@ngrx/store';
+import {clearUser, loadUser} from './_store/actions/auth.actions';
 
 
 const API = `${environment.apiHost}`;
@@ -15,6 +17,7 @@ export const LOGIN = `${TOKEN}/login`;
 export const LOGOUT = `${TOKEN}/logout`;
 
 export const _TOKEN = 'token';
+export const _USER = 'itg_user';
 
 
 @Injectable({
@@ -25,7 +28,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private store: Store
   ) {
   }
 
@@ -35,6 +39,7 @@ export class AuthService {
       map((token: { auth_token: string }) => {
         if (token) {
           this.cookieService.set(_TOKEN, token.auth_token, 365, '/', '', false, 'Strict');
+          this.getUserDetails().subscribe();
           this.router.navigate(['order/tables']).then();
           return token;
         }
@@ -46,6 +51,7 @@ export class AuthService {
     const token: string = this.cookieService.get(_TOKEN);
     return this.http.post(`${LOGOUT}/`, token).pipe(
       map(() => {
+          this.store.dispatch(clearUser());
           this.cookieService.delete(_TOKEN, '/');
           this.router.navigate(['/auth/login']).then();
         }
@@ -67,6 +73,12 @@ export class AuthService {
 
 
   getUserDetails() {
-    return this.http.get(`${CURRENT_USER}/`);
+    return this.http.get(`${CURRENT_USER}/`).pipe(
+      map((user) => {
+        this.cookieService.set(_USER, JSON.stringify(user));
+        this.store.dispatch(loadUser({user}));
+        return user;
+      })
+    );
   }
 }
